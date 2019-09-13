@@ -19,6 +19,9 @@ class Event extends Component{
                 titulo: snapshot.val().titulo,
                 autor: snapshot.val().autor,
                 descricao: snapshot.val().descricao,
+                data: snapshot.val().data,
+                hora: snapshot.val().hora,
+                local: snapshot.val().local,
                 imagem: snapshot.val().imagem
             };
             //state.titulo = snapshot.val().titulo;
@@ -30,7 +33,7 @@ class Event extends Component{
     }
 
     render(){
-        const {titulo, autor, descricao, imagem} = this.state.event;
+        const {titulo, autor, descricao, data, hora, local, imagem} = this.state.event;
         return(
             <div className="event-info">
                 <article>
@@ -40,8 +43,11 @@ class Event extends Component{
                             <span>Autor: {autor}</span>
                         </div>
                     </header>
-                    <img src={imagem} alt="Event cape"/>
+                    <img id="test" src={imagem} alt="Event cape"/>
                     <p>Descrição: {descricao}</p>
+                    <p>Local: {local}</p>
+                    <p>Hora do Evento: {hora}</p>
+                    <p>Data do Evento: {data}</p>
                 </article>
             </div>
         );
