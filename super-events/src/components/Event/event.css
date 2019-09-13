@@ -1,0 +1,31 @@
+div .event-info{
+    width:100%;
+    max-width: 980px;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 15px;
+    flex-direction: row;
+}
+
+div .event-info article header{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+div .event-info article header .title{
+    display: flex;
+    flex-direction: column;
+}
+div .event-info article > img{
+    max-width: 700px;
+    max-height: 500px;
+    border-radius: 10px;
+}
+
+div .event-info article p{
+    font-size: 18px;
+    font-weight: 600;
+    padding: 20px;
+    word-wrap: break-word;
+}
