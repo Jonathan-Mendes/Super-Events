@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import firebase from '../../firebase';
 import './event.css';
+import { Button } from 'reactstrap';
 
-class Event extends Component{
+class Event extends Component {
 
-    state ={
+    state = {
         event: []
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const { id } = this.props.match.params;
         console.log(id);
         firebase.app.ref('posts').child(id).on('value', (snapshot) => {
@@ -29,21 +30,21 @@ class Event extends Component{
             //state.descricao = snapshot.val().descricao;
             this.setState(state);
         })
- 
+
     }
 
-    formatDate(data){
+    formatDate(data) {
         let today = data;
-        var brDate = today.slice(8, 10) + '/' + 
-                     today.slice(5, 7) + '/' + 
-                     today.slice(0, 4);
+        var brDate = today.slice(8, 10) + '/' +
+            today.slice(5, 7) + '/' +
+            today.slice(0, 4);
 
         return brDate;
     }
 
-    render(){
-        const {titulo, autor, descricao, data, hora, local, imagem} = this.state.event;
-        return(
+    render() {
+        const { titulo, autor, descricao, data, hora, local, imagem } = this.state.event;
+        return (
             <div className="event-info">
                 <article>
                     <header>
@@ -52,14 +53,14 @@ class Event extends Component{
                             <span>Autor: {autor}</span>
                         </div>
                     </header>
-                    <img id="test" src={imagem} alt="Event cape"/>
+                    <img id="test" src={imagem} alt="Event cape" />
                     <p>Descrição: {descricao}</p>
                     <p>Local: {local}</p>
                     <p>Hora do Evento: {hora + "h"}</p>
                     <p>Data do Evento: {data}</p>
-                    <button>Comprar</button>
-                    </article>
-                    </div>
+                    <Button color="success">Comprar</Button>
+                </article>
+            </div>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import firebase from './firebase';
-
+import { Button } from 'reactstrap';
 import Header from './components/Header';
 import FeaturedEvents from './components/FeaturedEvents';
 import Event from './components/Event';

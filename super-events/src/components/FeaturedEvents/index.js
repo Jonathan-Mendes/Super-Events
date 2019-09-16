@@ -3,6 +3,7 @@ import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import './featuredevents.css';
 
+
 class FeaturedEvents extends Component{
 
     state = {
@@ -60,7 +61,7 @@ class FeaturedEvents extends Component{
                                 <img src={post.imagem} alt="Capa do post"/>
                                 <footer>
                                     <p>{this.formatDate(post.data)}</p>
-                                    <p>{post.hora}</p>
+                                    <p>{post.hora + "h"}</p>
                                     <p>{post.local}</p>
                                 </footer>
                             </article>
