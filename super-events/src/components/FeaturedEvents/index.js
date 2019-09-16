@@ -20,6 +20,9 @@ class FeaturedEvents extends Component{
                     titulo: childItem.val().titulo,
                     imagem: childItem.val().imagem,
                     descricao: childItem.val().descricao,
+                    data: childItem.val().data,
+                    hora: childItem.val().hora,
+                    local: childItem.val().local,
                     autor: childItem.val().autor,
                 })
             });
@@ -27,6 +30,16 @@ class FeaturedEvents extends Component{
             this.setState(state);
 
         })
+    }
+
+    formatDate(data){
+        let today = data;
+
+        var brDate = today.slice(8, 10) + '/' + 
+                     today.slice(5, 7) + '/' + 
+                     today.slice(0, 4);
+
+        return brDate;
     }
 
     render(){
@@ -42,12 +55,13 @@ class FeaturedEvents extends Component{
                                 <header>
                                     <div className="title">
                                         <strong>{post.titulo}</strong>
-                                        <span>Autor: {post.autor}</span>
                                     </div>
                                 </header>
                                 <img src={post.imagem} alt="Capa do post"/>
                                 <footer>
-                                    <p>{post.descricao}</p>
+                                    <p>{this.formatDate(post.data)}</p>
+                                    <p>{post.hora}</p>
+                                    <p>{post.local}</p>
                                 </footer>
                             </article>
                             </Link>

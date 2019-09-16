@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import firebase from '../../firebase';
 import './newevent.css';
-import TimeField from 'react-simple-timefield';
 
 class NewEvent extends Component{
 
@@ -14,7 +13,9 @@ class NewEvent extends Component{
             url: '',
             descricao: '',
             data: '',
-            hora: '00:00',
+            dataFinal: '',
+            hora: '',
+            horaFinal: '',
             local: '',
             alert: '',
             progress: 0,
@@ -34,7 +35,7 @@ class NewEvent extends Component{
     cadastrar = async(e) => {
         e.preventDefault();
 
-        if(this.state.titulo !== '' && this.state.imagem !== '' && this.state.descricao !== '' && this.state.imagem !== null && this.state.url !== ''){
+        if(this.state.titulo !== '' && this.state.data !== '' && this.state.imagem !== '' && this.state.descricao !== '' && this.state.imagem !== null && this.state.url !== ''){
             let posts = firebase.app.ref('posts');
             let chave = posts.push().key;
             await posts.child(chave).set({
@@ -42,7 +43,9 @@ class NewEvent extends Component{
                 imagem: this.state.url,
                 descricao: this.state.descricao,
                 data: this.state.data,
+                dataFinal: this.state.dataFinal,
                 hora: this.state.hora,
+                horaFinal: this.state.horaFinal,
                 local: this.state.local,
                 autor: localStorage.nome
             });
@@ -118,11 +121,17 @@ class NewEvent extends Component{
                     <input type="text" value={this.state.titulo} placeholder="Nome do post" autoFocus
                         onChange={(e) => this.setState({titulo: e.target.value})}/>
                     
-                    <label>Data do Evento:</label>
+                    <label>Início do Evento:</label>
                     <input type="date" value={this.state.data} onChange={(e) => this.setState({data: e.target.value})}/>
 
-                    <label>Hora do Evento:</label>
+                    <label>Fim do Evento:</label>
+                    <input type="date" value={this.state.dataFinal} onChange={(e) => this.setState({dataFinal: e.target.value})}/>
+
+                    <label>Hora de início:</label>
                     <input type="time" value={this.state.hora} onChange={(e) => this.setState({hora: e.target.value})}/>
+
+                    <label>Hora do término:</label>
+                    <input type="time" value={this.state.horaFinal} onChange={(e) => this.setState({horaFinal: e.target.value})}/>
 
                     <label>Local do Evento:</label>
                     <input type="text" value={this.state.local} placeholder="Nome da Cidade" onChange={(e) => this.setState({local: e.target.value})}/>
