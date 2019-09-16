@@ -36,7 +36,11 @@ div#dashboard p{
 } */
 
 .icon{
-    font-size: 25px;
+    font-size: 23px;
+}
+
+p{
+    font-size: 16px;
 }
 
 button{

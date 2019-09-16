@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import './featuredevents.css';
-import { Container, Row, Col } from 'reactstrap';
-import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 class FeaturedEvents extends Component {
 
@@ -37,9 +36,9 @@ class FeaturedEvents extends Component {
     formatDate(data) {
         let today = data;
 
-        var brDate = today.slice(8, 10) + '/' +
-            today.slice(5, 7) + '/' +
-            today.slice(0, 4);
+        var brDate = today.slice(8, 10) + '/' + 
+                     today.slice(5, 7); 
+                    //  + '/' + today.slice(0, 4);
 
         return brDate;
     }
@@ -47,39 +46,35 @@ class FeaturedEvents extends Component {
     render() {
         return (
             <div id="tip">
-                <Container>
-                    <Row>
-                        <Col xs="12"><h5 id="title">Eventos em Destaque</h5></Col>
-                    </Row>
-                    <Row>
-                        <Col xs='12'>
-                            <section id="post">
-                                {this.state.posts.slice(0, 3).map((post) => {
-                                    return (
-                                        <Col xs="4" key={post.key}>
-                                            <Link to={`/event/${post.key}`}>
-                                                <article>
-                                                    <header>
-                                                        <div className="title">
-                                                            <strong>{post.titulo}</strong>
-                                                        </div>
-                                                    </header>
-                                                    <img src={post.imagem} alt="Capa do post" />
-                                                    <footer>
-                                                        <p>{this.formatDate(post.data)}</p>
-                                                        <p>{post.hora + "h"}</p>
-                                                        <p>{post.local}</p>
-                                                    </footer>
-                                                </article>
-                                            </Link>
-                                        </Col>
-
-                                    );
-                                })}
-                            </section>
-                        </Col>
-                    </Row>
-                </Container>
+                <h2>Eventos em Destaque</h2>
+            <section id="post">
+                {this.state.posts.slice(0, 3).map((post) => {
+                    return(
+                        <div class="col-4" key={post.key}>
+                            <Link to={`/event/${post.key}`}>
+                            <article>
+                                <header>
+                                    <div className="title">
+                                        <strong>{post.titulo}</strong>
+                                    </div>
+                                </header>
+                                <img src={post.imagem} alt="Capa do post"/>
+                                <footer class="my-4">
+                                    <div className="fix">
+                                        <div className="box">
+                                        <FaRegCalendarAlt class='icon mx-2'/><p>{this.formatDate(post.data)}</p></div>
+                                        <div className="box">
+                                        <FaRegClock class='icon mx-2'/><p>{post.hora}</p></div>
+                                    </div>
+                                    <div className="fix">
+                                    <FaMapMarkerAlt class='icon mx-2'/><p>{post.local}</p></div>
+                                </footer>
+                            </article>
+                            </Link>
+                        </div>
+                    );
+                })}
+            </section>
             </div>
         );
     }
