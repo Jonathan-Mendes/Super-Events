@@ -1,6 +1,6 @@
 div#tip{
     width: 100%;
-    max-width: 980px;
+    max-width: 1080px;
     margin: 0 auto;
     margin-top: 15px;
 }
@@ -49,4 +49,22 @@ section#post article footer{
 section#post a{
     color: black;
     text-decoration: none;
+}
+
+footer div.fix{
+    overflow: auto;
+    content: "";
+    clear: both;
+    display: flex;
+}
+
+footer div.box{
+    display: flex;
+    width: 50%;
+    /* width: 33.33%; */
+}
+
+ion-icon {
+    font-size: 25px;
+    padding-right: 8px;
 }

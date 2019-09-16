@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import './featuredevents.css';
+import { FaBeer } from 'react-icons/fa';
 
 
 class FeaturedEvents extends Component{
@@ -37,8 +38,8 @@ class FeaturedEvents extends Component{
         let today = data;
 
         var brDate = today.slice(8, 10) + '/' + 
-                     today.slice(5, 7) + '/' + 
-                     today.slice(0, 4);
+                     today.slice(5, 7); 
+                    //  + '/' + today.slice(0, 4);
 
         return brDate;
     }
@@ -60,9 +61,12 @@ class FeaturedEvents extends Component{
                                 </header>
                                 <img src={post.imagem} alt="Capa do post"/>
                                 <footer>
-                                    <p>{this.formatDate(post.data)}</p>
-                                    <p>{post.hora + "h"}</p>
-                                    <p>{post.local}</p>
+                                    <div className="fix">
+                                        <div className="box"><ion-icon name="calendar"></ion-icon><p>{this.formatDate(post.data)}</p></div>
+                                        <div className="box"><ion-icon name="time"></ion-icon><p>{post.hora}</p></div>
+                                        {/* <div className="box"><p>{post.local}</p></div> */}
+                                    </div>
+                                    <div className="fix"><ion-icon name="pin"></ion-icon><p>{post.local}</p></div>
                                 </footer>
                             </article>
                             </Link>

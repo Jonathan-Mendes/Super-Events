@@ -6,7 +6,7 @@
 }
 
 body{
-    background: #ddd;
+    background: #ddd !important;
     font: 14px sans-serif;
     -webkit-font-smoothing: antialiased !important;
 }
