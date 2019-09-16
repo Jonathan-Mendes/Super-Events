@@ -25,7 +25,7 @@ div#dashboard p{
     padding: 20px 0 10px;
 }
 
-div#dashboard button{
+/* div#dashboard button{
     padding: 10px 10px;
     border-radius: 4px;
     background: #272727;
@@ -33,4 +33,12 @@ div#dashboard button{
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+} */
+
+.icon{
+    font-size: 25px;
+}
+
+button{
+    font-size: 20px;
 }

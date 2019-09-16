@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
-
+import { IoIosLogIn } from "react-icons/io";
 
 function Header() {
     return (
@@ -10,7 +10,7 @@ function Header() {
 
             <div className="header-content">
                 <Link to="/">Super Events</Link>
-                <Link to="/login">Sing In</Link>
+                <Link to="/login"><IoIosLogIn /> <span>Entrar</span></Link>
             </div>
 
         </header>

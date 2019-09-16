@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import firebase from '../../firebase';
 import './dashboard.css';
+import { IoIosLogOut, IoIosAdd } from 'react-icons/io';
+import { Button } from 'reactstrap';
 
 class Dashboard extends Component{
 
@@ -34,15 +36,21 @@ class Dashboard extends Component{
         this.props.history.push('/');
     }
 
+    newEvent = async () => {
+        this.props.history.replace('/dashboard/newevent');
+    }
+
     render(){
         return(
             <div id="dashboard">
                 <div className="user-info">
-                    <h1>Olá {this.state.nome}</h1>
-                    <Link to="/dashboard/newevent">Novo Post</Link>
+                    <h5>Olá, {this.state.nome}</h5>
                 </div>
                 <p>Logado com {firebase.getCurrent()}</p>
-                <button onClick={() => this.logout()}>Deslogar</button>
+                <Button color="success" onClick={() => this.newEvent()}>
+                <span class="icon"><IoIosAdd/></span> Novo Post</Button>
+                <Button color="danger" onClick={() => this.logout()}>
+                <span class="icon"><IoIosLogOut/></span> Sair</Button>
             </div>
         );
     }

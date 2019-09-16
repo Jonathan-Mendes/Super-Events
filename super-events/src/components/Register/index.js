@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './register.css';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-class Register extends Component{
+class Register extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             nome: '',
@@ -16,42 +17,49 @@ class Register extends Component{
         this.onRegister = this.onRegister.bind(this);
     }
 
-    register(e){
+    register(e) {
         e.preventDefault();
         this.onRegister();
     }
 
-    onRegister = async() => {
-        try{
-            const {nome, email, password} = this.state;
+    onRegister = async () => {
+        try {
+            const { nome, email, password } = this.state;
 
             await firebase.register(nome, email, password);
             this.props.history.replace('/dashboard');
 
-        }catch(error){
+        } catch (error) {
             alert(error.message);
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <h1 className="register-h1">Novo Usuário</h1>
-                <form onSubmit={this.register} id="register">
-                    <label>Nome: </label>
-                    <input type="text" value={this.state.nome} autoFocus autoComplete="off" placeholder="João"
-                        onChange={(e) => this.setState({nome: e.target.value})} />
-                    
-                    <label>Email: </label>
-                    <input type="email" value={this.state.email} autoComplete="off" placeholder="joao@gmail.com"
-                        onChange={(e) => this.setState({email: e.target.value})} />
-                    
-                    <label>Senha: </label>
-                    <input type="password" value={this.state.password} autoComplete="off" placeholder="Sua senha"
-                        onChange={(e) => this.setState({password: e.target.value})} />
+                <Form onSubmit={this.register} id="register">
 
-                    <button type="submit">Cadastrar</button>
-                </form>
+                    <FormGroup>
+                        <Label for="name">Nome:</Label>
+                        <Input id="name" type="text" value={this.state.nome} autoFocus autoComplete="off" placeholder="Nome"
+                            onChange={(e) => this.setState({ nome: e.target.value })} />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label for="email">Email:</Label>
+                        <Input id="email" type="email" value={this.state.email} autoComplete="off" placeholder="email@email.com"
+                            onChange={(e) => this.setState({ email: e.target.value })} />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label for="pass">Senha:</Label>
+                        <Input id="pass" type="password" value={this.state.password} autoComplete="off" placeholder="Sua senha"
+                            onChange={(e) => this.setState({ password: e.target.value })} />
+                    </FormGroup>
+
+                    <Button type="submit" color="info">Cadastrar</Button>
+                </Form>
             </div>
         );
     }

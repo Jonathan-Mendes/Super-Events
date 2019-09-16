@@ -28,7 +28,7 @@ form#login input{
     font-size: 14px;
 }
 
-form#login button{
+/* form#login button{
     margin-top: 16px;
     padding: 10px 20px;
     margin-bottom: 10px;
@@ -38,11 +38,15 @@ form#login button{
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-}
+} */
 
 form#login a{
     text-align: center;
     text-decoration: none;
     color: #272727;
     font-size: 15px;
+}
+
+form#login a:hover{
+    color: #17a2b8;
 }
