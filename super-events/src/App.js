@@ -5,6 +5,7 @@ import Header from './components/Header';
 import FeaturedEvents from './components/FeaturedEvents';
 import Event from './components/Event';
 import Login from './components/Login';
+import AllEvents from './components/AllEvents';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import NewEvent from './components/NewEvent';
@@ -31,6 +32,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={FeaturedEvents} />
                     <Route exact path="/event/:id" component={Event} />
+                    <Route exact path="/allevents" component={AllEvents}/>
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />/
                     <Route exact path="/dashboard" component={Dashboard} />
@@ -38,7 +40,9 @@ class App extends Component {
                 </Switch>
             </BrowserRouter>
         ) : (
-                <Spinner style={{ width: '7rem', height: '7rem' }} color="dark" />
+                <div class="text-center h-100">
+                    <Spinner style={{ width: '6rem', height: '6rem' }} color="dark" />
+                </div>
             );
     }
 }

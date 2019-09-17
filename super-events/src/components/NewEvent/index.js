@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './newevent.css';
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress } from 'reactstrap';
+import { FaBackspace } from 'react-icons/fa';
 
 class NewEvent extends Component {
 
@@ -101,6 +102,11 @@ class NewEvent extends Component {
             })
     }
 
+    // back = async () =>{
+    //     this.props.history.replace( '/dashboard')
+    // }
+
+    // <Button color="dark" onClick={() => this.back()}>Voltar</Button>    
     render() {
         return (
             <div>

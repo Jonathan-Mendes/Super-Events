@@ -39,11 +39,16 @@ class Event extends Component {
         return brDate;
     }
 
+    back = async () => {
+        this.props.history.replace('/');
+    }
+
     render() {
         const { titulo, autor, descricao, data, hora, local, imagem } = this.state.event;
         return (
             <div className="event-info">
                 <article>
+                <Button color="dark" onClick={() => this.back()}>Voltar</Button>
                     <header>
                         <div className="title">
                             <h1>{titulo}</h1>

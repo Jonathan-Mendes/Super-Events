@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
-import './featuredevents.css';
+import './allEvents.css';
 import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { Button, Col, Row, Container } from 'reactstrap';
 
-class FeaturedEvents extends Component {
+class AllEvents extends Component {
 
     state = {
         posts: []
@@ -37,15 +37,11 @@ class FeaturedEvents extends Component {
     formatDate(data) {
         let today = data;
 
-        var brDate = today.slice(8, 10) + '/' +
-            today.slice(5, 7);
-        //  + '/' + today.slice(0, 4);
+        var brDate = today.slice(8, 10) + '/' + 
+                     today.slice(5, 7); 
+                    //  + '/' + today.slice(0, 4);
 
         return brDate;
-    }
-
-    verTodos = async () => {
-        this.props.history.replace('/allevents');
     }
 
     render() {
@@ -53,13 +49,11 @@ class FeaturedEvents extends Component {
             <div id="tip">
                 <Container>
                     <Row>
-                        <h5 id="title">Eventos em Destaque</h5>
+                        <h5 id="title">Todos os Eventos</h5>
                     </Row>
-                    <Row>
                         <section id="post">
-                            {this.state.posts.slice(0, 3).map((post) => {
+                            {this.state.posts.map((post) => {
                                 return (
-
                                     <Col xs="4">
                                         <div key={post.key}>
                                             <Link to={`/event/${post.key}`}>
@@ -90,18 +84,10 @@ class FeaturedEvents extends Component {
                                 );
                             })}
                         </section>
-                    </Row>
-                    <Row>
-                        <Col xs="12">
-                            <div class='text-center my-4'>
-                                <Button color="info" onClick={() => this.verTodos()}>VER TODOS</Button>
-                            </div>
-                        </Col>
-                    </Row>
                 </Container>
             </div>
         );
     }
 }
 
-export default FeaturedEvents;
+export default AllEvents;

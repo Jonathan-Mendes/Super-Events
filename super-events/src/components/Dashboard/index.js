@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import firebase from '../../firebase';
 import './dashboard.css';
 import { IoIosLogOut, IoIosAdd } from 'react-icons/io';
