@@ -52,7 +52,7 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <h1 className="login-h1">Sing in to Super Events</h1>
+                <h1 className="login-h1">Sign in to Super Events</h1>
                 <Form onSubmit={this.entrar} id="login">
                     <FormGroup>
                         <Label>Email: </Label>

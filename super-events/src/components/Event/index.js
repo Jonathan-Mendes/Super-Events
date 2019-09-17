@@ -5,9 +5,16 @@ import { Button } from 'reactstrap';
 
 class Event extends Component {
 
-    state = {
-        event: []
+    constructor(props){
+        super(props);
+        this.state = {
+            event: [],
+            date: ''
+        }
+        this.formatDate = this.formatDate.bind(this);
     }
+
+    
 
     componentDidMount() {
         const { id } = this.props.match.params;
@@ -24,10 +31,9 @@ class Event extends Component {
                 local: snapshot.val().local,
                 imagem: snapshot.val().imagem
             };
-
+            this.state.date = this.state.event.data;
             this.setState(state);
         })
-
     }
 
     formatDate(data) {
@@ -54,7 +60,7 @@ class Event extends Component {
                     <p>Descrição: {descricao}</p>
                     <p>Local: {local}</p>
                     <p>Hora do Evento: {hora + "h"}</p>
-                    <p>Data do Evento: {data}</p>
+                    <p>Data do Evento: {this.formatDate(this.state.date)}</p>
                     <Button color="success">Comprar</Button>
                 </article>
             </div>
