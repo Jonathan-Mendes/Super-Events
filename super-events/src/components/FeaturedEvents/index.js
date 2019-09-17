@@ -7,9 +7,14 @@ import { Button, Col, Row, Container } from 'reactstrap';
 
 class FeaturedEvents extends Component {
 
-    state = {
-        posts: []
+    constructor(props){
+        super(props);
+        this.state = {
+            posts: []
+        }
+        this.formatDate = this.formatDate.bind(this);
     }
+
 
     componentDidMount() {
         firebase.app.ref('posts').on('value', (snapshot) => {
