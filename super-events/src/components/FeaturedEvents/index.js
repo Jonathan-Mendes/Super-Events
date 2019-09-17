@@ -7,7 +7,7 @@ import { Button, Col, Row, Container } from 'reactstrap';
 
 class FeaturedEvents extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             posts: []
@@ -103,6 +103,105 @@ class FeaturedEvents extends Component {
                             </div>
                         </Col>
                     </Row>
+
+                    <Row>
+                        <h5 id="title">Próximos Eventos</h5>
+                    </Row>
+
+                    <Row>
+                        <section id="post">
+                            {this.state.posts.slice(0, 3).map((post) => {
+                                return (
+
+                                    <Col xs="4">
+                                        <div key={post.key}>
+                                            <Link to={`/event/${post.key}`}>
+                                                <article>
+                                                    <header>
+                                                        <div className="title">
+                                                            <strong>{post.titulo}</strong>
+                                                        </div>
+                                                    </header>
+                                                    <img src={post.imagem} alt="Capa do post" />
+                                                    <footer class="my-4">
+                                                        <div className="fix">
+                                                            <div className="box">
+                                                                <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+
+                                                            <div className="box">
+                                                                <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+
+                                                            <div className="box">
+                                                                <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p></div>
+
+                                                        </div>
+                                                    </footer>
+                                                </article>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                );
+                            })}
+                        </section>
+                    </Row>
+
+                    <Row>
+                        <Col xs="12">
+                            <div class='text-center my-4'>
+                                <Button color="info" onClick={() => this.verTodos()}>VER TODOS</Button>
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <h5 id="title">Últimos Adicionados</h5>
+                    </Row>
+
+                    <Row>
+                        <section id="post">
+                            {this.state.posts.slice(0, 3).map((post) => {
+                                return (
+
+                                    <Col xs="4">
+                                        <div key={post.key}>
+                                            <Link to={`/event/${post.key}`}>
+                                                <article>
+                                                    <header>
+                                                        <div className="title">
+                                                            <strong>{post.titulo}</strong>
+                                                        </div>
+                                                    </header>
+                                                    <img src={post.imagem} alt="Capa do post" />
+                                                    <footer class="my-4">
+                                                        <div className="fix">
+                                                            <div className="box">
+                                                                <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+
+                                                            <div className="box">
+                                                                <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+
+                                                            <div className="box">
+                                                                <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p></div>
+
+                                                        </div>
+                                                    </footer>
+                                                </article>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                );
+                            })}
+                        </section>
+                    </Row>
+
+                    <Row>
+                        <Col xs="12">
+                            <div class='text-center my-4'>
+                                <Button color="info" onClick={() => this.verTodos()}>VER TODOS</Button>
+                            </div>
+                        </Col>
+                    </Row>
+
                 </Container>
             </div>
         );
