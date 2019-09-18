@@ -14,8 +14,6 @@ class Event extends Component {
         this.formatDate = this.formatDate.bind(this);
     }
 
-    
-
     componentDidMount() {
         const { id } = this.props.match.params;
         firebase.app.ref('posts').child(id).on('value', (snapshot) => {
@@ -45,16 +43,11 @@ class Event extends Component {
         return brDate;
     }
 
-    back = async () => {
-        this.props.history.replace('/');
-    }
-
     render() {
-        const { titulo, autor, descricao, data, hora, local, imagem } = this.state.event;
+        const { titulo, autor, descricao, hora, local, imagem } = this.state.event;
         return (
             <div className="event-info">
                 <article>
-                <Button color="dark" onClick={() => this.back()}>Voltar</Button>
                     <header>
                         <div className="title">
                             <h1>{titulo}</h1>
