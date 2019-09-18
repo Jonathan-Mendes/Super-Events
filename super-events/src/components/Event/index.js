@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
 import './event.css';
-import { Button } from 'reactstrap';
+import { Button, Col, Row, Container } from 'reactstrap';
 
 class Event extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             event: [],
@@ -14,7 +14,7 @@ class Event extends Component {
         this.formatDate = this.formatDate.bind(this);
     }
 
-    
+
 
     componentDidMount() {
         const { id } = this.props.match.params;
@@ -53,21 +53,36 @@ class Event extends Component {
         const { titulo, autor, descricao, data, hora, local, imagem } = this.state.event;
         return (
             <div className="event-info">
-                <article>
-                <Button color="dark" onClick={() => this.back()}>Voltar</Button>
-                    <header>
-                        <div className="title">
-                            <h1>{titulo}</h1>
-                            <span>Autor: {autor}</span>
-                        </div>
-                    </header>
-                    <img id="test" src={imagem} alt="Event cape" />
+                <Container>
+                    <Row>
+                        <Col xs="12">
+                            <Button color="dark" onClick={() => this.back()}>Voltar</Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="12">
+                            <div className="title">
+                                <h1>{titulo}</h1>
+                                <span>Autor: {autor}</span>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                    <Col>
+                    <img id="photo" src={imagem} alt="Event cape" />
+                    </Col>
+                    </Row>
+                    
+                    <Row>
+                    <Col xs='12'>
                     <p>Descrição: {descricao}</p>
                     <p>Local: {local}</p>
                     <p>Hora do Evento: {hora + "h"}</p>
                     <p>Data do Evento: {this.formatDate(this.state.date)}</p>
                     <Button color="success">Comprar</Button>
-                </article>
+                    </Col>
+                    </Row>
+                </Container>
             </div>
         );
     }

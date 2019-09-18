@@ -51,11 +51,13 @@ class AllEvents extends Component {
                     <Row>
                         <h5 id="title">Todos os Eventos</h5>
                     </Row>
-                        <section id="post">
+                        <Container id="post">
+                        <Row>
                             {this.state.posts.map((post) => {
                                 return (
+                                    
                                     <Col xs="4">
-                                        <div key={post.key}>
+                                        <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
                                                 <article>
                                                     <header>
@@ -83,7 +85,8 @@ class AllEvents extends Component {
                                     </Col>
                                 );
                             })}
-                        </section>
+                            </Row>
+                        </Container>
                 </Container>
             </div>
         );

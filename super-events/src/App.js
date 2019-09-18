@@ -34,13 +34,13 @@ class App extends Component {
                     <Route exact path="/event/:id" component={Event} />
                     <Route exact path="/allevents" component={AllEvents}/>
                     <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />/
+                    <Route exact path="/register" component={Register} />
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/dashboard/newevent" component={NewEvent} />
                 </Switch>
             </BrowserRouter>
         ) : (
-                <div class="text-center h-100">
+                <div id="spinner">
                     <Spinner style={{ width: '6rem', height: '6rem' }} color="dark" />
                 </div>
             );

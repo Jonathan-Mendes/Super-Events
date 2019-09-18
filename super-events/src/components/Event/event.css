@@ -7,23 +7,23 @@ div .event-info{
     flex-direction: row;
 }
 
-div .event-info article header{
+div .event-info{
     padding: 20px;
     display: flex;
     align-items: center;
 }
 
-div .event-info article header .title{
+div .event-info  .title{
     display: flex;
     flex-direction: column;
 }
-div .event-info article > img{
+div .event-info img{
     max-width: 700px;
     max-height: 500px;
     border-radius: 10px;
 }
 
-div .event-info article p{
+div .event-info p{
     font-size: 18px;
     font-weight: 600;
     padding: 20px;

@@ -49,7 +49,7 @@ class FeaturedEvents extends Component {
         return brDate;
     }
 
-    verTodos = async () => {
+    verTodos = async () =>{
         this.props.history.replace('/allevents');
     }
 
