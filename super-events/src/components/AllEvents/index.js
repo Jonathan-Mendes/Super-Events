@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './allEvents.css';
 import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { Button, Col, Row, Container } from 'reactstrap';
+import { rootCertificates } from 'tls';
 
 class AllEvents extends Component {
 
@@ -37,9 +38,9 @@ class AllEvents extends Component {
     formatDate(data) {
         let today = data;
 
-        var brDate = today.slice(8, 10) + '/' + 
-                     today.slice(5, 7); 
-                    //  + '/' + today.slice(0, 4);
+        var brDate = today.slice(8, 10) + '/' +
+            today.slice(5, 7);
+        //  + '/' + today.slice(0, 4);
 
         return brDate;
     }
@@ -49,13 +50,14 @@ class AllEvents extends Component {
             <div id="tip">
                 <Container>
                     <Row>
+                    <Col xs='12'>
                         <h5 id="title">Todos os Eventos</h5>
-                    </Row>
-                        <Container id="post">
+                        </Col>
+                        </Row>
+                    <Container id="post">
                         <Row>
                             {this.state.posts.map((post) => {
                                 return (
-                                    
                                     <Col xs="4">
                                         <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
@@ -67,17 +69,27 @@ class AllEvents extends Component {
                                                     </header>
                                                     <img src={post.imagem} alt="Capa do post" />
                                                     <footer class="my-4">
-                                                        <div className="fix">
-                                                            <div className="box">
-                                                                <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                        <Row>
+                                                            <Col xs='6'>
 
-                                                            <div className="box">
-                                                                <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+                                                                <div className="box">
+                                                                    <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                            </Col>
 
-                                                            <div className="box">
-                                                                <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p></div>
+                                                            <Col xs='6'>
+                                                                <div className="box">
+                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
 
-                                                        </div>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row>
+                                                            <Col xs='12'>
+                                                                <div className="box">
+                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                </div>
+
+                                                            </Col>
+                                                        </Row>
                                                     </footer>
                                                 </article>
                                             </Link>
@@ -85,8 +97,8 @@ class AllEvents extends Component {
                                     </Col>
                                 );
                             })}
-                            </Row>
-                        </Container>
+                        </Row>
+                    </Container>
                 </Container>
             </div>
         );

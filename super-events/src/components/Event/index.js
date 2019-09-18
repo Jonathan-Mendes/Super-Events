@@ -12,9 +12,8 @@ class Event extends Component {
             date: ''
         }
         this.formatDate = this.formatDate.bind(this);
+        this.back = this.back.bind(this);
     }
-
-
 
     componentDidMount() {
         const { id } = this.props.match.params;
@@ -50,7 +49,7 @@ class Event extends Component {
     }
 
     render() {
-        const { titulo, autor, descricao, data, hora, local, imagem } = this.state.event;
+        const { titulo, autor, descricao, hora, local, imagem } = this.state.event;
         return (
             <div className="event-info">
                 <Container>
@@ -68,19 +67,23 @@ class Event extends Component {
                         </Col>
                     </Row>
                     <Row>
-                    <Col>
-                    <img id="photo" src={imagem} alt="Event cape" />
-                    </Col>
+                        <Container>
+                        <Row>
+                        <Col xs='12'>
+                            <img id="photo" src={imagem} alt="Event cape" />
+                        </Col>
+                        </Row>
+                        </Container>
                     </Row>
-                    
+
                     <Row>
-                    <Col xs='12'>
-                    <p>Descrição: {descricao}</p>
-                    <p>Local: {local}</p>
-                    <p>Hora do Evento: {hora + "h"}</p>
-                    <p>Data do Evento: {this.formatDate(this.state.date)}</p>
-                    <Button color="success">Comprar</Button>
-                    </Col>
+                        <Col xs='12'>
+                            <p>Descrição: {descricao}</p>
+                            <p>Local: {local}</p>
+                            <p>Hora do Evento: {hora + "h"}</p>
+                            <p>Data do Evento: {this.formatDate(this.state.date)}</p>
+                            <Button color="success">Comprar</Button>
+                        </Col>
                     </Row>
                 </Container>
             </div>

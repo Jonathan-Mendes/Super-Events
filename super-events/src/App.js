@@ -5,12 +5,13 @@ import Header from './components/Header';
 import FeaturedEvents from './components/FeaturedEvents';
 import Event from './components/Event';
 import Login from './components/Login';
-import AllEvents from './components/AllEvents';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import NewEvent from './components/NewEvent';
+import NewEvents from './components/NewEvents';
 import { Spinner } from 'reactstrap'
 import './global.css';
+import AllEvents from './components/AllEvents';
 
 class App extends Component {
 
@@ -31,12 +32,13 @@ class App extends Component {
                 <Header />
                 <Switch>
                     <Route exact path="/" component={FeaturedEvents} />
+                    <Route exact path='/allevents' component={AllEvents}/>
                     <Route exact path="/event/:id" component={Event} />
-                    <Route exact path="/allevents" component={AllEvents}/>
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/dashboard/newevent" component={NewEvent} />
+                    <Route exact path="/dashboard/newevents" component={NewEvents} />
                 </Switch>
             </BrowserRouter>
         ) : (

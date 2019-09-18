@@ -112,8 +112,7 @@ class NewEvent extends Component {
             })
     }
 
-    setEstado (e) {
-        
+    setEstado (e) {     
         let estado = e;
         if (estado === 'AC') this.setState({ estado: 25 })
         if (estado === 'AM') this.setState({ estado: 25 })

@@ -29,3 +29,9 @@ div .event-info p{
     padding: 20px;
     word-wrap: break-word;
 }
+
+
+div .event-info span{
+    font-size: 15px;
+    font-weight: normal;
+}
