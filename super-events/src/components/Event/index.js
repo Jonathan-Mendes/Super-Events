@@ -17,7 +17,7 @@ class Event extends Component {
 
     componentDidMount() {
         const { id } = this.props.match.params;
-        firebase.app.ref('posts').child(id).on('value', (snapshot) => {
+        firebase.app.ref('events').child(id).on('value', (snapshot) => {
             let state = this.state;
             state.event = [];
 

@@ -1,33 +1,36 @@
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './dashboard.css';
 import { IoIosLogOut, IoIosAdd } from 'react-icons/io';
-import { Button } from 'reactstrap';
-import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { Button, Col, Row, Container } from 'reactstrap';
+import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { async } from 'q';
 
-class Dashboard extends Component{
+class Dashboard extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
+            deleteId: '',
             nome: localStorage.nome,
             uid: firebase.getCurrentUid(),
             events: []
         };
         this.logout = this.logout.bind(this);
         this.formatDate = this.formatDate.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
     }
 
-    async componentDidMount(){
-        if(!firebase.getCurrent()){
+    async componentDidMount() {
+        if (!firebase.getCurrent()) {
             this.props.history.replace('/login');
             return null;
         }
 
         firebase.getUserName((info) => {
             localStorage.nome = info.val().nome
-            this.setState({nome: localStorage.nome})
+            this.setState({ nome: localStorage.nome })
         })
 
         firebase.app.ref('events').child(this.state.uid).on('value', (snapshot) => {
@@ -52,9 +55,9 @@ class Dashboard extends Component{
 
     logout = async () => {
         await firebase.logout()
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
         localStorage.removeItem("nome");
         this.props.history.push('/');
     }
@@ -66,61 +69,100 @@ class Dashboard extends Component{
     formatDate(data) {
         let today = data;
 
-        var brDate = today.slice(8, 10) + '/' + 
-                     today.slice(5, 7) + '/' + 
-                     today.slice(0, 4);
+        var brDate = today.slice(8, 10) + '/' +
+            today.slice(5, 7) + '/' +
+            today.slice(0, 4);
 
         return brDate;
     }
 
-    render(){
-        return(
+    deleteEvent = async (e) => {
+        console.log(e);
+    }
+
+    render() {
+        return (
             <div id="dashboard">
                 <div className="user-info">
                     <h5>Olá, {this.state.nome}</h5>
                 </div>
                 <p>Logado com {firebase.getCurrent()}</p>
                 <Button color="success" onClick={() => this.newEvent()}>
-                <span class="icon"><IoIosAdd/></span> Novo Post</Button>
+                    <span class="icon"><IoIosAdd /></span> Novo Post</Button>
                 <Button color="danger" onClick={() => this.logout()}>
-                <span class="icon"><IoIosLogOut/></span> Sair</Button>
+                    <span class="icon"><IoIosLogOut /></span> Sair</Button>
 
                 <div id="tip">
-                    <div>
-                        <h3>Meus Eventos</h3>
-                    </div>
-                    <section id="post">
-                        {this.state.events.map((post) => {
-                            return(
-                                <div class="col-4" key={post.key}>
-                                    <Link to={`/event/${post.key}`}>
-                                    <article>
-                                        <header>
-                                            <div className="title">
-                                                <strong>{post.titulo}</strong>
+                    <Container>
+                        <Row>
+                            <Col xs='12'>
+                                <h5 id="title">Meus os Eventos</h5>
+                            </Col>
+                        </Row>
+                        <Container id="post">
+                            <Row>
+                                {this.state.events.map((post) => {
+                                    return (
+                                        <Col xs='12' sm='4'>
+                                            <div id="link" key={post.key}>
+                                                <Link to={`/event/${post.key}`}>
+                                                    <article>
+                                                        <header>
+                                                            <div className="title">
+                                                                <strong>{post.titulo}</strong>
+                                                            </div>
+                                                        </header>
+                                                        <img src={post.imagem} alt="Capa do post" />
+                                                        <footer class="my-4">
+                                                            <Row>
+                                                                <Col xs='6'>
+
+                                                                    <div className="box">
+                                                                        <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                                </Col>
+
+                                                                <Col xs='6'>
+                                                                    <div className="box">
+                                                                        <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+
+                                                                </Col>
+                                                            </Row>
+                                                            <Row>
+                                                                <Col xs='12'>
+                                                                    <div className="box">
+                                                                        <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                    </div>
+
+                                                                </Col>
+                                                            </Row>
+                                                        </footer>
+                                                    </article>
+
+                                                </Link>
+                                                <Row>
+                                                    <Col xs='6'>
+                                                        <Button id="btnDelete" color="success" 
+                                                        onClick={this.deleteEvent(post.key)}>
+                                                            <FaRegEdit />
+                                                        </Button>
+                                                    </Col>
+                                                    <Col xs='6'>
+                                                        <Button id="btnEdit" color="danger">
+                                                            <FaRegTrashAlt />
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
                                             </div>
-                                        </header>
-                                        <img src={post.imagem} alt="Capa do post"/>
-                                        <footer class="my-4">
-                                            <div className="fix">
-                                                <div className="box">
-                                                <FaRegCalendarAlt class='icon mx-2'/><p>{this.formatDate(post.data)}</p></div>
-                                                <div className="box">
-                                                <FaRegClock class='icon mx-2'/><p>{post.hora}</p></div>
-                                            </div>
-                                            <div className="fix">
-                                            <FaMapMarkerAlt class='icon mx-2'/><p>{post.local}</p></div>
-                                        </footer>
-                                    </article>
-                                    </Link>
-                                </div>
-                            );
-                        })}
-                    </section>
+                                        </Col>
+                                    );
+                                })}
+                            </Row>
+                        </Container>
+                    </Container>
                 </div>
             </div>
 
-            
+
         );
     }
 }

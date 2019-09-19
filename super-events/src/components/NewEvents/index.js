@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './newevents.css';
-import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress, Spinner } from 'reactstrap';
 
 class NewEvents extends Component {
+
+    now = new Date;
 
     constructor(props) {
         super(props);
@@ -30,9 +32,9 @@ class NewEvents extends Component {
         this.cadastrar = this.cadastrar.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
-        // this.setEstado = this.setEstado.bind(this);
+        this.verificaDate = this.verificaDate.bind(this);
         this.fillCityList = this.fillCityList.bind(this);
-        // this.aux = this.aux.bind(this);
+        this.formatDate = this.formatDate.bind(this);
 
     }
 
@@ -57,6 +59,7 @@ class NewEvents extends Component {
                     });
                 }
             )
+            console.log(this.now);
     }
 
     cadastrar = async (e) => {
@@ -68,8 +71,8 @@ class NewEvents extends Component {
             this.state.data !== '' && this.state.data.length === 10 &&
             this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
             this.state.hora !== '' && this.horaFinal !== '' &&
-            this.state.local !== '' && this.state.estado !== ''
-        ) {
+            this.state.local !== '' && this.state.estado !== '' ) 
+            {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(this.state.uid).child(chave).set({
@@ -156,12 +159,26 @@ class NewEvents extends Component {
             )
     }
 
+    formatDate(ini, fim) {
+        return this.state.data.slice(ini, fim);
+    }
+
+    verificaDate(){
+    //implementar
+        let dia = this.formatDate(8,10)
+        console.log(dia);
+        return false
+    }
+
     render() {
         const { error, isLoaded, estados, cidades } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return (
+                <div id="spinner">
+                    <Spinner style={{ width: '6rem', height: '6rem' }} color="dark" />
+                </div>);
         } else {
 
             return (
@@ -174,7 +191,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Input id="ficheiro" type="file"
-                                onChange={this.handleFile} />
+                                onChange={this.handleFile} class="btn btn-primary"/>
                             {this.state.url !== '' ?
                                 <img src={this.state.url} width="250" height="150" alt="Copa do post" />
                                 :

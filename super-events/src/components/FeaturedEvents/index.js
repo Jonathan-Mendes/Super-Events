@@ -17,7 +17,8 @@ class FeaturedEvents extends Component {
 
 
     componentDidMount() {
-        firebase.app.ref('posts').on('value', (snapshot) => {
+        // firebase.app.ref('posts').on('value', (snapshot) => {
+        firebase.app.ref('events').child().on('value', (snapshot) => {
             let state = this.state;
             state.posts = [];
 
@@ -31,7 +32,7 @@ class FeaturedEvents extends Component {
                     hora: childItem.val().hora,
                     local: childItem.val().local,
                     autor: childItem.val().autor,
-                })
+                });
             });
             state.posts.reverse();
             this.setState(state);
@@ -108,7 +109,7 @@ class FeaturedEvents extends Component {
                     </Container>
                     <Row>
                         <Col xs='12'>
-                            <Button color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                            <Button class="verTodos" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -122,7 +123,7 @@ class FeaturedEvents extends Component {
                             {this.state.posts.slice(0, 3).map((post) => {
                                 return (
 
-                                    <Col xs="4">
+                                    <Col xs="12" sm='4'>
                                         <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
                                                 <article>

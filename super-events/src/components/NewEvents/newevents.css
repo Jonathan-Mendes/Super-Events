@@ -67,6 +67,13 @@ form#new-post textarea{
     padding-top: 10px;
 }
 
+#spinner{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* form#new-post button{
     padding: 10px 20px;
     border-radius: 4px;
