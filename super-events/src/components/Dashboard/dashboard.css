@@ -41,3 +41,9 @@ p{
 button{
     font-size: 20px;
 }
+
+@media screen and (max-width: 520px){
+    .container{
+        padding: 0px !important;
+    }
+}

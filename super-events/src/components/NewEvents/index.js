@@ -7,6 +7,7 @@ import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress, Sp
 class NewEvents extends Component {
 
     now = new Date;
+    alert = ''
 
     constructor(props) {
         super(props);
@@ -24,7 +25,6 @@ class NewEvents extends Component {
             estados: [],
             estado: '',
             local: '',
-            alert: '',
             progress: 0,
             error: null,
             isLoaded: false
@@ -35,7 +35,13 @@ class NewEvents extends Component {
         this.verificaDate = this.verificaDate.bind(this);
         this.fillCityList = this.fillCityList.bind(this);
         this.formatDate = this.formatDate.bind(this);
-
+        // this.formatTime = this.formatTime.bind(this);
+        this.verificaTime = this.verificaTime.bind(this);
+        this.verificaImg = this.verificaImg.bind(this);
+        this.verificaTitle = this.verificaTitle.bind(this);
+        this.verificaState = this.verificaState.bind(this);
+        this.verificaCity = this.verificaCity.bind(this);
+        this.verificaDesc = this.verificaDesc.bind(this);
     }
 
     componentDidMount() {
@@ -59,20 +65,13 @@ class NewEvents extends Component {
                     });
                 }
             )
-            console.log(this.now);
     }
 
     cadastrar = async (e) => {
         e.preventDefault();
-
-        if (this.state.titulo !== '' && this.state.imagem !== '' &&
-            this.state.imagem !== null && this.state.url !== '' &&
-            this.state.imagem !== '' && this.state.descricao !== '' &&
-            this.state.data !== '' && this.state.data.length === 10 &&
-            this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
-            this.state.hora !== '' && this.horaFinal !== '' &&
-            this.state.local !== '' && this.state.estado !== '' ) 
-            {
+        if (this.verificaImg() && this.verificaTitle() &&
+            this.verificaState() && this.verificaCity() &&
+            this.verificaDate() && this.verificaTime() && this.verificaDesc()) {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(this.state.uid).child(chave).set({
@@ -89,7 +88,9 @@ class NewEvents extends Component {
             });
             this.props.history.push('/dashboard');
         } else {
-            this.setState({ alert: 'Preencha todos os campos corretamente!' });
+            // this.setState({ alert: 'Preencha todos os campos corretamente!' });
+            alert(this.alert);
+            this.alert = '';
         }
     }
 
@@ -139,7 +140,6 @@ class NewEvents extends Component {
     }
 
     fillCityList() {
-
         fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" +
             this.state.estado + "/municipios")
             .then(res => res.json())
@@ -159,15 +159,134 @@ class NewEvents extends Component {
             )
     }
 
-    formatDate(ini, fim) {
-        return this.state.data.slice(ini, fim);
+    formatDate(today, ini, fim) {
+        return today.slice(ini, fim);
     }
 
-    verificaDate(){
-    //implementar
-        let dia = this.formatDate(8,10)
-        console.log(dia);
-        return false
+    // formatTime(time, ini, fim) {
+    //     return time.slice(ini, fim)
+    // }
+
+    verificaTime() {
+        // let horaIni = this.formatTime(this.state.hora, 0, 2)
+        // let minIni = this.formatTime(this.state.hora, 3, 5)
+        // let horaTer = this.formatTime(this.state.horaFinal, 0, 2)
+        // let minTer = this.formatTime(this.state.horaFinal, 3, 5)
+
+        // if (this.state.hora !== '' || this.horaFinal !== '') {
+        //     this.alert = 'Hora inválida!';
+        //     return false;
+        // } else if (this.state.data === this.state.dataFinal && horaIni > horaTer) {
+        //     // this.setState({ alert: 'Hora inválida!' });
+        //     this.alert = 'Hora inválida!';
+        //     return false;
+        // } else if (this.state.data === this.state.dataFinal && horaIni === horaTer && minIni > minTer) {
+        //     // this.setState({ alert: 'Hora inválida!' });
+        //     this.alert = 'Hora inválida!';
+        //     return false;
+        // } else {
+        //     return true;
+        // }
+
+        if (this.state.hora !== '' || this.horaFinal !== '') {
+            this.alert = 'Hora inválida!';
+            return false;
+        } else if (this.state.data === this.state.dataFinal &&
+            this.state.hora > this.state.horaFinal) {
+            this.alert = 'Hora inválida!';
+            return false;
+        }else{
+            return true;
+        }
+
+
+    }
+
+    verificaDate() {
+        let diaIni = this.formatDate(this.state.data, 8, 10)
+        let mesIni = this.formatDate(this.state.data, 5, 7)
+        let anoIni = this.formatDate(this.state.data, 0, 4)
+        let diaTer = this.formatDate(this.state.dataFinal, 8, 10)
+        let mesTer = this.formatDate(this.state.dataFinal, 5, 7)
+        let anoTer = this.formatDate(this.state.dataFinal, 0, 4)
+
+        if (this.state.data !== '' || this.state.data.length === 10 ||
+            this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
+            this.alert = 'Data inválida!';
+            return false;
+        }
+        if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
+            // this.setState({ alert: 'Data inválida!' });
+            this.alert = 'Data inválida!';
+            return false;
+        } else if ((anoIni === this.now.getFullYear() && mesIni < this.now.getMonth())
+            || (anoIni === anoTer && mesIni > mesTer)) {
+            // this.setState({ alert: 'Data inválida!' });
+            this.alert = 'Data inválida!';
+            return false;
+        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {
+            // this.setState({ alert: 'Data inválida!' });
+            this.alert = 'Data inválida!';
+            return false;
+        } else {
+            return true;
+        }
+        // if (this.state.data !== '' || this.state.data.length === 10 ||
+        //     this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
+        //     this.alert = 'Data inválida!';
+        //     return false;
+        // }else if (this.state.data < this.now.getFullYear() || anoIni > anoTer) {
+        //         // this.setState({ alert: 'Data inválida!' });
+        //         this.alert = 'Data inválida!';
+        //         return false;
+        // }
+        
+    }
+
+    verificaImg() {
+        // if (this.state.imagem !== '' || this.state.imagem !== null || this.state.url !== '') {
+        //     // this.alert = 'Insira uma imagem!'
+        //     return false;
+        // } else {
+        //     return true;
+        // }
+        return true
+    }
+
+    verificaTitle() {
+        if (this.state.titulo !== '') {
+            this.alert = 'Insira um título!'
+            return false
+        } else {
+            return true
+        }
+    }
+
+    verificaState() {
+        if (this.state.estado !== '') {
+            this.alert = 'Insira um estado!'
+            return false
+        } else {
+            return true
+        }
+    }
+
+    verificaCity() {
+        if (this.state.local !== '') {
+            this.alert = 'Insira uma cidade!'
+            return false
+        } else {
+            return true
+        }
+    }
+
+    verificaDesc() {
+        if (this.state.descricao !== '') {
+            this.alert = 'Insira uma descrição!'
+            return false
+        } else {
+            return true
+        }
     }
 
     render() {
@@ -191,7 +310,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Input id="ficheiro" type="file"
-                                onChange={this.handleFile} class="btn btn-primary"/>
+                                onChange={this.handleFile} class="btn btn-primary" />
                             {this.state.url !== '' ?
                                 <img src={this.state.url} width="250" height="150" alt="Copa do post" />
                                 :
@@ -259,6 +378,7 @@ class NewEvents extends Component {
                             <Input type="select" name="select" id="selectEStados"
                                 onChange={(e) => this.setState({ local: e.target.value })}>
                                 {this.fillCityList()}
+                                <option value=''></option>
                                 {cidades.map(cidade => (
                                     <option value={cidade.nome}>
                                         {cidade.nome}

@@ -93,71 +93,69 @@ class Dashboard extends Component {
                     <span class="icon"><IoIosLogOut /></span> Sair</Button>
 
                 <div id="tip">
-                    <Container>
+                    <Row>
+                        <Col xs='12'>
+                            <h5 id="title">Meus os Eventos</h5>
+                        </Col>
+                    </Row>
+                    <Container id="post" class="container">
                         <Row>
-                            <Col xs='12'>
-                                <h5 id="title">Meus os Eventos</h5>
-                            </Col>
-                        </Row>
-                        <Container id="post">
-                            <Row>
-                                {this.state.events.map((post) => {
-                                    return (
-                                        <Col xs='12' sm='4'>
-                                            <div id="link" key={post.key}>
-                                                <Link to={`/event/${post.key}`}>
-                                                    <article>
-                                                        <header>
-                                                            <div className="title">
-                                                                <strong>{post.titulo}</strong>
-                                                            </div>
-                                                        </header>
-                                                        <img src={post.imagem} alt="Capa do post" />
-                                                        <footer class="my-4">
-                                                            <Row>
-                                                                <Col xs='6'>
+                            {this.state.events.map((post) => {
+                                return (
+                                    <Col xs='12' sm='4'>
+                                        <div id="link" key={post.key}>
+                                            <Link to={`/event/${post.key}`}>
+                                                <article>
+                                                    <header>
+                                                        <div className="title">
+                                                            <strong>{post.titulo}</strong>
+                                                        </div>
+                                                    </header>
+                                                    <img src={post.imagem} alt="Capa do post" />
+                                                    <footer class="my-4">
+                                                        <Row>
+                                                            <Col xs='6'>
 
-                                                                    <div className="box">
-                                                                        <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
-                                                                </Col>
+                                                                <div className="box">
+                                                                    <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                            </Col>
 
-                                                                <Col xs='6'>
-                                                                    <div className="box">
-                                                                        <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+                                                            <Col xs='6'>
+                                                                <div className="box">
+                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
 
-                                                                </Col>
-                                                            </Row>
-                                                            <Row>
-                                                                <Col xs='12'>
-                                                                    <div className="box">
-                                                                        <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
-                                                                    </div>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row>
+                                                            <Col xs='12'>
+                                                                <div className="box">
+                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                </div>
 
-                                                                </Col>
-                                                            </Row>
-                                                        </footer>
-                                                    </article>
+                                                            </Col>
+                                                        </Row>
+                                                    </footer>
+                                                </article>
 
-                                                </Link>
-                                                <Row>
-                                                    <Col xs='6'>
-                                                        <Button id="btnDelete" color="success" 
+                                            </Link>
+                                            <Row>
+                                                <Col xs='6'>
+                                                    <Button id="btnDelete" color="success"
                                                         onClick={this.deleteEvent(post.key)}>
-                                                            <FaRegEdit />
-                                                        </Button>
-                                                    </Col>
-                                                    <Col xs='6'>
-                                                        <Button id="btnEdit" color="danger">
-                                                            <FaRegTrashAlt />
-                                                        </Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Col>
-                                    );
-                                })}
-                            </Row>
-                        </Container>
+                                                        <FaRegEdit />
+                                                    </Button>
+                                                </Col>
+                                                <Col xs='6'>
+                                                    <Button id="btnEdit" color="danger">
+                                                        <FaRegTrashAlt />
+                                                    </Button>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </Col>
+                                );
+                            })}
+                        </Row>
                     </Container>
                 </div>
             </div>
