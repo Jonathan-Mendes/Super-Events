@@ -10,20 +10,19 @@ class FeaturedEvents extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            event: []
         }
         this.formatDate = this.formatDate.bind(this);
     }
 
 
     componentDidMount() {
-        // firebase.app.ref('posts').on('value', (snapshot) => {
-        firebase.app.ref('posts').on('value', (snapshot) => {
+        firebase.app.ref('events').on('value', (snapshot) => {
             let state = this.state;
-            state.posts = [];
+            state.event = [];
 
             snapshot.forEach((childItem) => {
-                state.posts.push({
+                state.event.push({
                     key: childItem.key,
                     titulo: childItem.val().titulo,
                     imagem: childItem.val().imagem,
@@ -34,7 +33,7 @@ class FeaturedEvents extends Component {
                     autor: childItem.val().autor,
                 });
             });
-            state.posts.reverse();
+            state.event.reverse();
             this.setState(state);
 
         })
@@ -63,7 +62,7 @@ class FeaturedEvents extends Component {
                     </Row>
                     <Container id="post">
                         <Row>
-                            {this.state.posts.slice(0, 3).map((post) => {
+                            {this.state.event.slice(0, 3).map((post) => {
                                 return (
 
                                     <Col xs="12" sm="4">
@@ -93,7 +92,7 @@ class FeaturedEvents extends Component {
                                                         </Row>
                                                         <Row>
                                                             <Col xs='12'>
-                                                                <div className="box">
+                                                                <div>
                                                                     <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
                                                                 </div>
 
@@ -121,7 +120,7 @@ class FeaturedEvents extends Component {
                     </Row>
                     <Container id="post" className="px-2">
                         <Row>
-                            {this.state.posts.slice(0, 3).map((post) => {
+                            {this.state.event.slice(0, 3).map((post) => {
                                 return (
 
                                     <Col xs="12" sm='4'>
@@ -151,7 +150,7 @@ class FeaturedEvents extends Component {
                                                         </Row>
                                                         <Row>
                                                             <Col xs='12'>
-                                                                <div className="box">
+                                                                <div>
                                                                     <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
                                                                 </div>
 
@@ -179,7 +178,7 @@ class FeaturedEvents extends Component {
                     </Row>
                     <Container id="post" className="px-2">
                         <Row>
-                            {this.state.posts.slice(0, 3).map((post) => {
+                            {this.state.event.slice(0, 3).map((post) => {
                                 return (
 
                                     <Col xs="12" sm="4"> 
@@ -209,7 +208,7 @@ class FeaturedEvents extends Component {
                                                         </Row>
                                                         <Row>
                                                             <Col xs='12'>
-                                                                <div className="box">
+                                                                <div>
                                                                     <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
                                                                 </div>
 

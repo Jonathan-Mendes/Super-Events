@@ -33,7 +33,7 @@ class Dashboard extends Component {
             this.setState({ nome: localStorage.nome })
         })
 
-        firebase.app.ref('events').child(this.state.uid).on('value', (snapshot) => {
+        firebase.app.ref('events').orderByChild("uid").equalTo(this.state.uid).on('value', (snapshot) => {
             let state = this.state;
             state.events = [];
 

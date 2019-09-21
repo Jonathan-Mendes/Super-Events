@@ -9,16 +9,16 @@ import { rootCertificates } from 'tls';
 class AllEvents extends Component {
 
     state = {
-        posts: []
+        event: []
     }
 
     componentDidMount() {
-        firebase.app.ref('posts').on('value', (snapshot) => {
+        firebase.app.ref('events').on('value', (snapshot) => {
             let state = this.state;
-            state.posts = [];
+            state.event = [];
 
             snapshot.forEach((childItem) => {
-                state.posts.push({
+                state.event.push({
                     key: childItem.key,
                     titulo: childItem.val().titulo,
                     imagem: childItem.val().imagem,
@@ -29,7 +29,7 @@ class AllEvents extends Component {
                     autor: childItem.val().autor,
                 })
             });
-            state.posts.reverse();
+            state.event.reverse();
             this.setState(state);
 
         })
@@ -56,7 +56,7 @@ class AllEvents extends Component {
                         </Row>
                     <Container id="post">
                         <Row>
-                            {this.state.posts.map((post) => {
+                            {this.state.event.map((post) => {
                                 return (
                                     <Col xs="12" sm="4">
                                         <div id="link" key={post.key}>

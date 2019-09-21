@@ -12,7 +12,7 @@ class NewEvents extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid: firebase.getCurrentUid(),
+            uid: '',
             titulo: '',
             imagem: null,
             url: '',
@@ -75,7 +75,8 @@ class NewEvents extends Component {
             if(true){
             let event = firebase.app.ref('events');
             let chave = event.push().key;
-            await event.child(this.state.uid).child(chave).set({
+            await event.child(chave).set({
+                uid: firebase.getCurrentUid(),
                 titulo: this.state.titulo,
                 imagem: this.state.url,
                 descricao: this.state.descricao,
