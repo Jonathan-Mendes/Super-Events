@@ -1,20 +1,63 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Form, Button } from 'reactstrap';
 import './header.css';
 import { IoIosLogIn } from "react-icons/io";
+import { FaSearch } from "react-icons/fa";
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 
-function Header() {
-    return (
+class Header extends Component {
 
-        <header id="main-header">
+    constructor(props) {
+        super(props);
 
-            <div className="header-content">
-                <Link to="/">Super Events</Link>
-                <Link to="/login"><IoIosLogIn /> <span>Entrar</span></Link>
-            </div>
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false
+        };
+    }
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
 
-        </header>
-    );
+    render() {
+        return (
+            <div>
+                <Navbar id="navbar" expand="md">
+                    <NavbarBrand href="/">Super Events</NavbarBrand>
+
+                    <Form className="form-inline my-2 my-lg-0">
+                        <input id="inpSearch" className="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search"></input>
+
+                        <Button id="btnSearch" className="btn btn-success my-2 my-sm-0" type="submit"><FaSearch /></Button>
+                    </Form>
+
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/login"><IoIosLogIn />
+                                    <span>Entrar</span></NavLink>
+                            </NavItem>
+                        </Nav>
+                    </Collapse>
+                </Navbar>
+            </div >
+        );
+    }
 }
 
 export default Header;

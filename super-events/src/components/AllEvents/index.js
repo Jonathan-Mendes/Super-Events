@@ -47,18 +47,18 @@ class AllEvents extends Component {
 
     render() {
         return (
-            <div id="tip">
+            <div id="tip" className="px-3">
                 <Container>
                     <Row>
                     <Col xs='12'>
-                        <h5 id="title">Todos os Eventos</h5>
+                        <h5 id="title" class="titleEvents">Todos os Eventos</h5>
                         </Col>
                         </Row>
                     <Container id="post">
                         <Row>
                             {this.state.posts.map((post) => {
                                 return (
-                                    <Col xs="4">
+                                    <Col xs="12" sm="4">
                                         <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
                                                 <article>

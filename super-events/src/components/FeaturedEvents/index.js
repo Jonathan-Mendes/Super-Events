@@ -75,7 +75,8 @@ class FeaturedEvents extends Component {
                                                             <strong>{post.titulo}</strong>
                                                         </div>
                                                     </header>
-                                                    <img src={post.imagem} alt="Capa do post" />
+                                                    <img src={post.imagem} alt="Capa do post"
+                                                    className='rounded' />
                                                     <footer class="my-4">
                                                         <Row>
                                                             <Col xs='6'>
@@ -116,7 +117,7 @@ class FeaturedEvents extends Component {
 
                 <Container>
                     <Row>
-                        <h5 id="title">Próximos Eventos</h5>
+                        <h5 id="title" class="titleEvents">Próximos Eventos</h5>
                     </Row>
                     <Container id="post" className="px-2">
                         <Row>
@@ -132,7 +133,8 @@ class FeaturedEvents extends Component {
                                                             <strong>{post.titulo}</strong>
                                                         </div>
                                                     </header>
-                                                    <img src={post.imagem} alt="Capa do post" />
+                                                    <img src={post.imagem} alt="Capa do post" 
+                                                    className='rounded'/>
                                                     <footer class="my-4">
                                                         <Row>
                                                             <Col xs='6'>
@@ -173,7 +175,7 @@ class FeaturedEvents extends Component {
 
                 <Container>
                     <Row>
-                        <h5 id="title">Últimos Adicionados</h5>
+                        <h5 id="title" class="titleEvents">Últimos Adicionados</h5>
                     </Row>
                     <Container id="post" className="px-2">
                         <Row>
@@ -189,7 +191,8 @@ class FeaturedEvents extends Component {
                                                             <strong>{post.titulo}</strong>
                                                         </div>
                                                     </header>
-                                                    <img src={post.imagem} alt="Capa do post" />
+                                                    <img src={post.imagem} alt="Capa do post" 
+                                                    className='rounded'/>
                                                     <footer class="my-4">
                                                         <Row>
                                                             <Col xs='6'>

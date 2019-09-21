@@ -67,13 +67,9 @@ class Event extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Container>
-                        <Row>
                         <Col xs='12'>
-                            <img id="photo" className='h-100 px-1' src={imagem} alt="Event cape" />
+                            <img id="photo" className='h-100 px-1' src={imagem} alt="Event cape"  className="img-fluid" class="imgCel"/>
                         </Col>
-                        </Row>
-                        </Container>
                     </Row>
 
                     <Row>

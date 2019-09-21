@@ -35,3 +35,10 @@ div .event-info span{
     font-size: 15px;
     font-weight: normal;
 }
+
+@media screen and (max-width: 520px){
+    .imgCel{
+        max-width: 95% !important;
+        margin: auto;
+    }
+}
