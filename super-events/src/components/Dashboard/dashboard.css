@@ -1,8 +1,7 @@
 div#dashboard{
     width: 100%;
-    max-width: 930px;
-    margin: 20px auto;
-    padding: 0 30px;
+    /* margin: 20px auto; */
+    /* padding: 0 30px; */
 }
 
 div#dashboard .user-info{
@@ -47,3 +46,4 @@ button{
         padding: 0px !important;
     }
 }
+

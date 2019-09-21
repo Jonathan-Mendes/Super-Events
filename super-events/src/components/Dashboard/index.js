@@ -12,7 +12,6 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            deleteId: '',
             nome: localStorage.nome,
             uid: firebase.getCurrentUid(),
             events: []
@@ -78,7 +77,9 @@ class Dashboard extends Component {
     }
 
     deleteEvent = async (e) => {
-        // let key = e;
+        let key = e;
+        
+        console.log(e)
         // firebase.app.ref('events').child(this.state.uid).child(key).remove();
 
     }
@@ -89,7 +90,8 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div id="dashboard">
+            <div id="dashboard" className="px-3 my-3">
+            <Container>
                 <div className="user-info">
                     <h5>Olá, {this.state.nome}</h5>
                 </div>
@@ -153,8 +155,7 @@ class Dashboard extends Component {
                                                     </Button>
                                                 </Col>
                                                 <Col xs='6'>
-                                                    <Button id="btnEdit" color="danger"
-                                                    onClick={this.deleteEvent(post.key)}>
+                                                    <Button id="btnEdit" color="danger">
                                                         <FaRegTrashAlt />
                                                     </Button>
                                                 </Col>
@@ -166,8 +167,9 @@ class Dashboard extends Component {
                         </Row>
                     </Container>
                 </div>
+                
+                </Container>
             </div>
-
 
         );
     }

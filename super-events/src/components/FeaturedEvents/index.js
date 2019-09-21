@@ -56,12 +56,12 @@ class FeaturedEvents extends Component {
 
     render() {
         return (
-            <div id="tip">
+            <div id="tip" className="px-3">
                 <Container>
                     <Row>
-                        <h5 id="title">Eventos em Destaque</h5>
+                        <h5 id="title" class="titleEvents">Eventos em Destaque</h5>
                     </Row>
-                    <Container id="post" className="px-2">
+                    <Container id="post">
                         <Row>
                             {this.state.posts.slice(0, 3).map((post) => {
                                 return (
