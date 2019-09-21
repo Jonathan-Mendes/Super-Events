@@ -20,6 +20,7 @@ class Dashboard extends Component {
         this.logout = this.logout.bind(this);
         this.formatDate = this.formatDate.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
+        this.editEvent = this.editEvent.bind(this);
     }
 
     async componentDidMount() {
@@ -77,7 +78,13 @@ class Dashboard extends Component {
     }
 
     deleteEvent = async (e) => {
-        console.log(e);
+        // let key = e;
+        // firebase.app.ref('events').child(this.state.uid).child(key).remove();
+
+    }
+
+    editEvent = async (e)  => {
+
     }
 
     render() {
@@ -146,7 +153,8 @@ class Dashboard extends Component {
                                                     </Button>
                                                 </Col>
                                                 <Col xs='6'>
-                                                    <Button id="btnEdit" color="danger">
+                                                    <Button id="btnEdit" color="danger"
+                                                    onClick={this.deleteEvent(post.key)}>
                                                         <FaRegTrashAlt />
                                                     </Button>
                                                 </Col>

@@ -69,9 +69,10 @@ class NewEvents extends Component {
 
     cadastrar = async (e) => {
         e.preventDefault();
-        if (this.verificaImg() && this.verificaTitle() &&
-            this.verificaState() && this.verificaCity() &&
-            this.verificaDate() && this.verificaTime() && this.verificaDesc()) {
+        // if (this.verificaImg() && this.verificaTitle() &&
+        //     this.verificaState() && this.verificaCity() &&
+        //     this.verificaDate() && this.verificaTime() && this.verificaDesc()) {
+            if(true){
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(this.state.uid).child(chave).set({

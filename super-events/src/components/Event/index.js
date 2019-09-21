@@ -17,7 +17,7 @@ class Event extends Component {
 
     componentDidMount() {
         const { id } = this.props.match.params;
-        firebase.app.ref('events').child(id).on('value', (snapshot) => {
+        firebase.app.ref('posts').child(id).on('value', (snapshot) => {
             let state = this.state;
             state.event = [];
 
@@ -70,7 +70,7 @@ class Event extends Component {
                         <Container>
                         <Row>
                         <Col xs='12'>
-                            <img id="photo" src={imagem} alt="Event cape" />
+                            <img id="photo" className='h-100 px-1' src={imagem} alt="Event cape" />
                         </Col>
                         </Row>
                         </Container>

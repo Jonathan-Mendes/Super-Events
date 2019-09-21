@@ -18,7 +18,7 @@ class FeaturedEvents extends Component {
 
     componentDidMount() {
         // firebase.app.ref('posts').on('value', (snapshot) => {
-        firebase.app.ref('events').child().on('value', (snapshot) => {
+        firebase.app.ref('posts').on('value', (snapshot) => {
             let state = this.state;
             state.posts = [];
 
@@ -61,12 +61,12 @@ class FeaturedEvents extends Component {
                     <Row>
                         <h5 id="title">Eventos em Destaque</h5>
                     </Row>
-                    <Container id="post">
+                    <Container id="post" className="px-2">
                         <Row>
                             {this.state.posts.slice(0, 3).map((post) => {
                                 return (
 
-                                    <Col xs="4">
+                                    <Col xs="12" sm="4">
                                         <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
                                                 <article>
@@ -108,8 +108,8 @@ class FeaturedEvents extends Component {
                         </Row>
                     </Container>
                     <Row>
-                        <Col xs='12'>
-                            <Button class="verTodos" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                        <Col xs='12' className="my-3">
+                            <Button class="verTodos" className="d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -118,7 +118,7 @@ class FeaturedEvents extends Component {
                     <Row>
                         <h5 id="title">Próximos Eventos</h5>
                     </Row>
-                    <Container id="post">
+                    <Container id="post" className="px-2">
                         <Row>
                             {this.state.posts.slice(0, 3).map((post) => {
                                 return (
@@ -164,18 +164,23 @@ class FeaturedEvents extends Component {
                             })}
                         </Row>
                     </Container>
+                    <Row>
+                        <Col xs='12' className="my-3">
+                            <Button class="verTodos" className="d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                        </Col>
+                    </Row>
                 </Container>
 
                 <Container>
                     <Row>
                         <h5 id="title">Últimos Adicionados</h5>
                     </Row>
-                    <Container id="post">
+                    <Container id="post" className="px-2">
                         <Row>
                             {this.state.posts.slice(0, 3).map((post) => {
                                 return (
 
-                                    <Col xs="4">
+                                    <Col xs="12" sm="4"> 
                                         <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
                                                 <article>
@@ -216,6 +221,11 @@ class FeaturedEvents extends Component {
                             })}
                         </Row>
                     </Container>
+                    <Row>
+                        <Col xs='12' className="my-3">
+                            <Button class="verTodos" className="d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                        </Col>
+                    </Row>
                 </Container>
             </div>
         );
