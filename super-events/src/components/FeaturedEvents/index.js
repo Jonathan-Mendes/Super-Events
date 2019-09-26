@@ -19,6 +19,8 @@ class FeaturedEvents extends Component {
     componentDidMount() {
         firebase.app.ref('events').on('value', (snapshot) => {
             let state = this.state;
+            //Linha teste
+            console.log("teste");
             state.event = [];
 
             snapshot.forEach((childItem) => {
