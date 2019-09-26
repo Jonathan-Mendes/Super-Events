@@ -27,7 +27,8 @@ class NewEvents extends Component {
             local: '',
             progress: 0,
             error: null,
-            isLoaded: false
+            isLoaded: false,
+            ativo: true
         };
         this.cadastrar = this.cadastrar.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -86,7 +87,8 @@ class NewEvents extends Component {
                 horaFinal: this.state.horaFinal,
                 estado: this.state.estado,
                 local: this.state.local,
-                autor: localStorage.nome
+                autor: localStorage.nome,
+                ativo: this.state.ativo
             });
             this.props.history.push('/dashboard');
         } else {

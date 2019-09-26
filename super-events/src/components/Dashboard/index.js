@@ -14,7 +14,8 @@ class Dashboard extends Component {
         this.state = {
             nome: localStorage.nome,
             uid: firebase.getCurrentUid(),
-            events: []
+            events: [],
+            ativo: ''
         };
         this.logout = this.logout.bind(this);
         this.formatDate = this.formatDate.bind(this);
@@ -47,9 +48,11 @@ class Dashboard extends Component {
                     hora: childItem.val().hora,
                     local: childItem.val().local,
                     autor: childItem.val().autor,
+                    ativo: childItem.val().ativo
                 })
             })
             this.setState(state);
+            console.log(this.state.ativo)
         })
     }
 
@@ -76,98 +79,99 @@ class Dashboard extends Component {
         return brDate;
     }
 
-    deleteEvent = async (e) => {
-        let key = e;
-        
-        console.log(e)
+    deleteEvent(){
+        this.setState.ativo = false
         // firebase.app.ref('events').child(this.state.uid).child(key).remove();
 
     }
 
-    editEvent = async (e)  => {
+    editEvent(){
 
     }
 
     render() {
         return (
             <div id="dashboard" className="px-3 my-3">
-            <Container>
-                <div className="user-info">
-                    <h5>Olá, {this.state.nome}</h5>
-                </div>
-                <p>Logado com {firebase.getCurrent()}</p>
-                <Button color="success" onClick={() => this.newEvent()}>
-                    <span class="icon"><IoIosAdd /></span> Novo Post</Button>
-                <Button color="danger" onClick={() => this.logout()}>
-                    <span class="icon"><IoIosLogOut /></span> Sair</Button>
+                <Container>
+                    <div className="user-info">
+                        <h5>Olá, {this.state.nome}</h5>
+                    </div>
+                    <p>Logado com {firebase.getCurrent()}</p>
+                    <Button color="success" onClick={() => this.newEvent()}>
+                        <span class="icon"><IoIosAdd /></span> Novo Post</Button>
+                    <Button color="danger" onClick={() => this.logout()}>
+                        <span class="icon"><IoIosLogOut /></span> Sair</Button>
 
-                <div id="tip">
-                    <Row>
-                        <Col xs='12'>
-                            <h5 id="title">Meus os Eventos</h5>
-                        </Col>
-                    </Row>
-                    <Container id="post" class="container">
+                    <div id="tip">
                         <Row>
-                            {this.state.events.map((post) => {
-                                return (
-                                    <Col xs='12' sm='4'>
-                                        <div id="link" key={post.key}>
-                                            <Link to={`/event/${post.key}`}>
-                                                <article>
-                                                    <header>
-                                                        <div className="title">
-                                                            <strong>{post.titulo}</strong>
-                                                        </div>
-                                                    </header>
-                                                    <img src={post.imagem} alt="Capa do post" />
-                                                    <footer class="my-4">
-                                                        <Row>
-                                                            <Col xs='6'>
-
-                                                                <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
-                                                            </Col>
-
-                                                            <Col xs='6'>
-                                                                <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
-
-                                                            </Col>
-                                                        </Row>
-                                                        <Row>
-                                                            <Col xs='12'>
-                                                                <div className="box">
-                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
-                                                                </div>
-
-                                                            </Col>
-                                                        </Row>
-                                                    </footer>
-                                                </article>
-
-                                            </Link>
-                                            <Row>
-                                                <Col xs='6'>
-                                                    <Button id="btnDelete" color="success"
-                                                        onClick={this.deleteEvent(post.key)}>
-                                                        <FaRegEdit />
-                                                    </Button>
-                                                </Col>
-                                                <Col xs='6'>
-                                                    <Button id="btnEdit" color="danger">
-                                                        <FaRegTrashAlt />
-                                                    </Button>
-                                                </Col>
-                                            </Row>
-                                        </div>
-                                    </Col>
-                                );
-                            })}
+                            <Col xs='12'>
+                                <h5 id="title">Meus os Eventos</h5>
+                            </Col>
                         </Row>
-                    </Container>
-                </div>
-                
+                        <Container id="post" class="container">
+                            <Row>
+                                {this.state.events.map((post) => {
+                                    if (post.ativo) {
+                                        return (
+                                            <Col xs='12' sm='4'>
+                                                <div id="link" key={post.key}>
+                                                    <Link to={`/event/${post.key}`}>
+                                                        <article>
+                                                            <header>
+                                                                <div className="title">
+                                                                    <strong>{post.titulo}</strong>
+                                                                </div>
+                                                            </header>
+                                                            <img src={post.imagem} alt="Capa do post" />
+                                                            <footer class="my-4">
+                                                                <Row>
+                                                                    <Col xs='6'>
+
+                                                                        <div className="box">
+                                                                            <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                                    </Col>
+
+                                                                    <Col xs='6'>
+                                                                        <div className="box">
+                                                                            <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+
+                                                                    </Col>
+                                                                </Row>
+                                                                <Row>
+                                                                    <Col xs='12'>
+                                                                        <div className="box">
+                                                                            <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                        </div>
+
+                                                                    </Col>
+                                                                </Row>
+                                                            </footer>
+                                                        </article>
+
+                                                    </Link>
+                                                    <Row>
+                                                        <Col xs='6'>
+                                                            <Button id="btnEdit" color="success"
+                                                                >
+                                                                <FaRegEdit />
+                                                            </Button>
+                                                        </Col>
+                                                        <Col xs='6'>
+                                                            <Button id="btnDelete" color="danger"
+                                                            onClick={this.deleteEvent()}>
+                                                                <FaRegTrashAlt />
+                                                            </Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                        );
+                                    }
+                                })}
+                            </Row>
+                        </Container>
+                    </div>
+
                 </Container>
             </div>
 

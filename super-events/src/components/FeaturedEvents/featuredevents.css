@@ -90,3 +90,7 @@ ion-icon {
         margin: auto;
     }
 }
+
+.verTodos{
+    border-radius: 20px !important;
+}

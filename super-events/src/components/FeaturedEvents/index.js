@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './featuredevents.css';
 import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { Container, Row, Col, Button } from 'reactstrap';
+import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants';
 
 class FeaturedEvents extends Component {
 
@@ -31,6 +32,7 @@ class FeaturedEvents extends Component {
                     hora: childItem.val().hora,
                     local: childItem.val().local,
                     autor: childItem.val().autor,
+                    ativo: childItem.val().ativo
                 });
             });
             state.event.reverse();
@@ -58,65 +60,68 @@ class FeaturedEvents extends Component {
             <div id="tip" className="px-3">
                 <Container>
                     <Row>
-                        <h5 id="title" class="titleEvents">Eventos em Destaque</h5>
+                        <h5 id="title" className="titleEvents">Eventos em Destaque</h5>
                     </Row>
                     <Container id="post">
                         <Row>
                             {this.state.event.slice(0, 3).map((post) => {
-                                return (
+                                if (post.ativo) {
+                                    return (
+                                        <Col xs="12" sm="4">
+                                            <div id="link" key={post.key}>
+                                                <Link to={`/event/${post.key}`}>
+                                                    <article>
+                                                        <header>
+                                                            <div className="title">
+                                                                <strong>{post.titulo}</strong>
+                                                            </div>
+                                                        </header>
+                                                        <img src={post.imagem} alt="Capa do post"
+                                                            className='rounded' />
+                                                        <footer className="my-4">
+                                                            <Row>
+                                                                <Col xs='6'>
 
-                                    <Col xs="12" sm="4">
-                                        <div id="link" key={post.key}>
-                                            <Link to={`/event/${post.key}`}>
-                                                <article>
-                                                    <header>
-                                                        <div className="title">
-                                                            <strong>{post.titulo}</strong>
-                                                        </div>
-                                                    </header>
-                                                    <img src={post.imagem} alt="Capa do post"
-                                                    className='rounded' />
-                                                    <footer class="my-4">
-                                                        <Row>
-                                                            <Col xs='6'>
+                                                                    <div className="box">
+                                                                        <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
+                                                                </Col>
 
-                                                                <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
-                                                            </Col>
+                                                                <Col xs='6'>
+                                                                    <div className="box">
+                                                                        <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
 
-                                                            <Col xs='6'>
-                                                                <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
-
-                                                            </Col>
-                                                        </Row>
-                                                        <Row>
-                                                            <Col xs='12'>
-                                                                <div>
-                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
-                                                                </div>
-
-                                                            </Col>
-                                                        </Row>
-                                                    </footer>
-                                                </article>
-                                            </Link>
-                                        </div>
-                                    </Col>
-                                );
+                                                                </Col>
+                                                            </Row>
+                                                            <Row>
+                                                                <Col xs='12'>
+                                                                    <div>
+                                                                        <p>
+                                                                            <FaMapMarkerAlt className='icon mx-2' />
+                                                                            {post.local}
+                                                                        </p>
+                                                                    </div>
+                                                                </Col>
+                                                            </Row>
+                                                        </footer>
+                                                    </article>
+                                                </Link>
+                                            </div>
+                                        </Col>
+                                    );
+                                }
                             })}
                         </Row>
                     </Container>
                     <Row>
                         <Col xs='12' className="my-3">
-                            <Button class="verTodos" className="d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                            <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
                         </Col>
                     </Row>
                 </Container>
 
                 <Container>
                     <Row>
-                        <h5 id="title" class="titleEvents">Próximos Eventos</h5>
+                        <h5 id="title" className="titleEvents">Próximos Eventos</h5>
                     </Row>
                     <Container id="post" className="px-2">
                         <Row>
@@ -132,28 +137,30 @@ class FeaturedEvents extends Component {
                                                             <strong>{post.titulo}</strong>
                                                         </div>
                                                     </header>
-                                                    <img src={post.imagem} alt="Capa do post" 
-                                                    className='rounded'/>
-                                                    <footer class="my-4">
+                                                    <img src={post.imagem} alt="Capa do post"
+                                                        className='rounded' />
+                                                    <footer className="my-4">
                                                         <Row>
                                                             <Col xs='6'>
 
                                                                 <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                                    <FaRegCalendarAlt className='icon mx-2' /><p className="text">{this.formatDate(post.data)}</p></div>
                                                             </Col>
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+                                                                    <FaRegClock className='icon mx-2' /><p className="text">{post.hora}</p></div>
 
                                                             </Col>
                                                         </Row>
                                                         <Row>
                                                             <Col xs='12'>
                                                                 <div>
-                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                    <p>
+                                                                        <FaMapMarkerAlt className='icon mx-2' />
+                                                                        {post.local}
+                                                                    </p>
                                                                 </div>
-
                                                             </Col>
                                                         </Row>
                                                     </footer>
@@ -167,21 +174,21 @@ class FeaturedEvents extends Component {
                     </Container>
                     <Row>
                         <Col xs='12' className="my-3">
-                            <Button class="verTodos" className="d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                            <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
                         </Col>
                     </Row>
                 </Container>
 
                 <Container>
                     <Row>
-                        <h5 id="title" class="titleEvents">Últimos Adicionados</h5>
+                        <h5 id="title" className="titleEvents">Últimos Adicionados</h5>
                     </Row>
                     <Container id="post" className="px-2">
                         <Row>
                             {this.state.event.slice(0, 3).map((post) => {
                                 return (
 
-                                    <Col xs="12" sm="4"> 
+                                    <Col xs="12" sm="4">
                                         <div id="link" key={post.key}>
                                             <Link to={`/event/${post.key}`}>
                                                 <article>
@@ -190,28 +197,30 @@ class FeaturedEvents extends Component {
                                                             <strong>{post.titulo}</strong>
                                                         </div>
                                                     </header>
-                                                    <img src={post.imagem} alt="Capa do post" 
-                                                    className='rounded'/>
-                                                    <footer class="my-4">
+                                                    <img src={post.imagem} alt="Capa do post"
+                                                        className='rounded' />
+                                                    <footer className="my-4">
                                                         <Row>
                                                             <Col xs='6'>
 
                                                                 <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                                    <FaRegCalendarAlt className='icon mx-2' /><p className="text">{this.formatDate(post.data)}</p></div>
                                                             </Col>
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+                                                                    <FaRegClock className='icon mx-2' /><p className="text">{post.hora}</p></div>
 
                                                             </Col>
                                                         </Row>
                                                         <Row>
                                                             <Col xs='12'>
                                                                 <div>
-                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                    <p>
+                                                                        <FaMapMarkerAlt className='icon mx-2' />
+                                                                        {post.local}
+                                                                    </p>
                                                                 </div>
-
                                                             </Col>
                                                         </Row>
                                                     </footer>
@@ -225,7 +234,7 @@ class FeaturedEvents extends Component {
                     </Container>
                     <Row>
                         <Col xs='12' className="my-3">
-                            <Button class="verTodos" className="d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                            <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
                         </Col>
                     </Row>
                 </Container>
