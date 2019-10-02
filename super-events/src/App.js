@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import firebase from './firebase';
 import Header from './components/Header';
 import FeaturedEvents from './components/FeaturedEvents';
+import AllEvents from './components/AllEvents';
 import Event from './components/Event';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -11,7 +12,6 @@ import NewEvent from './components/NewEvent';
 import NewEvents from './components/NewEvents';
 import { Spinner } from 'reactstrap'
 import './global.css';
-import AllEvents from './components/AllEvents';
 
 class App extends Component {
 

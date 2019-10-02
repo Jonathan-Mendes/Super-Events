@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './register.css';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Progress, FormText } from 'reactstrap';
 
 class Register extends Component {
 
@@ -11,7 +11,8 @@ class Register extends Component {
         this.state = {
             nome: '',
             email: '',
-            password: ''
+            password: '',
+            imagem: 'https://firebasestorage.googleapis.com/v0/b/super-events-f85d9.appspot.com/o/logo%2Flogo-se.PNG?alt=media&token=1298ad74-3cee-4304-950d-35234aea3250'
         };
         this.register = this.register.bind(this);
         this.onRegister = this.onRegister.bind(this);
@@ -24,9 +25,9 @@ class Register extends Component {
 
     onRegister = async () => {
         try {
-            const { nome, email, password } = this.state;
+            const { nome, email, password, imagem } = this.state;
 
-            await firebase.register(nome, email, password);
+            await firebase.register(nome, email, password, imagem);
             this.props.history.replace('/dashboard');
 
         } catch (error) {

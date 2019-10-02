@@ -18,6 +18,7 @@ class Dashboard extends Component {
             ativo: ''
         };
         this.logout = this.logout.bind(this);
+        this.newEvent = this.newEvent.bind(this);
         this.formatDate = this.formatDate.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
         this.editEvent = this.editEvent.bind(this);
@@ -98,9 +99,9 @@ class Dashboard extends Component {
                     </div>
                     <p>Logado com {firebase.getCurrent()}</p>
                     <Button color="success" onClick={() => this.newEvent()}>
-                        <span class="icon"><IoIosAdd /></span> Novo Post</Button>
+                        <span><IoIosAdd /></span> Novo Post</Button>
                     <Button color="danger" onClick={() => this.logout()}>
-                        <span class="icon"><IoIosLogOut /></span> Sair</Button>
+                        <span><IoIosLogOut /></span> Sair</Button>
 
                     <div id="tip">
                         <Row>
