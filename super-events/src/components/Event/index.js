@@ -53,32 +53,36 @@ class Event extends Component {
         return (
             <div className="event-info">
                 <Container>
-                    <Row>
+                    {/*<Row>
                         <Col xs="12">
                             <Button color="dark" onClick={() => this.back()}>Voltar</Button>
                         </Col>
-                    </Row>
+                    </Row>*/}
                     <Row>
-                        <Col xs="12">
-                            <div className="title">
-                                <h1>{titulo}</h1>
-                                <span>Autor: {autor}</span>
+                        <Col xs='8'>
+                            <img id="photo" className='rounded float-left mx-auto h-100 w-100 img-fluid imgCel' src={imagem} alt="Event cape" />
+                        </Col>
+
+                        <Col xs='4'>
+                            <div className="h-100 shadow p-3 mb-5 bg-white rounded">
+                                <p>{this.formatDate(this.state.date)}</p>
+
+                                <h2>{titulo}</h2>
+                                <p>por {autor}</p>
+                                <p>Local: {local}</p>
+                                <p>Hora do Evento: {hora + "h"}</p>
+                                <div className="bottomZero">
+                                    <p>Valor do ingresso: 100R$</p>
+                                    <Button className="w-100" color="success">Comprar</Button>
+                                </div>
                             </div>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col xs='12'>
-                            <img id="photo" className='h-100 px-1' src={imagem} alt="Event cape"  className="img-fluid" class="imgCel"/>
-                        </Col>
-                    </Row>
 
-                    <Row>
-                        <Col xs='12'>
-                            <p>Descrição: {descricao}</p>
-                            <p>Local: {local}</p>
-                            <p>Hora do Evento: {hora + "h"}</p>
-                            <p>Data do Evento: {this.formatDate(this.state.date)}</p>
-                            <Button color="success">Comprar</Button>
+                    <Row className="mx-auto">
+                        <Col xs='12' className="h-100 my-4 shadow p-3 mb-5 bg-white rounded">
+                            <h3>Descrição</h3>
+                            <p>{descricao}</p>
                         </Col>
                     </Row>
                 </Container>

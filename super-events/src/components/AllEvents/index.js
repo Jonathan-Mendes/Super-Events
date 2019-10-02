@@ -50,10 +50,10 @@ class AllEvents extends Component {
             <div id="tip" className="px-3">
                 <Container>
                     <Row>
-                    <Col xs='12'>
-                        <h5 id="title" class="titleEvents">Todos os Eventos</h5>
+                        <Col xs='12'>
+                            <h5 id="title" class="titleEvents">Todos os Eventos</h5>
                         </Col>
-                        </Row>
+                    </Row>
                     <Container id="post">
                         <Row>
                             {this.state.event.map((post) => {
@@ -78,16 +78,18 @@ class AllEvents extends Component {
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+                                                                    <FaRegClock class='icon mx-2' /><span class="text">{post.hora}</span></div>
 
                                                             </Col>
                                                         </Row>
                                                         <Row>
                                                             <Col xs='12'>
-                                                                <div className="box">
-                                                                    <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                <div>
+                                                                    <p>
+                                                                        <FaMapMarkerAlt className='icon mx-2' />
+                                                                        {post.local}
+                                                                    </p>
                                                                 </div>
-
                                                             </Col>
                                                         </Row>
                                                     </footer>
@@ -95,12 +97,12 @@ class AllEvents extends Component {
                                             </Link>
                                         </div>
                                     </Col>
-                                );
-                            })}
+                        );
+                    })}
                         </Row>
-                    </Container>
                 </Container>
-            </div>
+                </Container>
+            </div >
         );
     }
 }

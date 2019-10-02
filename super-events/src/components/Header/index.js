@@ -36,7 +36,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <Navbar id="navbar" expand="md">
+                <Navbar id="navbar" expand="md" className="fixed-top">
                     <NavbarBrand href="/">Super Events</NavbarBrand>
 
                     <Form className="form-inline my-2 my-lg-0">

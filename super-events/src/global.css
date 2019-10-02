@@ -9,6 +9,7 @@ body{
     background: #ddd !important;
     font: 14px sans-serif;
     -webkit-font-smoothing: antialiased !important;
+    margin-top: 100px !important;
 }
 
 #spinner{

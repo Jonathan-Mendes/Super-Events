@@ -79,13 +79,13 @@ class Dashboard extends Component {
         return brDate;
     }
 
-    deleteEvent(){
+    deleteEvent() {
         this.setState.ativo = false
         // firebase.app.ref('events').child(this.state.uid).child(key).remove();
 
     }
 
-    editEvent(){
+    editEvent() {
 
     }
 
@@ -128,21 +128,30 @@ class Dashboard extends Component {
                                                                     <Col xs='6'>
 
                                                                         <div className="box">
-                                                                            <FaRegCalendarAlt class='icon mx-2' /><p class="text">{this.formatDate(post.data)}</p></div>
+                                                                            <span>
+                                                                                <FaRegCalendarAlt className='icon' />{this.formatDate(post.data)}
+                                                                            </span>
+                                                                        </div>
                                                                     </Col>
 
                                                                     <Col xs='6'>
                                                                         <div className="box">
-                                                                            <FaRegClock class='icon mx-2' /><p class="text">{post.hora}</p></div>
+                                                                            <p>
+                                                                                <FaRegClock class='icon mx-2' />
+                                                                                {post.hora}
+                                                                            </p>
+                                                                        </div>
 
                                                                     </Col>
                                                                 </Row>
                                                                 <Row>
                                                                     <Col xs='12'>
-                                                                        <div className="box">
-                                                                            <FaMapMarkerAlt class='icon mx-2' /><p class="text">{post.local}</p>
+                                                                        <div>
+                                                                            <p>
+                                                                                <FaMapMarkerAlt className='icon mx-2' />
+                                                                                {post.local}
+                                                                            </p>
                                                                         </div>
-
                                                                     </Col>
                                                                 </Row>
                                                             </footer>
@@ -152,13 +161,13 @@ class Dashboard extends Component {
                                                     <Row>
                                                         <Col xs='6'>
                                                             <Button id="btnEdit" color="success"
-                                                                >
+                                                            >
                                                                 <FaRegEdit />
                                                             </Button>
                                                         </Col>
                                                         <Col xs='6'>
                                                             <Button id="btnDelete" color="danger"
-                                                            onClick={this.deleteEvent()}>
+                                                                onClick={this.deleteEvent()}>
                                                                 <FaRegTrashAlt />
                                                             </Button>
                                                         </Col>
