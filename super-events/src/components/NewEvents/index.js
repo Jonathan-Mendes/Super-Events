@@ -141,6 +141,7 @@ class NewEvents extends Component {
                     })
 
             })
+            console.log(this.state.url);
     }
 
     fillCityList() {

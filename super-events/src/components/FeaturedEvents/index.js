@@ -65,7 +65,7 @@ class FeaturedEvents extends Component {
                     <Container id="post">
                         <Row>
                             {this.state.event.slice(0, 3).map((post) => {
-                                if (post.ativo) {
+                                //if (post.ativo) {
                                     return (
                                         <Col xs="12" sm="4">
                                             <div id="link" key={post.key}>
@@ -108,7 +108,7 @@ class FeaturedEvents extends Component {
                                             </div>
                                         </Col>
                                     );
-                                }
+                                //}
                             })}
                         </Row>
                     </Container>

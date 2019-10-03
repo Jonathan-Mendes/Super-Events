@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Form, Button } from 'reactstrap';
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import firebase from '../../firebase';
 import './header.css';
-import { IoIosLogIn } from "react-icons/io";
-import { FaSearch } from "react-icons/fa";
+import { IoIosLogIn, IoIosPerson, IoIosAddCircleOutline } from "react-icons/io";
 import {
     Collapse,
     Navbar,
@@ -21,43 +21,124 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            isOpen: false,
+            nome: localStorage.nome,
+            foto: localStorage.foto
+        }
 
         this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
+        this.home = this.home.bind(this);
+        this.dashBoard = this.dashBoard.bind(this);
+        this.newEvent = this.newEvent.bind(this);
+        this.logout = this.logout.bind(this);
+        this.loged = this.loged.bind(this);
+
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
 
+    async componentDidMount() {
+        firebase.getUserName((info) => {
+            localStorage.nome = info.val().nome
+            this.setState({ nome: localStorage.nome })
+        })
+
+        firebase.getUserName((info) => {
+            localStorage.foto = info.val().foto
+            this.setState({ foto: localStorage.foto })
+        })
+    }
+
+    home(){
+        this.props.history.replace('/');
+    }
+
+    dashBoard(){
+        this.props.history.replace('/dashboard');
+    }
+
+    newEvent(){
+        this.props.history.replace('/dashboard/newevents');
+    }
+
+    logout = async () => {
+        await firebase.logout()
+            .catch((error) => {
+                console.log(error);
+            });
+        localStorage.removeItem("nome");
+        this.props.history.push('/');
+    }
+
+    loged(){
+        if(firebase.getCurrentUid()){
+            return true
+        }
+        return false;
+    }
+
     render() {
-        return (
+        if(!this.loged())
+        return(
+                <div>
+                    <Navbar id="navbar" expand="sm">
+                        <NavbarBrand onClick={() => this.home()} id="main">Super Events</NavbarBrand>
+
+                        <NavbarToggler onClick={this.toggle} />
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="ml-auto" navbar>
+                                <NavItem>
+                                    <NavLink href="/login"><IoIosLogIn />
+                                        <span>Entrar</span></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/register" id="newevent"><IoIosAddCircleOutline />
+                                        <span>Criar Evento</span></NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+                    </Navbar>
+                </div>
+        )
+        if(this.loged())
+         return(
             <div>
-                <Navbar id="navbar" expand="md" className="fixed-top">
-                    <NavbarBrand href="/">Super Events</NavbarBrand>
+                <Navbar id="navbar" expand="sm">
+                        <NavbarBrand onClick={() => this.home()} id="main">Super Events</NavbarBrand>
 
-                    <Form className="form-inline my-2 my-lg-0">
-                        <input id="inpSearch" className="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search"></input>
-
-                        <Button id="btnSearch" className="btn btn-success my-2 my-sm-0" type="submit"><FaSearch /></Button>
-                    </Form>
-
-                    <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="/login"><IoIosLogIn />
-                                    <span>Entrar</span></NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </Navbar>
-            </div >
+                        <NavbarToggler onClick={this.toggle}/>
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="ml-auto" navbar>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav caret id="perfil">
+                                    {/* <IoIosPerson/> */}
+                                    {/* <span>{this.state.nome}</span> */}
+                                    <img src={this.state.foto}></img>
+                                    </DropdownToggle>
+                                    <DropdownMenu right id="dropdown">
+                                    <DropdownItem onClick={() => this.dashBoard()}>
+                                        Meus Eventos
+                                    </DropdownItem>
+                                    <DropdownItem onClick={() => this.newEvent()}>
+                                        Criar Evento
+                                    </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem onClick={() => this.logout()}>
+                                        Sair
+                                    </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+                            </Nav>
+                        </Collapse>
+                    </Navbar>
+            </div>
         );
     }
 }
 
-export default Header;
+export default withRouter(Header);

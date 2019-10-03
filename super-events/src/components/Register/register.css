@@ -19,13 +19,17 @@ form#register input, label {
     margin-bottom: 16px;
 }
 
-form#register input{
+form#register input[type=text]{
     margin-bottom: 15px;
     height: 40px;
     border-radius: 4px;
     border: 1px solid #ddd;
     padding: 0 20px;
     font-size: 15px;
+}
+
+form#register progress{
+    margin-bottom: 15px;
 }
 
 /* form#register button{

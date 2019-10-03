@@ -31,13 +31,14 @@ class Firebase{
         return app.auth().signOut();
     }
 
-    async register(nome, email, password){
+    async register(nome, email, password, imagem){
         await app.auth().createUserWithEmailAndPassword(email, password)
 
         const uid = app.auth().currentUser.uid;
-
+        
         return app.database().ref('usuarios').child(uid).set({
-            nome: nome
+            nome: nome,
+            foto: imagem
         })
     }
 
