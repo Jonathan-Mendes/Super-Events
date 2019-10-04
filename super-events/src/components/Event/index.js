@@ -28,6 +28,7 @@ class Event extends Component {
                 data: snapshot.val().data,
                 hora: snapshot.val().hora,
                 local: snapshot.val().local,
+                estado: snapshot.val().estado,
                 imagem: snapshot.val().imagem
             };
             this.state.date = this.state.event.data;
@@ -35,11 +36,59 @@ class Event extends Component {
         })
     }
 
-    formatDate(data) {
+    formatDate(data, formato) {
         let today = data;
-        var brDate = today.slice(8, 10) + '/' +
+        let mes = parseInt(today.slice(5, 7));
+        var brDate;
+
+        switch (mes) {
+            case 1:
+                mes = 'Jan'
+                break;
+            case 2:
+                mes = 'Fev'
+                break;
+            case 3:
+                mes = 'Mar'
+                break;
+            case 4:
+                mes = 'Abr'
+                break;
+            case 5:
+                mes = 'Mai'
+                break;
+            case 6:
+                mes = 'Jun'
+                break;
+            case 7:
+                mes = 'Jul'
+                break;
+            case 8:
+                mes = 'Ago'
+                break;
+            case 9:
+                mes = 'Set'
+                break;
+            case 10:
+                mes = 'Out'
+                break;
+            case 11:
+                mes = 'Nov'
+                break;
+            case 12:
+                mes = 'Dez'
+                break;
+            default:
+                today.slice(5, 7)
+        }
+
+        if (formato){
+            brDate = mes + '/' + today.slice(0, 4);
+        } else {
+            brDate = today.slice(8, 10) + '/' +
             today.slice(5, 7) + '/' +
             today.slice(0, 4);
+        }
 
         return brDate;
     }
@@ -51,7 +100,7 @@ class Event extends Component {
     render() {
         const { titulo, autor, descricao, hora, local, imagem } = this.state.event;
         return (
-            <div className="event-info">
+            <div className="my-4">
                 <Container>
                     {/*<Row>
                         <Col xs="12">
@@ -65,7 +114,7 @@ class Event extends Component {
 
                         <Col xs='4'>
                             <div className="h-100 shadow p-3 mb-5 bg-white rounded">
-                                <p>{this.formatDate(this.state.date)}</p>
+                                <p>{this.formatDate(this.state.date, true)}</p>
 
                                 <h2>{titulo}</h2>
                                 <p>por {autor}</p>
@@ -81,7 +130,12 @@ class Event extends Component {
 
                     <Row className="mx-auto">
                         <Col xs='12' className="h-100 my-4 shadow p-3 mb-5 bg-white rounded">
-                            <h3>Descrição</h3>
+                            <h4>Informações do Evento</h4>
+                            <span>Nome do Evento: </span> {titulo}
+                            <span>Data: </span> {this.formatDate(this.state.date, false)}
+                            <span>Horário: </span> {hora + "h"}
+                            <span>Produtora: </span> {autor}
+                            {/*<h5>Local: </h5> {local + ' ' + local + ' ' + estado}*/}
                             <p>{descricao}</p>
                         </Col>
                     </Row>
