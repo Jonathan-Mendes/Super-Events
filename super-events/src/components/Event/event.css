@@ -6,3 +6,11 @@
     /* max-width: 95% !important; */
     max-height: 500px;
 }
+
+.span{
+    font-weight: bold;
+}
+
+.descricao{
+    border-top: 1px solid black;
+}

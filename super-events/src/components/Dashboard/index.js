@@ -47,6 +47,7 @@ class Dashboard extends Component {
                     descricao: childItem.val().descricao,
                     data: childItem.val().data,
                     hora: childItem.val().hora,
+                    cidade: childItem.val().cidade,
                     local: childItem.val().local,
                     autor: childItem.val().autor,
                     ativo: childItem.val().ativo
@@ -150,7 +151,7 @@ class Dashboard extends Component {
                                                                         <div>
                                                                             <p>
                                                                                 <FaMapMarkerAlt className='icon mx-2' />
-                                                                                {post.local}
+                                                                                {post.cidade}
                                                                             </p>
                                                                         </div>
                                                                     </Col>

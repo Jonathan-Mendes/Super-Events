@@ -24,6 +24,7 @@ class NewEvents extends Component {
             cidades: [],
             estados: [],
             estado: '',
+            cidade: '',
             local: '',
             progress: 0,
             error: null,
@@ -86,6 +87,7 @@ class NewEvents extends Component {
                 hora: this.state.hora,
                 horaFinal: this.state.horaFinal,
                 estado: this.state.estado,
+                cidade: this.state.cidade,
                 local: this.state.local,
                 autor: localStorage.nome,
                 ativo: this.state.ativo
@@ -332,6 +334,7 @@ class NewEvents extends Component {
                             <Input id="name" type="text" value={this.state.titulo} placeholder="Nome do post" autoFocus
                                 onChange={(e) => this.setState({ titulo: e.target.value })} />
                         </FormGroup>
+
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
@@ -364,10 +367,10 @@ class NewEvents extends Component {
                                 </FormGroup>
                             </Col>
                         </Row>
-
+                        
                         <FormGroup>
-                            <Label for="exampleSelect">Estado:</Label>
-                            <Input type="select" name="select" id="selectEStados"
+                            <Label for="selectEstados">Estado:</Label>
+                            <Input type="select" name="estado" id="selectEstados"
                                 onChange={(e) => this.setState({ estado: e.target.value })}>
                                 <option value=''></option>
                                 {estados.map(estado => (
@@ -379,9 +382,9 @@ class NewEvents extends Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="exampleSelect">Local do Evento:</Label>
-                            <Input type="select" name="select" id="selectEStados"
-                                onChange={(e) => this.setState({ local: e.target.value })}>
+                            <Label for="selectCidades">Cidade:</Label>
+                            <Input type="select" name="cidade" id="selectCidades"
+                                onChange={(e) => this.setState({ cidade: e.target.value })}>
                                 {this.fillCityList()}
                                 <option value=''></option>
                                 {cidades.map(cidade => (
@@ -390,6 +393,12 @@ class NewEvents extends Component {
                                     </option>
                                 ))}
                             </Input>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="local">Local do Evento: </Label>
+                            <Input id="local" type="text" value={this.state.local} placeholder="Local do Evento"
+                                onChange={(e) => this.setState({ local: e.target.value })} />
                         </FormGroup>
 
                         <FormGroup>

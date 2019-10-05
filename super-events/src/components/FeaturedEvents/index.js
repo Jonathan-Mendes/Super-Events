@@ -31,6 +31,7 @@ class FeaturedEvents extends Component {
                     data: childItem.val().data,
                     hora: childItem.val().hora,
                     local: childItem.val().local,
+                    cidade: childItem.val().cidade,
                     autor: childItem.val().autor,
                     ativo: childItem.val().ativo
                 });
@@ -97,7 +98,7 @@ class FeaturedEvents extends Component {
                                                                     <div>
                                                                         <p>
                                                                             <FaMapMarkerAlt className='icon mx-2' />
-                                                                            {post.local}
+                                                                            {post.cidade}
                                                                         </p>
                                                                     </div>
                                                                 </Col>
@@ -158,7 +159,7 @@ class FeaturedEvents extends Component {
                                                                 <div>
                                                                     <p>
                                                                         <FaMapMarkerAlt className='icon mx-2' />
-                                                                        {post.local}
+                                                                        {post.cidade}
                                                                     </p>
                                                                 </div>
                                                             </Col>
@@ -218,7 +219,7 @@ class FeaturedEvents extends Component {
                                                                 <div>
                                                                     <p>
                                                                         <FaMapMarkerAlt className='icon mx-2' />
-                                                                        {post.local}
+                                                                        {post.cidade}
                                                                     </p>
                                                                 </div>
                                                             </Col>
