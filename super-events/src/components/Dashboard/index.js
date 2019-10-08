@@ -99,10 +99,12 @@ class Dashboard extends Component {
                         <h5>Olá, {this.state.nome}</h5>
                     </div>
                     <p>Logado com {firebase.getCurrent()}</p>
-                    <Button color="success" onClick={() => this.newEvent()}>
+                    
+                    
+                    {/*<Button color="success" onClick={() => this.newEvent()}>
                         <span><IoIosAdd /></span> Novo Post</Button>
                     <Button color="danger" onClick={() => this.logout()}>
-                        <span><IoIosLogOut /></span> Sair</Button>
+                        <span><IoIosLogOut /></span> Sair</Button>*/}
 
                     <div id="tip">
                         <Row>
@@ -130,16 +132,16 @@ class Dashboard extends Component {
                                                                     <Col xs='6'>
 
                                                                         <div className="box">
-                                                                            <span>
+                                                                            <p>
                                                                                 <FaRegCalendarAlt className='icon' />{this.formatDate(post.data)}
-                                                                            </span>
+                                                                            </p>
                                                                         </div>
                                                                     </Col>
 
                                                                     <Col xs='6'>
                                                                         <div className="box">
                                                                             <p>
-                                                                                <FaRegClock class='icon mx-2' />
+                                                                                <FaRegClock className='icon mx-2' />
                                                                                 {post.hora}
                                                                             </p>
                                                                         </div>

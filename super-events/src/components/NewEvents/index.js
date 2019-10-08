@@ -7,7 +7,6 @@ import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress, Sp
 class NewEvents extends Component {
 
     now = new Date;
-    alert = '';
 
     constructor(props) {
         super(props);
@@ -34,16 +33,11 @@ class NewEvents extends Component {
         this.cadastrar = this.cadastrar.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
-        this.verificaDate = this.verificaDate.bind(this);
         this.fillCityList = this.fillCityList.bind(this);
         this.formatDate = this.formatDate.bind(this);
-        // this.formatTime = this.formatTime.bind(this);
+        this.verificaDate = this.verificaDate.bind(this);
+        this.formatTime = this.formatTime.bind(this);
         this.verificaTime = this.verificaTime.bind(this);
-        this.verificaImg = this.verificaImg.bind(this);
-        this.verificaTitle = this.verificaTitle.bind(this);
-        this.verificaState = this.verificaState.bind(this);
-        this.verificaCity = this.verificaCity.bind(this);
-        this.verificaDesc = this.verificaDesc.bind(this);
     }
 
     componentDidMount() {
@@ -71,10 +65,15 @@ class NewEvents extends Component {
 
     cadastrar = async (e) => {
         e.preventDefault();
-        // if (this.verificaImg() && this.verificaTitle() &&
-        //     this.verificaState() && this.verificaCity() &&
-        //     this.verificaDate() && this.verificaTime() && this.verificaDesc()) {
-            if(true){
+        if (this.state.titulo !== '' && this.state.imagem !== '' &&
+            this.state.imagem !== null && this.state.url !== '' &&
+            this.state.imagem !== '' && this.state.descricao !== '' &&
+            this.state.data !== '' && this.state.data.length === 10 &&
+            this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
+            this.state.hora !== '' && this.horaFinal !== '' &&
+            this.state.local !== '' && this.state.estado !== '' &&
+            this.state.cidade !== '' && this.verificaDate() && this.verificaTime() || true)
+            {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(chave).set({
@@ -89,14 +88,13 @@ class NewEvents extends Component {
                 estado: this.state.estado,
                 cidade: this.state.cidade,
                 local: this.state.local,
-                autor: localStorage.nome,
-                ativo: this.state.ativo
+                autor: localStorage.nome
             });
             this.props.history.push('/dashboard');
         } else {
-            // this.setState({ alert: 'Preencha todos os campos corretamente!' });
-            alert(this.alert);
-            this.alert = '';
+            //this.setState({ alert: 'Preencha todos os campos corretamente!' });
+            alert('Preencha todos os campos corretamente!');
+            //this.alert = '';
         }
     }
 
@@ -170,41 +168,41 @@ class NewEvents extends Component {
         return today.slice(ini, fim);
     }
 
-    // formatTime(time, ini, fim) {
-    //     return time.slice(ini, fim)
-    // }
+    formatTime(time, ini, fim) {
+        return time.slice(ini, fim)
+    }
 
     verificaTime() {
-        // let horaIni = this.formatTime(this.state.hora, 0, 2)
-        // let minIni = this.formatTime(this.state.hora, 3, 5)
-        // let horaTer = this.formatTime(this.state.horaFinal, 0, 2)
-        // let minTer = this.formatTime(this.state.horaFinal, 3, 5)
+        let horaIni = this.formatTime(this.state.hora, 0, 2)
+        let minIni = this.formatTime(this.state.hora, 3, 5)
+        let horaTer = this.formatTime(this.state.horaFinal, 0, 2)
+        let minTer = this.formatTime(this.state.horaFinal, 3, 5)
+
+        if (this.state.hora !== '' || this.horaFinal !== '') {
+            alert('Hora inválida!');
+            return false;
+        } else if (this.state.data === this.state.dataFinal && horaIni > horaTer) {
+            // this.setState({ alert: 'Hora inválida!' });
+            alert('Hora inválida!');
+            return false;
+        } else if (this.state.data === this.state.dataFinal && horaIni === horaTer && minIni > minTer) {
+            // this.setState({ alert: 'Hora inválida!' });
+            alert('Hora inválida!');
+            return false;
+        } else {
+            return true;
+        }
 
         // if (this.state.hora !== '' || this.horaFinal !== '') {
         //     this.alert = 'Hora inválida!';
         //     return false;
-        // } else if (this.state.data === this.state.dataFinal && horaIni > horaTer) {
-        //     // this.setState({ alert: 'Hora inválida!' });
+        // } else if (this.state.data === this.state.dataFinal &&
+        //     this.state.hora > this.state.horaFinal) {
         //     this.alert = 'Hora inválida!';
         //     return false;
-        // } else if (this.state.data === this.state.dataFinal && horaIni === horaTer && minIni > minTer) {
-        //     // this.setState({ alert: 'Hora inválida!' });
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // } else {
+        // }else{
         //     return true;
         // }
-
-        if (this.state.hora !== '' || this.horaFinal !== '') {
-            this.alert = 'Hora inválida!';
-            return false;
-        } else if (this.state.data === this.state.dataFinal &&
-            this.state.hora > this.state.horaFinal) {
-            this.alert = 'Hora inválida!';
-            return false;
-        }else{
-            return true;
-        }
 
 
     }
@@ -219,21 +217,21 @@ class NewEvents extends Component {
 
         if (this.state.data !== '' || this.state.data.length === 10 ||
             this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
-            this.alert = 'Data inválida!';
+            alert('Data inválida!');
             return false;
         }
         if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
             // this.setState({ alert: 'Data inválida!' });
-            this.alert = 'Data inválida!';
+            alert('Data inválida!');
             return false;
         } else if ((anoIni === this.now.getFullYear() && mesIni < this.now.getMonth())
             || (anoIni === anoTer && mesIni > mesTer)) {
             // this.setState({ alert: 'Data inválida!' });
-            this.alert = 'Data inválida!';
+            alert('Data inválida!');
             return false;
         } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {
             // this.setState({ alert: 'Data inválida!' });
-            this.alert = 'Data inválida!';
+            alert('Data inválida!');
             return false;
         } else {
             return true;
@@ -248,52 +246,6 @@ class NewEvents extends Component {
         //         return false;
         // }
         
-    }
-
-    verificaImg() {
-        // if (this.state.imagem !== '' || this.state.imagem !== null || this.state.url !== '') {
-        //     // this.alert = 'Insira uma imagem!'
-        //     return false;
-        // } else {
-        //     return true;
-        // }
-        return true
-    }
-
-    verificaTitle() {
-        if (this.state.titulo !== '') {
-            this.alert = 'Insira um título!'
-            return false
-        } else {
-            return true
-        }
-    }
-
-    verificaState() {
-        if (this.state.estado !== '') {
-            this.alert = 'Insira um estado!'
-            return false
-        } else {
-            return true
-        }
-    }
-
-    verificaCity() {
-        if (this.state.local !== '') {
-            this.alert = 'Insira uma cidade!'
-            return false
-        } else {
-            return true
-        }
-    }
-
-    verificaDesc() {
-        if (this.state.descricao !== '') {
-            this.alert = 'Insira uma descrição!'
-            return false
-        } else {
-            return true
-        }
     }
 
     render() {

@@ -16,7 +16,6 @@ class Login extends Component {
         };
         this.entrar = this.entrar.bind(this);
         this.login = this.login.bind(this);
-        //this.recuperarSenha = this.recuperarSenha.bind(this);
     }
 
     componentDidMount() {
