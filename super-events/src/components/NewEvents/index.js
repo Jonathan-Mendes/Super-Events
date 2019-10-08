@@ -7,7 +7,7 @@ import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress, Sp
 class NewEvents extends Component {
 
     now = new Date;
-    alert = ''
+    alert = '';
 
     constructor(props) {
         super(props);

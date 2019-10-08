@@ -28,6 +28,7 @@ class Event extends Component {
                 descricao: snapshot.val().descricao,
                 data: snapshot.val().data,
                 hora: snapshot.val().hora,
+                horaFinal : snapshot.val().horaFinal,
                 cidade: snapshot.val().cidade,
                 local: snapshot.val().local,
                 estado: snapshot.val().estado,
@@ -127,6 +128,7 @@ class Event extends Component {
         }
         return sigla;
     }
+
     formatDate(data, formato) {
         let today = data;
         let mes = parseInt(today.slice(5, 7));
@@ -189,7 +191,7 @@ class Event extends Component {
     }
 
     render() {
-        const { titulo, autor, descricao, hora, local, cidade, estado, imagem } = this.state.event;
+        const { titulo, autor, descricao, hora, horaFinal, local, cidade, estado, imagem } = this.state.event;
         return (
             <div className="my-4">
                 <Container>
@@ -209,7 +211,7 @@ class Event extends Component {
 
                                 <h2>{titulo}</h2>
                                 <p>por {autor}</p>
-                                <p>Local: {local}</p>
+                                <p>Cidade: {cidade + " - " + this.formatEstado(estado)}</p>
                                 <p>Hora do Evento: {hora}</p>
                                 <div className="bottomZero">
                                     <p>Valor do ingresso: R$100</p>
@@ -224,7 +226,8 @@ class Event extends Component {
                             <h4 className="text-center">Informações do Evento</h4>
                             <span className='span'>Nome do Evento: </span> {titulo} <br></br>
                             <span className='span'>Data: </span> {this.formatDate(this.state.date, false)} <br></br>
-                            <span className='span'>Horário: </span> {hora} <br></br>
+                            <span className='span'>Horário de Início: </span> {hora} <br></br>
+                            <span className='span'>Horário de Término: </span> {horaFinal} <br></br>
                             <span className='span'>Produtora: </span> {autor} <br></br>
                             <span className='span'>Cidade: </span> {cidade + " - " + this.formatEstado(estado)} <br></br>
                             <span className='span'>Local: </span> {local}

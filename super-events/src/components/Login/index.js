@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './login.css';
+//import * as admin from 'firebase-admin';
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+
 
 class Login extends Component {
 
@@ -14,6 +16,7 @@ class Login extends Component {
         };
         this.entrar = this.entrar.bind(this);
         this.login = this.login.bind(this);
+        //this.recuperarSenha = this.recuperarSenha.bind(this);
     }
 
     componentDidMount() {
@@ -21,6 +24,11 @@ class Login extends Component {
         if (firebase.getCurrent()) {
             return this.props.history.replace('/dashboard');
         }
+
+        // admin.initializeApp({
+        //     credential: admin.credential.applicationDefault(),
+        //     databaseURL: 'https://super-events-f85d9.firebaseio.com'
+        //   });
     }
 
     entrar(e) {
@@ -49,6 +57,42 @@ class Login extends Component {
 
     }
 
+
+    // resetPass(appName, email){
+    //     admin.auth().generatePasswordResetLink(email)
+    //       .then((link) => {
+    //         link = 'https://www.youtube.com/?reload=9';
+    //         return sendCustomPasswordResetEmail(email, appName, link);
+    //       })
+    //       .catch((error) => {
+    //         // Some error occurred.
+    //       });
+    // }
+
+    // recuperarSenha() {
+    //     const email = firebase.getCurrent();
+    //     const appName = "SuperEvents";
+    //     let aux = resetPass(appName, email);
+    //     aux.then(function() {
+    //       console.log('email sent!');
+    //     }).catch(function(error) {
+    //       // An error happened.
+    //     });
+    // }
+    
+    
+    // // Admin SDK API to generate the email verification link.
+    // const useremail = 'user@example.com';
+    // admin.auth().generateEmailVerificationLink(useremail, actionCodeSettings)
+    //   .then((link) => {
+    //     // Construct email verification template, embed the link and send
+    //     // using custom SMTP server.
+    //     return sendCustomVerificationEmail(useremail, displayName, link);
+    //   })
+    //   .catch((error) => {
+    //     // Some error occurred.
+    //   });
+
     render() {
         return (
             <div>
@@ -57,7 +101,7 @@ class Login extends Component {
                     <FormGroup>
                         <Label>Email: </Label>
                         <Input type="email" autoComplete="off" autoFocus value={this.state.email}
-                            onChange={(e) => this.setState({ email: e.target.value })} placeholder="joao@gmail.com" />
+                            onChange={(e) => this.setState({ email: e.target.value })} placeholder="email@gmail.com" />
                     </FormGroup>
 
                     <FormGroup>
@@ -69,6 +113,8 @@ class Login extends Component {
                     <Button type="submit" color="info">Entrar</Button>
 
                     <Link to="/register">Ainda não possui conta?</Link>
+
+                    <Link>Esqueci minha senha</Link>
                 </Form>
             </div>
         );
