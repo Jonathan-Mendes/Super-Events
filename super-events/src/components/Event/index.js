@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
 import './event.css';
-import { Button, Col, Row, Container } from 'reactstrap';
+import { Button, Col, Row, Container, Table } from 'reactstrap';
+import { IoMdAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io"
 
 class Event extends Component {
 
@@ -9,12 +10,16 @@ class Event extends Component {
         super(props);
         this.state = {
             event: [],
-            date: ''
+            date: '',
+            qtd: 0,
+            valorTotal: 0
         }
         this.formatDate = this.formatDate.bind(this);
         this.formatEstado = this.formatEstado.bind(this);
         this.back = this.back.bind(this);
         this.renderiza = this.renderiza.bind(this);
+        this.increment = this.increment.bind(this);
+        this.decrement = this.decrement.bind(this);
     }
 
     componentDidMount() {
@@ -29,7 +34,7 @@ class Event extends Component {
                 descricao: snapshot.val().descricao,
                 data: snapshot.val().data,
                 hora: snapshot.val().hora,
-                horaFinal : snapshot.val().horaFinal,
+                horaFinal: snapshot.val().horaFinal,
                 cidade: snapshot.val().cidade,
                 local: snapshot.val().local,
                 estado: snapshot.val().estado,
@@ -193,17 +198,62 @@ class Event extends Component {
     back = async () => {
         this.props.history.replace('/');
     }
-    
-    renderiza(){
-        if(this.state.valorIngresso){
-            return(
-                <div>
-                    <p>Inteira: R$ {this.state.valorIngressoInt},00</p>
-                    <p>Meia Entrada: R$ {this.state.valorIngressoMei},00</p>
+
+    increment = () => {
+        this.setState({
+            qtd: ++this.state.qtd
+        })
+    }
+
+    decrement = () => {
+        if (this.state.qtd !== 0) {
+            this.setState({
+                qtd: --this.state.qtd
+            })
+        }
+    }
+
+    renderiza() {
+        if (this.state.event.valorIngresso) {
+            return (
+                <div className="bord my-2">
+                    {/*<h5 className="my-3 text-center">Valor do Ingresso</h5>
+                    <p>Inteira R$ {this.state.event.valorIngressoInt},00</p>
+            <p>Meia Entrada: R$ {this.state.event.valorIngressoMeia},00</p>*/}
+
+                    <Table borderless>
+                        <thead>
+                            <tr>
+                                <th>Entrada</th>
+                                <th>Quantidade</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Inteira</td>
+                                <td>
+                                    <Button color="info" onClick={this.increment}><IoMdAddCircleOutline /></Button>
+                                    {this.state.qtd}
+                                    <Button color="info" onClick={this.decrement}><IoIosRemoveCircleOutline /></Button>
+                                </td>
+                                <td>R$ {this.state.event.valorIngressoInt},00</td>
+                            </tr>
+                            <tr>
+                                <td>Meia</td>
+                                <td></td>
+                                <td>R$ {this.state.event.valorIngressoMeia},00</td>
+                            </tr>
+                            <td colSpan='2'>Total:</td>
+                            <td>{this.state.valorTotal}</td>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </div>
             );
-        } else{
-            return(
+        } else {
+            return (
                 <p color="success">Entrada Gratuita</p>
             );
         }
@@ -234,7 +284,7 @@ class Event extends Component {
                                 <p>Hora do Evento: {hora}</p>
                                 {this.renderiza()}
                                 <Button className="w-100" color="success">Comprar</Button>
-                                
+
                             </div>
                         </Col>
                     </Row>
@@ -249,7 +299,7 @@ class Event extends Component {
                             <span className='span'>Produtora: </span> {autor} <br></br>
                             <span className='span'>Cidade: </span> {cidade + " - " + this.formatEstado(estado)} <br></br>
                             <span className='span'>Local: </span> {local}
-                            <div className="descricao my-3">
+                            <div className="bord my-3">
                                 <p className="my-3">{descricao}</p>
                             </div>
                         </Col>

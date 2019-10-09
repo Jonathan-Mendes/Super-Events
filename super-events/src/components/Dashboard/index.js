@@ -109,7 +109,7 @@ class Dashboard extends Component {
                     <div id="tip">
                         <Row>
                             <Col xs='12'>
-                                <h5 id="title">Meus os Eventos</h5>
+                                <h5 id="title">Meus Eventos</h5>
                             </Col>
                         </Row>
                         <Container id="post" class="container">
