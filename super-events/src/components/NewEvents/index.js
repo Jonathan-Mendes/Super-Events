@@ -6,6 +6,7 @@ import {
     Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress,
     Spinner, CustomInput, InputGroupAddon, InputGroup, InputGroupText
 } from 'reactstrap';
+import CurrencyInput from 'react-currency-masked-input'
 
 class NewEvents extends Component {
 
@@ -82,8 +83,7 @@ class NewEvents extends Component {
             // this.state.cidade !== '' && this.verificaDate() && 
             // this.verificaTime() && this.valorIngressoInt !== '' && 
             // this.valorIngressoMeia !== '') || 
-            true) 
-            {
+            true) {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(chave).set({
@@ -266,29 +266,18 @@ class NewEvents extends Component {
             return (
                 <div>
                     <Label>Valor do Ingresso:</Label>
-                    <InputGroup>
-                        <InputGroupAddon>
-                            <InputGroupText className="bg-info text-white">R$</InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="valInt" placeholder="Inteira" min={0} max={100} type="number" step="1"
-                        onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} required />
-                        <InputGroupAddon>
-                            <InputGroupText className="bg-info text-white">.00</InputGroupText>
-                        </InputGroupAddon>
-                    </InputGroup>
-                    <InputGroup>
-                        <InputGroupAddon>
-                            <InputGroupText className="bg-info text-white">R$</InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="valInt" placeholder="Meia Entrada" min={1} max={100000} type="number" step="1"
-                        onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} required />
-                        <InputGroupAddon>
-                            <InputGroupText className="bg-info text-white">.00</InputGroupText>
-                        </InputGroupAddon>
-                    </InputGroup>
+                    <div>
+                        <label for="valInt" className="text-info font-weight-bold mx-2">Inteira <span className="text-success">R$</span></label>
+                        <CurrencyInput className="ingressoBorder" id="valInt" placeholder="00,00" min={1} max={10000} required
+                        onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+
+                        <label for="valInt" className="text-info font-weight-bold mx-2">Meia Entrada <span className="text-success">R$</span></label>
+                        <CurrencyInput className="ingressoBorder" id="valMeia" placeholder="00,00" min={1} max={10000} required
+                         onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+                    </div>
                 </div>
             );
-        } else{
+        } else {
             this.state.valorIngressoInt = 0
             this.state.valorIngressoMeia = 0
         }
@@ -337,16 +326,16 @@ class NewEvents extends Component {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label for="dateIn">Data de Início:</Label>
-                                    <Input id="dateIn" type="date" value={this.state.data} 
-                                    onChange={(e) => this.setState({ data: e.target.value })} required />
+                                    <Input id="dateIn" type="date" value={this.state.data}
+                                        onChange={(e) => this.setState({ data: e.target.value })} required />
                                 </FormGroup>
                             </Col>
 
                             <Col md={6}>
                                 <FormGroup>
                                     <Label for="dateFi">Data de Término:</Label>
-                                    <Input id="dateFi" type="date" value={this.state.dataFinal} 
-                                    onChange={(e) => this.setState({ dataFinal: e.target.value })} required />
+                                    <Input id="dateFi" type="date" value={this.state.dataFinal}
+                                        onChange={(e) => this.setState({ dataFinal: e.target.value })} required />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -356,7 +345,7 @@ class NewEvents extends Component {
                                 <FormGroup>
                                     <Label for="hrIn">Hora de Início:</Label>
                                     <Input id="hrIn" type="time" value={this.state.hora}
-                                     onChange={(e) => this.setState({ hora: e.target.value })} required />
+                                        onChange={(e) => this.setState({ hora: e.target.value })} required />
                                 </FormGroup>
 
                             </Col>
@@ -365,7 +354,7 @@ class NewEvents extends Component {
                                 <FormGroup>
                                     <Label for="hrFi">Hora do Término:</Label>
                                     <Input id="hrFi" type="time" value={this.state.horaFinal}
-                                    onChange={(e) => this.setState({ horaFinal: e.target.value })} required />
+                                        onChange={(e) => this.setState({ horaFinal: e.target.value })} required />
                                 </FormGroup>
                             </Col>
                         </Row>

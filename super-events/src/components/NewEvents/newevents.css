@@ -74,10 +74,13 @@ form#new-post textarea{
     justify-content: center;
 }
 
-.ingresso{
-    color: #272727 !important;
+.ingressoBorder{
+    border: 1px solid #ced4da;
 }
 
+.ingressoBorder:hover{
+    border: 1px solid #17a2b8;
+}
 /* form#new-post button{
     padding: 10px 20px;
     border-radius: 4px;

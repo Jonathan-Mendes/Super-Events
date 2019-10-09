@@ -13,6 +13,7 @@
     "node-cpf": "^1.0.20",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.12",
+    "react-currency-masked-input": "^2.4.0",
     "react-dom": "^16.9.0",
     "react-icons": "^3.7.0",
     "react-router-dom": "^5.0.1",

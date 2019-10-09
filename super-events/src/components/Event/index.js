@@ -57,87 +57,33 @@ class Event extends Component {
         let state = parseInt(estado)
 
         switch (state) {
-            case 11:
-                sigla = "RO"
-                break
-            case 12:
-                sigla = "AC"
-                break
-            case 13:
-                sigla = "AM"
-                break
-            case 14:
-                sigla = "RR"
-                break
-            case 15:
-                sigla = "PA"
-                break
-            case 16:
-                sigla = "AP"
-                break
-            case 17:
-                sigla = "TO"
-                break
-            case 21:
-                sigla = "MA"
-                break
-            case 22:
-                sigla = "PI"
-                break
-            case 23:
-                sigla = "CE"
-                break
-            case 24:
-                sigla = "RN"
-                break
-            case 25:
-                sigla = "PB"
-                break
-            case 26:
-                sigla = "PE"
-                break
-            case 27:
-                sigla = "AL"
-                break
-            case 28:
-                sigla = "SE"
-                break
-            case 29:
-                sigla = "BA"
-                break
-            case 31:
-                sigla = "MG"
-                break
-            case 32:
-                sigla = "ES"
-                break
-            case 33:
-                sigla = "RJ"
-                break
-            case 35:
-                sigla = "SP"
-                break
-            case 41:
-                sigla = "PR"
-                break
-            case 42:
-                sigla = "SC"
-                break
-            case 43:
-                sigla = "RS"
-                break
-            case 50:
-                sigla = "MS"
-                break
-            case 51:
-                sigla = "MT"
-                break
-            case 52:
-                sigla = "GO"
-                break
-            case 53:
-                sigla = "DF"
-                break
+            case 11: sigla = "RO"; break;
+            case 12: sigla = "AC"; break;
+            case 13: sigla = "AM"; break;
+            case 14: sigla = "RR";  break;
+            case 15: sigla = "PA"; break;
+            case 16: sigla = "AP"; break;
+            case 17: sigla = "TO"; break;
+            case 21: sigla = "MA"; break;
+            case 22: sigla = "PI"; break;
+            case 23: sigla = "CE"; break;
+            case 24: sigla = "RN"; break;
+            case 25: sigla = "PB"; break;
+            case 26: sigla = "PE"; break;
+            case 27: sigla = "AL"; break;
+            case 28: sigla = "SE"; break;
+            case 29: sigla = "BA"; break;
+            case 31: sigla = "MG"; break;
+            case 32: sigla = "ES"; break;
+            case 33: sigla = "RJ"; break;
+            case 35: sigla = "SP"; break;
+            case 41: sigla = "PR"; break;
+            case 42: sigla = "SC"; break;
+            case 43: sigla = "RS"; break;
+            case 50: sigla = "MS"; break;
+            case 51: sigla = "MT"; break;
+            case 52: sigla = "GO"; break;
+            case 53: sigla = "DF"; break;
         }
         return sigla;
     }
@@ -148,42 +94,18 @@ class Event extends Component {
         var brDate;
 
         switch (mes) {
-            case 1:
-                mes = 'Jan'
-                break;
-            case 2:
-                mes = 'Fev'
-                break;
-            case 3:
-                mes = 'Mar'
-                break;
-            case 4:
-                mes = 'Abr'
-                break;
-            case 5:
-                mes = 'Mai'
-                break;
-            case 6:
-                mes = 'Jun'
-                break;
-            case 7:
-                mes = 'Jul'
-                break;
-            case 8:
-                mes = 'Ago'
-                break;
-            case 9:
-                mes = 'Set'
-                break;
-            case 10:
-                mes = 'Out'
-                break;
-            case 11:
-                mes = 'Nov'
-                break;
-            case 12:
-                mes = 'Dez'
-                break;
+            case 1: mes = 'Jan'; break;
+            case 2: mes = 'Fev'; break;
+            case 3: mes = 'Mar'; break;
+            case 4: mes = 'Abr'; break;
+            case 5: mes = 'Mai'; break;
+            case 6: mes = 'Jun'; break;
+            case 7: mes = 'Jul'; break;
+            case 8: mes = 'Ago'; break;    
+            case 9: mes = 'Set';  break;
+            case 10: mes = 'Out'; break;
+            case 11: mes = 'Nov'; break;
+            case 12: mes = 'Dez'; break;
             default:
                 today.slice(5, 7)
         }
@@ -207,7 +129,7 @@ class Event extends Component {
         this.setState({
             qtdInteira: ++this.state.qtdInteira,
             qtdTotal: ++this.state.qtdTotal,
-            valorTotal:  +this.state.valorIngressoInt
+            valorTotal: +this.state.valorIngressoInt
         })
     }
 
@@ -216,7 +138,7 @@ class Event extends Component {
             this.setState({
                 qtdInteira: --this.state.qtdInteira,
                 qtdTotal: --this.state.qtdTotal,
-                valorTotal:  -this.state.valorIngressoInt
+                valorTotal: -this.state.valorIngressoInt
             })
         }
     }
@@ -306,7 +228,7 @@ class Event extends Component {
                         </Col>
 
                         <Col xs='4'>
-                            <div className="h-100 shadow p-3 mb-5 bg-white rounded max">
+                            <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
                                 <p className="date text-info">{this.formatDate(this.state.date, true)}</p>
 
                                 <h2>{titulo}</h2>
@@ -322,14 +244,31 @@ class Event extends Component {
 
                     <Row className="mx-auto">
                         <Col xs='12' className="h-100 my-4 shadow p-3 mb-5 bg-white rounded">
-                            <h4 className="text-center text-dark">Informações do Evento</h4>
-                            <p className="font-weight-bold">Nome do Evento: <span className="text-info">{titulo}</span></p>
-                            <p className="font-weight-bold">Data: <span className="text-info">{this.formatDate(this.state.date, false)}</span></p>
-                            <p className="font-weight-bold">Horário de Início: <span className="text-info">{hora}</span></p>
-                            <p className="font-weight-bold">Horário de Término:<span className="text-info"> {horaFinal}</span></p>
-                            <p className="font-weight-bold">Produtora: <span className="text-info">{autor}</span></p>
-                            <p className="font-weight-bold">Cidade: <span className="text-info">{cidade + " - " + this.formatEstado(estado)}</span></p>
-                            <p className="font-weight-bold">Local: <span className="text-info">{local}</span></p>
+                            <h4 className="text-center text-info">Informações do Evento</h4>
+                            <Table responsive>
+                                <thead>
+                                    <tr>
+                                        <th className="text-center">Nome do Evento</th>
+                                        <th className="text-center">Data</th>
+                                        <th className="text-center">Horário de Início</th>
+                                        <th className="text-center">Produtora</th>
+                                        <th className="text-center">Cidade</th>
+                                        <th className="text-center">Local</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="text-center text-info font-weight-bold">{this.formatDate(this.state.date, false)}</td>
+                                        <td className="text-center text-info font-weight-bold">{hora}</td>
+                                        <td className="text-center text-info font-weight-bold">{horaFinal}</td>
+                                        <td className="text-center text-info font-weight-bold">{autor}</td>
+                                        <td className="text-center text-info font-weight-bold">{cidade + " - " + this.formatEstado(estado)}</td>
+                                        <td className="text-center text-info font-weight-bold">{local}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+
+
                             <div className="bord my-3">
                                 <p className="my-3 descricao">{descricao}</p>
                             </div>
