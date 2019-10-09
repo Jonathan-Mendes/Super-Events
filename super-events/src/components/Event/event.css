@@ -7,10 +7,30 @@
     max-height: 500px;
 }
 
-.span{
-    font-weight: bold;
+.descricao{
+    font-size: 20px;
 }
 
 .bord{
     border-top: 1px solid black;
+}
+
+.btnCompras{
+    font-size: 30px;
+    text-align: center;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.autor{
+    color: grey;
+}
+
+.date{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.max{
+    max-height: 500px;
 }
