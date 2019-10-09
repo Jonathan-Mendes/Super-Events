@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './newevents.css';
-import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress, Spinner } from 'reactstrap';
+import {
+    Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress,
+    Spinner, CustomInput, InputGroupAddon, InputGroup, InputGroupText
+} from 'reactstrap';
 
 class NewEvents extends Component {
 
@@ -28,7 +31,9 @@ class NewEvents extends Component {
             progress: 0,
             error: null,
             isLoaded: false,
-            ativo: true
+            valorIngresso: false,
+            valorIngressoInt: '',
+            valorIngressoMeia: ''
         };
         this.cadastrar = this.cadastrar.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -38,6 +43,7 @@ class NewEvents extends Component {
         this.verificaDate = this.verificaDate.bind(this);
         this.formatTime = this.formatTime.bind(this);
         this.verificaTime = this.verificaTime.bind(this);
+        this.renderiza = this.renderiza.bind(this);
     }
 
     componentDidMount() {
@@ -65,14 +71,18 @@ class NewEvents extends Component {
 
     cadastrar = async (e) => {
         e.preventDefault();
-        if (this.state.titulo !== '' && this.state.imagem !== '' &&
-            this.state.imagem !== null && this.state.url !== '' &&
-            this.state.imagem !== '' && this.state.descricao !== '' &&
-            this.state.data !== '' && this.state.data.length === 10 &&
-            this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
-            this.state.hora !== '' && this.horaFinal !== '' &&
-            this.state.local !== '' && this.state.estado !== '' &&
-            this.state.cidade !== '' && this.verificaDate() && this.verificaTime() || true)
+        if (
+            // (this.state.titulo !== '' && this.state.imagem !== '' &&
+            // this.state.imagem !== null && this.state.url !== '' &&
+            // this.state.imagem !== '' && this.state.descricao !== '' &&
+            // this.state.data !== '' && this.state.data.length === 10 &&
+            // this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
+            // this.state.hora !== '' && this.horaFinal !== '' &&
+            // this.state.local !== '' && this.state.estado !== '' &&
+            // this.state.cidade !== '' && this.verificaDate() && 
+            // this.verificaTime() && this.valorIngressoInt !== '' && 
+            // this.valorIngressoMeia !== '') || 
+            true) 
             {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
@@ -88,7 +98,10 @@ class NewEvents extends Component {
                 estado: this.state.estado,
                 cidade: this.state.cidade,
                 local: this.state.local,
-                autor: localStorage.nome
+                autor: localStorage.nome,
+                valorIngressoInt: this.state.valorIngressoInt,
+                valorIngressoMeia: this.state.valorIngressoMeia,
+                valorIngresso: this.state.valorIngresso
             });
             this.props.history.push('/dashboard');
         } else {
@@ -141,7 +154,7 @@ class NewEvents extends Component {
                     })
 
             })
-            console.log(this.state.url);
+        console.log(this.state.url);
     }
 
     fillCityList() {
@@ -245,7 +258,41 @@ class NewEvents extends Component {
         //         this.alert = 'Data inválida!';
         //         return false;
         // }
-        
+
+    }
+
+    renderiza(e) {
+        if (this.state.valorIngresso) {
+            return (
+                <div>
+                    <Label>Valor do Ingresso:</Label>
+                    <InputGroup>
+                        <InputGroupAddon>
+                            <InputGroupText className="bg-info text-white">R$</InputGroupText>
+                        </InputGroupAddon>
+                        <Input id="valInt" placeholder="Inteira" min={0} max={100} type="number" step="1"
+                        onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} required />
+                        <InputGroupAddon>
+                            <InputGroupText className="bg-info text-white">.00</InputGroupText>
+                        </InputGroupAddon>
+                    </InputGroup>
+                    <InputGroup>
+                        <InputGroupAddon>
+                            <InputGroupText className="bg-info text-white">R$</InputGroupText>
+                        </InputGroupAddon>
+                        <Input id="valInt" placeholder="Meia Entrada" min={1} max={100000} type="number" step="1"
+                        onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} required />
+                        <InputGroupAddon>
+                            <InputGroupText className="bg-info text-white">.00</InputGroupText>
+                        </InputGroupAddon>
+                    </InputGroup>
+                </div>
+            );
+        } else{
+            this.state.valorIngressoInt = 0
+            this.state.valorIngressoMeia = 0
+        }
+
     }
 
     render() {
@@ -273,7 +320,6 @@ class NewEvents extends Component {
                             {this.state.url !== '' ?
                                 <img src={this.state.url} width="250" height="150" alt="Copa do post" />
                                 :
-                                // <progress value={this.state.progress} max="100" />
                                 <Progress animated color="success" value={this.state.progress} max="100" />
                             }
                             <FormText color="muted">
@@ -284,21 +330,23 @@ class NewEvents extends Component {
                         <FormGroup>
                             <Label for="name">Titulo: </Label>
                             <Input id="name" type="text" value={this.state.titulo} placeholder="Nome do post" autoFocus
-                                onChange={(e) => this.setState({ titulo: e.target.value })} />
+                                onChange={(e) => this.setState({ titulo: e.target.value })} required />
                         </FormGroup>
 
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label for="dateIn">Data de Início:</Label>
-                                    <Input id="dateIn" type="date" value={this.state.data} onChange={(e) => this.setState({ data: e.target.value })} />
+                                    <Input id="dateIn" type="date" value={this.state.data} 
+                                    onChange={(e) => this.setState({ data: e.target.value })} required />
                                 </FormGroup>
                             </Col>
 
                             <Col md={6}>
                                 <FormGroup>
                                     <Label for="dateFi">Data de Término:</Label>
-                                    <Input id="dateFi" type="date" value={this.state.dataFinal} onChange={(e) => this.setState({ dataFinal: e.target.value })} />
+                                    <Input id="dateFi" type="date" value={this.state.dataFinal} 
+                                    onChange={(e) => this.setState({ dataFinal: e.target.value })} required />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -307,7 +355,8 @@ class NewEvents extends Component {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label for="hrIn">Hora de Início:</Label>
-                                    <Input id="hrIn" type="time" value={this.state.hora} onChange={(e) => this.setState({ hora: e.target.value })} />
+                                    <Input id="hrIn" type="time" value={this.state.hora}
+                                     onChange={(e) => this.setState({ hora: e.target.value })} required />
                                 </FormGroup>
 
                             </Col>
@@ -315,11 +364,12 @@ class NewEvents extends Component {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label for="hrFi">Hora do Término:</Label>
-                                    <Input id="hrFi" type="time" value={this.state.horaFinal} onChange={(e) => this.setState({ horaFinal: e.target.value })} />
+                                    <Input id="hrFi" type="time" value={this.state.horaFinal}
+                                    onChange={(e) => this.setState({ horaFinal: e.target.value })} required />
                                 </FormGroup>
                             </Col>
                         </Row>
-                        
+
                         <FormGroup>
                             <Label for="selectEstados">Estado:</Label>
                             <Input type="select" name="estado" id="selectEstados"
@@ -350,8 +400,25 @@ class NewEvents extends Component {
                         <FormGroup>
                             <Label for="local">Local do Evento: </Label>
                             <Input id="local" type="text" value={this.state.local} placeholder="Local do Evento"
-                                onChange={(e) => this.setState({ local: e.target.value })} />
+                                onChange={(e) => this.setState({ local: e.target.value })} required />
                         </FormGroup>
+
+                        <Row form>
+                            <Col md={3}>
+                                <FormGroup>
+                                    <Label>Entrada:</Label>
+                                    <div>
+                                        <CustomInput type="radio" id="radioPaga" onClick={(e) => this.setState({ valorIngresso: true })} name="customRadio" label="Paga" />
+                                        <CustomInput type="radio" id="radioGratis" onClick={(e) => this.setState({ valorIngresso: false })} name="customRadio" label="Gratuita" />
+                                    </div>
+                                </FormGroup>
+                            </Col>
+                            <Col md={9}>
+                                <FormGroup>
+                                    {this.renderiza()}
+                                </FormGroup>
+                            </Col>
+                        </Row>
 
                         <FormGroup>
                             <Label for="desc">Descrição: </Label>

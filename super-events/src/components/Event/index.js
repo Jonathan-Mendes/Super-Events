@@ -14,6 +14,7 @@ class Event extends Component {
         this.formatDate = this.formatDate.bind(this);
         this.formatEstado = this.formatEstado.bind(this);
         this.back = this.back.bind(this);
+        this.renderiza = this.renderiza.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +33,10 @@ class Event extends Component {
                 cidade: snapshot.val().cidade,
                 local: snapshot.val().local,
                 estado: snapshot.val().estado,
-                imagem: snapshot.val().imagem
+                imagem: snapshot.val().imagem,
+                valorIngressoInt: snapshot.val().valorIngressoInt,
+                valorIngressoMeia: snapshot.val().valorIngressoMeia,
+                valorIngresso: snapshot.val().valorIngresso
             };
             this.state.date = this.state.event.data;
             this.setState(state);
@@ -189,6 +193,21 @@ class Event extends Component {
     back = async () => {
         this.props.history.replace('/');
     }
+    
+    renderiza(){
+        if(this.state.valorIngresso){
+            return(
+                <div>
+                    <p>Inteira: R$ {this.state.valorIngressoInt},00</p>
+                    <p>Meia Entrada: R$ {this.state.valorIngressoMei},00</p>
+                </div>
+            );
+        } else{
+            return(
+                <p color="success">Entrada Gratuita</p>
+            );
+        }
+    }
 
     render() {
         const { titulo, autor, descricao, hora, horaFinal, local, cidade, estado, imagem } = this.state.event;
@@ -213,10 +232,9 @@ class Event extends Component {
                                 <p>por {autor}</p>
                                 <p>Cidade: {cidade + " - " + this.formatEstado(estado)}</p>
                                 <p>Hora do Evento: {hora}</p>
-                                <div className="bottomZero">
-                                    <p>Valor do ingresso: R$100</p>
-                                    <Button className="w-100" color="success">Comprar</Button>
-                                </div>
+                                {this.renderiza()}
+                                <Button className="w-100" color="success">Comprar</Button>
+                                
                             </div>
                         </Col>
                     </Row>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './register.css';
-import { Button, Form, FormGroup, Label, Input, Progress, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class Register extends Component {
 
@@ -37,7 +37,7 @@ class Register extends Component {
                 alert(error.message);
             }
         } else{
-            alert("CPF inválido");
+            alert("CPF inválido!");
             //this.cpf.focus();
         }
         

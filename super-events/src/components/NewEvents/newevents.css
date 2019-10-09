@@ -74,6 +74,10 @@ form#new-post textarea{
     justify-content: center;
 }
 
+.ingresso{
+    color: #272727 !important;
+}
+
 /* form#new-post button{
     padding: 10px 20px;
     border-radius: 4px;
