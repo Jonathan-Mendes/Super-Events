@@ -209,7 +209,8 @@ class Event extends Component {
             );
         } else {
             return (
-                <p className="text-success text-center font-weight-bold">Entrada Gratuita</p>
+                <p className="text-success justify-content-center font-weight-bold d-flex align-items-center h-50 
+            ">Entrada Gratuita</p>
             );
         }
     }

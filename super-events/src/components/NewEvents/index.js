@@ -282,7 +282,7 @@ class NewEvents extends Component {
                             <FormGroup>
                                 <Label for="valInt" className="text-info font-weight-bold mx-2">Meia</Label>
                                 <CurrencyInput className="form-control" id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
-                                    onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+                                    onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />
                             </FormGroup>
                         </Col>
                     </Row>
