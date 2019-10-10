@@ -204,11 +204,12 @@ class Event extends Component {
                             </tr>
                         </tbody>
                     </Table>
+                    <Button className="w-100" color="success">Comprar</Button>
                 </div>
             );
         } else {
             return (
-                <p className="text-success font-weight-bold">Entrada Gratuita</p>
+                <p className="text-success text-center font-weight-bold">Entrada Gratuita</p>
             );
         }
     }
@@ -232,7 +233,6 @@ class Event extends Component {
                                 <p className="text-info font-weight-bold"><span className="text-dark">Cidade: </span>{cidade + " - " + this.formatEstado(estado)}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Hora do Evento: </span>{hora}</p>
                                 {this.renderiza()}
-                                <Button className="w-100" color="success">Comprar</Button>
 
                             </div>
                         </Col>

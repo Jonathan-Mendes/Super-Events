@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './login.css';
-//import * as admin from 'firebase-admin';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 class Login extends Component {
@@ -12,10 +11,14 @@ class Login extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            modal: false,
+            unmountOnClose: true
         };
         this.entrar = this.entrar.bind(this);
         this.login = this.login.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
     }
 
     componentDidMount() {
@@ -23,16 +26,19 @@ class Login extends Component {
         if (firebase.getCurrent()) {
             return this.props.history.replace('/dashboard');
         }
-
-        // admin.initializeApp({
-        //     credential: admin.credential.applicationDefault(),
-        //     databaseURL: 'https://super-events-f85d9.firebaseio.com'
-        //   });
     }
 
     entrar(e) {
         e.preventDefault();
         this.login();
+    }
+
+    resetPassword() {
+        try {
+            firebase.resetPassword('');
+        } catch (error) {
+            alert('Este usuário não existe!');
+        }
     }
 
     login = async () => {
@@ -56,41 +62,16 @@ class Login extends Component {
 
     }
 
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
 
-    // resetPass(appName, email){
-    //     admin.auth().generatePasswordResetLink(email)
-    //       .then((link) => {
-    //         link = 'https://www.youtube.com/?reload=9';
-    //         return sendCustomPasswordResetEmail(email, appName, link);
-    //       })
-    //       .catch((error) => {
-    //         // Some error occurred.
-    //       });
-    // }
-
-    // recuperarSenha() {
-    //     const email = firebase.getCurrent();
-    //     const appName = "SuperEvents";
-    //     let aux = resetPass(appName, email);
-    //     aux.then(function() {
-    //       console.log('email sent!');
-    //     }).catch(function(error) {
-    //       // An error happened.
-    //     });
-    // }
-    
-    
-    // // Admin SDK API to generate the email verification link.
-    // const useremail = 'user@example.com';
-    // admin.auth().generateEmailVerificationLink(useremail, actionCodeSettings)
-    //   .then((link) => {
-    //     // Construct email verification template, embed the link and send
-    //     // using custom SMTP server.
-    //     return sendCustomVerificationEmail(useremail, displayName, link);
-    //   })
-    //   .catch((error) => {
-    //     // Some error occurred.
-    //   });
+    changeUnmountOnClose(e) {
+        let value = e.target.value;
+        this.setState({ unmountOnClose: JSON.parse(value) });
+    }
 
     render() {
         return (
@@ -111,9 +92,24 @@ class Login extends Component {
 
                     <Button type="submit" color="info">Entrar</Button>
 
-                    <Link to="/register">Ainda não possui conta?</Link>
+                    <Link to="/register" className="my-2">Ainda não possui conta?</Link>
 
-                    <Link>Esqueci minha senha</Link>
+                    <Form inline onSubmit={(e) => e.preventDefault()}>
+                    {/* Link className="my-1" to={this.toggle}>Esqueci minha senha</Link> */}
+                    <Button outline color="danger" onClick={this.toggle}>Esqueci minha senha</Button>
+                    </Form>
+
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose}>
+                        <ModalHeader className="text-info" toggle={this.toggle}>Esqueci minha senha</ModalHeader>
+                        <ModalBody>
+                            <Label className="text-danger">Informe seu email para redefinir sua senha</Label>
+                            <Input type="text" placeholder="email@email.com" required/>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="success" onClick={this.toggle}>Enviar E-mail</Button>{' '}
+                            <Button color="danger" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
                 </Form>
             </div>
         );

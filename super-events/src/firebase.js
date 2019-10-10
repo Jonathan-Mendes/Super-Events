@@ -42,6 +42,10 @@ class Firebase{
         })
     }
 
+    resetPassword(email){
+        app.auth().sendPasswordResetEmail(email);
+    }
+
     isInitialized(){
         return new Promise(resolve => {
             app.auth().onAuthStateChanged(resolve);
