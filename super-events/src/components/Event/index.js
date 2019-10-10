@@ -10,7 +10,8 @@ class Event extends Component {
         super(props);
         this.state = {
             event: [],
-            date: '',
+            dataInicial: '',
+            dataFinal: '',
             qtdInteira: 0,
             qtdMeia: 0,
             qtdTotal: 0,
@@ -36,7 +37,8 @@ class Event extends Component {
                 titulo: snapshot.val().titulo,
                 autor: snapshot.val().autor,
                 descricao: snapshot.val().descricao,
-                data: snapshot.val().data,
+                dataInicial: snapshot.val().data,
+                dataFinal: snapshot.val().dataFinal,
                 hora: snapshot.val().hora,
                 horaFinal: snapshot.val().horaFinal,
                 cidade: snapshot.val().cidade,
@@ -47,7 +49,8 @@ class Event extends Component {
                 valorIngressoMeia: snapshot.val().valorIngressoMeia,
                 valorIngresso: snapshot.val().valorIngresso
             };
-            this.state.date = this.state.event.data;
+            this.state.dataInicial = this.state.event.dataInicial;
+            this.state.dataFinal = this.state.event.dataFinal;
             this.setState(state);
         })
     }
@@ -60,7 +63,7 @@ class Event extends Component {
             case 11: sigla = "RO"; break;
             case 12: sigla = "AC"; break;
             case 13: sigla = "AM"; break;
-            case 14: sigla = "RR";  break;
+            case 14: sigla = "RR"; break;
             case 15: sigla = "PA"; break;
             case 16: sigla = "AP"; break;
             case 17: sigla = "TO"; break;
@@ -101,8 +104,8 @@ class Event extends Component {
             case 5: mes = 'Mai'; break;
             case 6: mes = 'Jun'; break;
             case 7: mes = 'Jul'; break;
-            case 8: mes = 'Ago'; break;    
-            case 9: mes = 'Set';  break;
+            case 8: mes = 'Ago'; break;
+            case 9: mes = 'Set'; break;
             case 10: mes = 'Out'; break;
             case 11: mes = 'Nov'; break;
             case 12: mes = 'Dez'; break;
@@ -129,8 +132,9 @@ class Event extends Component {
         this.setState({
             qtdInteira: ++this.state.qtdInteira,
             qtdTotal: ++this.state.qtdTotal,
-            valorTotal: +this.state.valorIngressoInt
+            valorTotal: parseInt(this.state.valorTotal) + parseInt(this.state.event.valorIngressoInt)
         })
+        
     }
 
     decrementInt = () => {
@@ -138,7 +142,7 @@ class Event extends Component {
             this.setState({
                 qtdInteira: --this.state.qtdInteira,
                 qtdTotal: --this.state.qtdTotal,
-                valorTotal: -this.state.valorIngressoInt
+                valorTotal: parseInt(this.state.valorTotal) - parseInt(this.state.event.valorIngressoInt)
             })
         }
     }
@@ -147,7 +151,7 @@ class Event extends Component {
         this.setState({
             qtdMeia: ++this.state.qtdMeia,
             qtdTotal: ++this.state.qtdTotal,
-            valorTotal: this.state.valorTotal + this.state.valorIngressoMeia
+            valorTotal: parseInt(this.state.valorTotal) + parseInt(this.state.event.valorIngressoMeia)
         })
     }
 
@@ -156,7 +160,8 @@ class Event extends Component {
             this.setState({
                 qtdMeia: --this.state.qtdMeia,
                 qtdTotal: --this.state.qtdTotal,
-                valorTotal: this.state.valorTotal - this.state.valorIngressoMeia
+                valorTotal: parseInt(this.state.valorTotal) - 
+                parseInt(this.state.event.valorIngressoMeia)
             })
         }
     }
@@ -165,10 +170,6 @@ class Event extends Component {
         if (this.state.event.valorIngresso) {
             return (
                 <div className="bord">
-                    {/*<h5 className="my-3 text-center">Valor do Ingresso</h5>
-                    <p>Inteira R$ {this.state.event.valorIngressoInt},00</p>
-            <p>Meia Entrada: R$ {this.state.event.valorIngressoMeia},00</p>*/}
-
                     <Table responsive>
                         <thead>
                             <tr>
@@ -180,19 +181,19 @@ class Event extends Component {
                         <tbody>
                             <tr>
                                 <td className="text-center">Inteira</td>
-                                <td className="text-center">
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.decrementInt}></Button>
+                                <td className="text-center d-flex">
+                                    <Button className="btnCompras mx-2" color="info" onClick={this.decrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
                                     {this.state.qtdInteira}
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.incrementInt}></Button>
+                                    <Button className="btnCompras mx-2" color="info" onClick={this.incrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
                                 </td>
                                 <td className="text-center">R$ {this.state.event.valorIngressoInt},00</td>
                             </tr>
                             <tr>
                                 <td className="text-center">Meia</td>
-                                <td className="text-center">
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.decrementMeia}>-</Button>
+                                <td className="text-center d-flex">
+                                    <Button className="btnCompras mx-2" color="info" onClick={this.decrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
                                     {this.state.qtdMeia}
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.incrementMeia}>+</Button>
+                                    <Button className="btnCompras mx-2" color="info" onClick={this.incrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
                                 </td>
                                 <td className="text-center">R$ {this.state.event.valorIngressoMeia},00</td>
                             </tr>
@@ -217,11 +218,6 @@ class Event extends Component {
         return (
             <div className="my-4">
                 <Container>
-                    {/*<Row>
-                        <Col xs="12">
-                            <Button color="dark" onClick={() => this.back()}>Voltar</Button>
-                        </Col>
-                    </Row>*/}
                     <Row>
                         <Col xs='8'>
                             <img id="photo" className='rounded float-left mx-auto h-100 w-100 img-fluid imgCel' src={imagem} alt="Event cape" />
@@ -229,7 +225,7 @@ class Event extends Component {
 
                         <Col xs='4'>
                             <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
-                                <p className="date text-info">{this.formatDate(this.state.date, true)}</p>
+                                <p className="date text-info">{this.formatDate(this.state.dataInicial, true)}</p>
 
                                 <h2>{titulo}</h2>
                                 <p className="autor">Criado por {autor}</p>
@@ -244,13 +240,15 @@ class Event extends Component {
 
                     <Row className="mx-auto">
                         <Col xs='12' className="h-100 my-4 shadow p-3 mb-5 bg-white rounded">
-                            <h4 className="text-center text-info">Informações do Evento</h4>
+                            <h4 className="text-center text-info">{titulo}</h4>
                             <Table responsive>
                                 <thead>
                                     <tr>
-                                        <th className="text-center">Nome do Evento</th>
-                                        <th className="text-center">Data</th>
+                                        {/*<th className="text-center">Nome do Evento</th>*/}
+                                        <th className="text-center">Data de Início</th>
+                                        <th className="text-center">Data de Término</th>
                                         <th className="text-center">Horário de Início</th>
+                                        <th className="text-center">Horário de Término</th>
                                         <th className="text-center">Produtora</th>
                                         <th className="text-center">Cidade</th>
                                         <th className="text-center">Local</th>
@@ -258,7 +256,9 @@ class Event extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className="text-center text-info font-weight-bold">{this.formatDate(this.state.date, false)}</td>
+                                        {/*<td className="text-center text-info font-weight-bold">{titulo}</td>*/}
+                                        <td className="text-center text-info font-weight-bold">{this.formatDate(this.state.dataInicial, false)}</td>
+                                        <td className="text-center text-info font-weight-bold">{this.formatDate(this.state.dataFinal, false)}</td>
                                         <td className="text-center text-info font-weight-bold">{hora}</td>
                                         <td className="text-center text-info font-weight-bold">{horaFinal}</td>
                                         <td className="text-center text-info font-weight-bold">{autor}</td>
