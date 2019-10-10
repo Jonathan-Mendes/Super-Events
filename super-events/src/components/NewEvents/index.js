@@ -264,18 +264,29 @@ class NewEvents extends Component {
     renderiza(e) {
         if (this.state.valorIngresso) {
             return (
-                <div>
-                    <Label>Valor do Ingresso:</Label>
-                    <div>
-                        <label for="valInt" className="text-info font-weight-bold mx-2">Inteira <span className="text-success">R$</span></label>
-                        <CurrencyInput className="ingressoBorder" id="valInt" placeholder="00,00" min={1} max={10000} required
-                        onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
-
-                        <label for="valInt" className="text-info font-weight-bold mx-2">Meia Entrada <span className="text-success">R$</span></label>
-                        <CurrencyInput className="ingressoBorder" id="valMeia" placeholder="00,00" min={1} max={10000} required
-                         onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
-                    </div>
-                </div>
+                <Col md={9}>
+                    <Row className="text-center">
+                        <Col md={12}>
+                        <Label className="text-info font-weight-bold mx-2">Valor do Ingresso</Label>
+                        </Col>
+                    </Row>
+                    <Row className="text-center" form>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="valInt" className="text-info font-weight-bold mx-2">Inteira</Label>
+                                <CurrencyInput className="form-control" id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
+                                    onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+                            </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="valInt" className="text-info font-weight-bold mx-2">Meia</Label>
+                                <CurrencyInput className="form-control" id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
+                                    onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                </Col>
             );
         } else {
             this.state.valorIngressoInt = 0
@@ -402,11 +413,7 @@ class NewEvents extends Component {
                                     </div>
                                 </FormGroup>
                             </Col>
-                            <Col md={9}>
-                                <FormGroup>
-                                    {this.renderiza()}
-                                </FormGroup>
-                            </Col>
+                            {this.renderiza()}
                         </Row>
 
                         <FormGroup>

@@ -3,12 +3,15 @@ import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './register.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import InputMask from 'react-input-mask';
 
 class Register extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            value: '',
+            mask: '999.999.999-99',
             nome: '',
             cpf: '',
             email: '',
@@ -19,6 +22,19 @@ class Register extends Component {
         this.onRegister = this.onRegister.bind(this);
         this.validarCPF = this.validarCPF.bind(this);
     }
+
+    onChange = (event) => {
+        var value = event.target.value;
+        var newState = {
+          mask: '999.999.999-99',
+          value: value
+        };
+        if (/^3[47]/.test(value)) {
+          newState.mask = '999.999.999-99';
+        }
+        this.setState(newState);
+        this.setState({ cpf: event.target.value });
+      }
 
     register(e) {
         e.preventDefault();
@@ -97,8 +113,11 @@ class Register extends Component {
 
                     <FormGroup>
                         <Label for="cpf">CPF:</Label>
-                        <Input id="cpf" type="text" value={this.state.cpf} autoComplete="off" placeholder="000.000.000-00"
-                            onChange={(e) => this.setState({ cpf: e.target.value })} minLength="11" maxlength="14" required />
+                        {/*<Input id="cpf" type="text" value={this.state.cpf} autoComplete="off" placeholder="000.000.000-00"
+                            onChange={(e) => this.setState({ cpf: e.target.value })} minLength="11" maxlength="14" required />*/}
+                        
+                        <InputMask className="form-control" {...this.state} onChange={this.onChange} id="cpf" value={this.state.cpf}
+                        autoComplete="off" placeholder="000.000.000-00" required/>
                     </FormGroup>
 
                     <FormGroup>
