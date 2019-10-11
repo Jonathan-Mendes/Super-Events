@@ -44,9 +44,10 @@ class Register extends Component {
     onRegister = async () => {
         if (this.validarCPF(this.state.cpf)){
             try {
-                const { nome, email, password, imagem } = this.state;
-    
-                await firebase.register(nome, email, password, imagem);
+                const { nome, cpf, email, password, imagem } = this.state;
+                
+                // firebase.checkEmail(this.email)
+                await firebase.register(nome, cpf, email, password, imagem);
                 this.props.history.replace('/dashboard');
     
             } catch (error) {
@@ -129,7 +130,7 @@ class Register extends Component {
                     <FormGroup>
                         <Label for="pass">Senha:</Label>
                         <Input id="pass" type="password" value={this.state.password} autoComplete="off" placeholder="Sua senha"
-                            onChange={(e) => this.setState({ password: e.target.value })} />
+                            minLength="4" onChange={(e) => this.setState({ password: e.target.value })} />
                     </FormGroup>
 
                     <Button type="submit" color="info">Cadastrar</Button>

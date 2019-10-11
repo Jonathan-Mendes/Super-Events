@@ -28,18 +28,6 @@ form#login input{
     font-size: 14px;
 }
 
-/* form#login button{
-    margin-top: 16px;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    background: #272727;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-} */
-
 form#login a{
     text-align: center;
     text-decoration: none;
@@ -49,4 +37,12 @@ form#login a{
 
 form#login a:hover{
     color: #17a2b8;
+}
+
+.linkResetSenha:hover{
+    color: #17a2b8;
+}
+
+.linkResetSenha{
+    font-size: 15px;
 }

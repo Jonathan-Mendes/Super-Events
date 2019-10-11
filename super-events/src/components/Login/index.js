@@ -10,6 +10,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            emailResetPassword: '',
             email: '',
             password: '',
             modal: false,
@@ -17,6 +18,7 @@ class Login extends Component {
         };
         this.entrar = this.entrar.bind(this);
         this.login = this.login.bind(this);
+        this.resetPassword = this.resetPassword.bind(this);
         this.toggle = this.toggle.bind(this);
         this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
     }
@@ -34,10 +36,10 @@ class Login extends Component {
     }
 
     resetPassword() {
-        try {
-            firebase.resetPassword('');
-        } catch (error) {
-            alert('Este usuário não existe!');
+        if(firebase.resetPassword(this.state.emailResetPassword)){
+            alert('E-mail enviado com sucesso!')
+        } else {
+            alert('Este usuário não existe!')
         }
     }
 
@@ -81,32 +83,32 @@ class Login extends Component {
                     <FormGroup>
                         <Label>Email: </Label>
                         <Input type="email" autoComplete="off" autoFocus value={this.state.email}
-                            onChange={(e) => this.setState({ email: e.target.value })} placeholder="email@gmail.com" />
+                            onChange={(e) => this.setState({ email: e.target.value })} placeholder="email@gmail.com" required />
                     </FormGroup>
 
                     <FormGroup>
                         <Label>Password: </Label>
                         <Input type="password" autoComplete="off" value={this.state.password}
-                            onChange={(e) => this.setState({ password: e.target.value })} placeholder="Sua senha" />
+                            onChange={(e) => this.setState({ password: e.target.value })} minLength="4" placeholder="Sua senha" required />
                     </FormGroup>
 
                     <Button type="submit" color="info">Entrar</Button>
 
-                    <Link to="/register" className="my-2">Ainda não possui conta?</Link>
-
-                    <Form inline onSubmit={(e) => e.preventDefault()}>
-                    {/* Link className="my-1" to={this.toggle}>Esqueci minha senha</Link> */}
-                    <Button outline color="danger" onClick={this.toggle}>Esqueci minha senha</Button>
+                    <Link to="/register" className="mt-4">Ainda não possui conta?</Link>
+                    
+                    <Form className="text-center my-2" onSubmit={(e) => e.preventDefault()}>
+                        {/* Link className="my-1" to={this.toggle}>Esqueci minha senha</Link> */}
+                        <Button outline color="link" onClick={this.toggle}><span className="linkResetSenha">Esqueci minha senha</span></Button>
                     </Form>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose}>
                         <ModalHeader className="text-info" toggle={this.toggle}>Esqueci minha senha</ModalHeader>
                         <ModalBody>
-                            <Label className="text-danger">Informe seu email para redefinir sua senha</Label>
-                            <Input type="text" placeholder="email@email.com" required/>
+                            <Label className="text-danger">Informe seu e-mail para redefinir sua senha</Label>
+                            <Input type="email" placeholder="email@email.com" onChange={(e) => this.setState({ emailResetPassword: e.target.value })} required />
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="success" onClick={this.toggle}>Enviar E-mail</Button>{' '}
+                            <Button color="success" onClick={this.resetPassword}>Enviar E-mail</Button>
                             <Button color="danger" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
