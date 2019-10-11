@@ -67,6 +67,10 @@ class Firebase{
         const uid = app.auth().currentUser.uid;
         await app.database().ref('usuarios').child(uid).once('value').then(callback);
     }
+
+    async deleteEventByKey(key){
+        await app.database().ref('events').child(key).remove();
+    }
 }
 
 export default new Firebase();

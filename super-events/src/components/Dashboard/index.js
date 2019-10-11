@@ -15,7 +15,8 @@ class Dashboard extends Component {
             nome: localStorage.nome,
             uid: firebase.getCurrentUid(),
             events: [],
-            ativo: ''
+            ativo: '',
+            var: []
         };
         this.logout = this.logout.bind(this);
         this.newEvent = this.newEvent.bind(this);
@@ -54,7 +55,6 @@ class Dashboard extends Component {
                 })
             })
             this.setState(state);
-            console.log(this.state.ativo)
         })
     }
 
@@ -81,14 +81,23 @@ class Dashboard extends Component {
         return brDate;
     }
 
-    deleteEvent() {
-        this.setState.ativo = false
-        // firebase.app.ref('events').child(this.state.uid).child(key).remove();
+    deleteEvent = async (key) => {
+        try {
+            await firebase.deleteEventByKey(key);
+            window.location.reload();
 
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
     editEvent() {
-
+        try{
+            console.log('entro');
+        
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
     render() {
@@ -115,7 +124,7 @@ class Dashboard extends Component {
                         <Container id="post" class="container">
                             <Row>
                                 {this.state.events.map((post) => {
-                                    if (post.ativo) {
+                                    //if (post.ativo) {
                                         return (
                                             <Col xs='12' sm='4'>
                                                 <div id="link" key={post.key}>
@@ -164,30 +173,32 @@ class Dashboard extends Component {
                                                     </Link>
                                                     <Row>
                                                         <Col xs='6'>
-                                                            <Button id="btnEdit" color="success"
-                                                            >
-                                                                <FaRegEdit />
-                                                            </Button>
+                                                            <Link to={`/editevent/${post.key}`}>
+                                                                <Button id="btnEdit" color="success"
+                                                                    //onclick={this.editEvent(post.key)}
+                                                                >
+                                                                    <FaRegEdit/>
+                                                                </Button>
+                                                            </Link>
                                                         </Col>
                                                         <Col xs='6'>
                                                             <Button id="btnDelete" color="danger"
-                                                                onClick={this.deleteEvent()}>
-                                                                <FaRegTrashAlt />
+                                                                onClick={() => this.deleteEvent(post.key)}>
+                                                                <FaRegTrashAlt/>
                                                             </Button>
                                                         </Col>
                                                     </Row>
                                                 </div>
                                             </Col>
                                         );
-                                    }
+                                    //}
                                 })}
                             </Row>
                         </Container>
                     </div>
 
-                </Container>
+                </Container>                
             </div>
-
         );
     }
 }

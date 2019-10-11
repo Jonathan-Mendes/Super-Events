@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
-import './newevents.css';
+import './editevent.css';
 import {
     Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress,
     Spinner, CustomInput, InputGroupAddon, InputGroup, InputGroupText
 } from 'reactstrap';
 import CurrencyInput from 'react-currency-masked-input'
 
-class NewEvents extends Component {
+class EditEvent extends Component {
 
     now = new Date;
 
@@ -68,25 +68,53 @@ class NewEvents extends Component {
                     });
                 }
             )
+
+        const { id } = this.props.match.params;
+        firebase.app.ref('events').child(id).on('value', (snapshot) => {
+            let state = this.state;
+            state.event = [];
+
+            state.event = {
+                titulo: snapshot.val().titulo,
+                autor: snapshot.val().autor,
+                descricao: snapshot.val().descricao,
+                dataInicial: snapshot.val().data,
+                dataFinal: snapshot.val().dataFinal,
+                hora: snapshot.val().hora,
+                horaFinal: snapshot.val().horaFinal,
+                cidade: snapshot.val().cidade,
+                local: snapshot.val().local,
+                estado: snapshot.val().estado,
+                imagem: snapshot.val().imagem,
+                valorIngressoInt: snapshot.val().valorIngressoInt,
+                valorIngressoMeia: snapshot.val().valorIngressoMeia,
+                valorIngresso: snapshot.val().valorIngresso
+            };
+            //this.state.imagem = this.state.event.imagem;
+            this.state.url = this.state.event.imagem;
+            this.state.titulo = this.state.event.titulo;
+            this.state.hora = this.state.event.hora;
+            this.state.horaFinal = this.state.event.horaFinal;
+            this.state.estado = this.state.event.estado;
+            this.state.cidade = this.state.event.cidade;
+            this.state.valorIngressoInt = this.state.event.valorIngressoInt;
+            this.state.valorIngressoMeia = this.state.event.valorIngressoMeia;
+            this.state.valorIngresso = this.state.event.valorIngresso;
+            this.state.autor = this.state.event.autor;
+            this.state.local = this.state.event.local;
+            this.state.descricao = this.state.event.descricao;
+            this.state.data = this.state.event.dataInicial;
+            this.state.dataFinal = this.state.event.dataFinal;
+            this.setState(state);
+        })
     }
 
     cadastrar = async (e) => {
         e.preventDefault();
-        if (
-            // (this.state.titulo !== '' && this.state.imagem !== '' &&
-            // this.state.imagem !== null && this.state.url !== '' &&
-            // this.state.imagem !== '' && this.state.descricao !== '' &&
-            // this.state.data !== '' && this.state.data.length === 10 &&
-            // this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
-            // this.state.hora !== '' && this.horaFinal !== '' &&
-            // this.state.local !== '' && this.state.estado !== '' &&
-            // this.state.cidade !== '' && this.verificaDate() && 
-            // this.verificaTime() && this.valorIngressoInt !== '' && 
-            // this.valorIngressoMeia !== '') || 
-            true) {
+        const { id } = this.props.match.params;
+        if (true) {
             let event = firebase.app.ref('events');
-            let chave = event.push().key;
-            await event.child(chave).set({
+            await event.child(id).update({
                 uid: firebase.getCurrentUid(),
                 titulo: this.state.titulo,
                 imagem: this.state.url,
@@ -274,14 +302,14 @@ class NewEvents extends Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="valInt" className="text-info font-weight-bold mx-2">Inteira</Label>
-                                <CurrencyInput className="form-control" id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
+                                <CurrencyInput className="form-control" id="valInt" value={this.state.valorIngressoInt} min={1} max={10000} required
                                     onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="valInt" className="text-info font-weight-bold mx-2">Meia</Label>
-                                <CurrencyInput className="form-control" id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
+                                <CurrencyInput className="form-control" id="valMeia" value={this.state.valorIngressoMeia} min={1} max={10000} required
                                     onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />
                             </FormGroup>
                         </Col>
@@ -329,7 +357,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="name">Titulo: </Label>
-                            <Input id="name" type="text" value={this.state.titulo} placeholder="Nome do post" autoFocus
+                            <Input id="name" type="text" value={this.state.titulo} autoFocus
                                 onChange={(e) => this.setState({ titulo: e.target.value })} required />
                         </FormGroup>
 
@@ -372,7 +400,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="selectEstados">Estado:</Label>
-                            <Input type="select" name="estado" id="selectEstados"
+                            <Input type="select" name="estado" id="selectEstados" value={this.state.estado}
                                 onChange={(e) => this.setState({ estado: e.target.value })}>
                                 <option value=''></option>
                                 {estados.map(estado => (
@@ -385,7 +413,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="selectCidades">Cidade:</Label>
-                            <Input type="select" name="cidade" id="selectCidades"
+                            <Input type="select" name="cidade" id="selectCidades" value={this.state.cidade}
                                 onChange={(e) => this.setState({ cidade: e.target.value })}>
                                 {this.fillCityList()}
                                 <option value=''></option>
@@ -399,7 +427,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="local">Local do Evento: </Label>
-                            <Input id="local" type="text" value={this.state.local} placeholder="Local do Evento"
+                            <Input id="local" type="text" value={this.state.local}
                                 onChange={(e) => this.setState({ local: e.target.value })} required />
                         </FormGroup>
 
@@ -430,4 +458,4 @@ class NewEvents extends Component {
     }
 }
 
-export default withRouter(NewEvents);
+export default withRouter(EditEvent);
