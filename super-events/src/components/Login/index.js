@@ -94,11 +94,11 @@ class Login extends Component {
 
                     <Button type="submit" color="info">Entrar</Button>
 
-                    <Link to="/register" className="my-2">Ainda não possui conta?</Link>
-
+                    <Link to="/register" className="mt-4">Ainda não possui conta?</Link>
+                    
                     <Form className="text-center my-2" onSubmit={(e) => e.preventDefault()}>
                         {/* Link className="my-1" to={this.toggle}>Esqueci minha senha</Link> */}
-                        <Button outline color="info" onClick={this.toggle}>Esqueci minha senha</Button>
+                        <Button outline color="link" onClick={this.toggle}><span className="linkResetSenha">Esqueci minha senha</span></Button>
                     </Form>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose}>

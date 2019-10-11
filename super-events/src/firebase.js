@@ -64,7 +64,6 @@ class Firebase {
                 return true
             })
             .catch(function (error) {
-                ret
             });
     }
 

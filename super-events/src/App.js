@@ -8,7 +8,6 @@ import Event from './components/Event';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
-import NewEvent from './components/NewEvent';
 import NewEvents from './components/NewEvents';
 import { Spinner } from 'reactstrap'
 import './global.css';
@@ -37,7 +36,6 @@ class App extends Component {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/dashboard" component={Dashboard} />
-                    <Route exact path="/dashboard/newevent" component={NewEvent} />
                     <Route exact path="/dashboard/newevents" component={NewEvents} />
                 </Switch>
             </BrowserRouter>
