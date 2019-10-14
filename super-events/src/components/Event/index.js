@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
+import comprar from '../Comprar';
 import './event.css';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
-import { IoMdAdd, IoIosRemove } from "react-icons/io"
 
 class Event extends Component {
 
@@ -25,6 +25,7 @@ class Event extends Component {
         this.decrementInt = this.decrementInt.bind(this);
         this.incrementMeia = this.incrementMeia.bind(this);
         this.decrementMeia = this.decrementMeia.bind(this);
+        this.payPal = this.payPal.bind(this);
     }
 
     componentDidMount() {
@@ -204,7 +205,7 @@ class Event extends Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <Button className="w-100" color="success">Comprar</Button>
+                    <Button className="w-100" onClick={this.payPal} color="success">Comprar</Button>
                 </div>
             );
         } else {
@@ -213,6 +214,10 @@ class Event extends Component {
             ">Entrada Gratuita</p>
             );
         }
+    }
+
+    payPal(){
+        
     }
 
     render() {

@@ -97,7 +97,7 @@ class FeaturedEvents extends Component {
                                                                 <Col xs='12'>
                                                                     <div>
                                                                         <p>
-                                                                            <FaMapMarkerAlt className='icon mx-2' />
+                                                                            <FaMapMarkerAlt className='icon' />
                                                                             {post.cidade}
                                                                         </p>
                                                                     </div>
@@ -145,12 +145,12 @@ class FeaturedEvents extends Component {
                                                             <Col xs='6'>
 
                                                                 <div className="box">
-                                                                    <FaRegCalendarAlt className='icon mx-2' /><p className="text">{this.formatDate(post.data)}</p></div>
+                                                                    <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
                                                             </Col>
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock className='icon mx-2' /><p className="text">{post.hora}</p></div>
+                                                                    <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
 
                                                             </Col>
                                                         </Row>
@@ -158,7 +158,7 @@ class FeaturedEvents extends Component {
                                                             <Col xs='12'>
                                                                 <div>
                                                                     <p>
-                                                                        <FaMapMarkerAlt className='icon mx-2' />
+                                                                        <FaMapMarkerAlt className='icon' />
                                                                         {post.cidade}
                                                                     </p>
                                                                 </div>
@@ -205,12 +205,12 @@ class FeaturedEvents extends Component {
                                                             <Col xs='6'>
 
                                                                 <div className="box">
-                                                                    <FaRegCalendarAlt className='icon mx-2' /><p className="text">{this.formatDate(post.data)}</p></div>
+                                                                    <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
                                                             </Col>
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock className='icon mx-2' /><p className="text">{post.hora}</p></div>
+                                                                    <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
 
                                                             </Col>
                                                         </Row>
@@ -218,7 +218,7 @@ class FeaturedEvents extends Component {
                                                             <Col xs='12'>
                                                                 <div>
                                                                     <p>
-                                                                        <FaMapMarkerAlt className='icon mx-2' />
+                                                                        <FaMapMarkerAlt className='icon' />
                                                                         {post.cidade}
                                                                     </p>
                                                                 </div>
