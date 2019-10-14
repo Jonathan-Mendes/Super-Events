@@ -41,11 +41,6 @@ div#tip{
     height: 160px;
 }
 
-/* section#post article footer{
-    padding: 20px;
-    word-wrap: break-word;
-} */
-
 #post a{
     color: black;
     text-decoration: none;
@@ -57,8 +52,6 @@ div#tip{
     margin-top: 20px;
     border-top: 1px solid black;
 }
-
-
 
 #event{
     border-radius: 6%;
@@ -82,6 +75,7 @@ footer div.box{
 ion-icon {
     font-size: 25px;
     padding-right: 8px;
+    
 }
 
 @media screen and (max-width: 520px){
@@ -93,4 +87,9 @@ ion-icon {
 
 .verTodos{
     border-radius: 20px !important;
+}
+
+.clas{
+    margin-left: 5px !important;
+    margin-right: 5px !important; 
 }

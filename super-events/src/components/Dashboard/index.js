@@ -109,12 +109,6 @@ class Dashboard extends Component {
                     </div>
                     <p>Logado com {firebase.getCurrent()}</p>
                     
-                    
-                    {/*<Button color="success" onClick={() => this.newEvent()}>
-                        <span><IoIosAdd /></span> Novo Post</Button>
-                    <Button color="danger" onClick={() => this.logout()}>
-                        <span><IoIosLogOut /></span> Sair</Button>*/}
-
                     <div id="tip">
                         <Row>
                             <Col xs='12'>

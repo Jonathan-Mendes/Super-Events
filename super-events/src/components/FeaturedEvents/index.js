@@ -66,48 +66,52 @@ class FeaturedEvents extends Component {
                         <Row>
                             {this.state.event.slice(0, 3).map((post) => {
                                 //if (post.ativo) {
-                                    return (
-                                        <Col xs="12" sm="4">
-                                            <div id="link" key={post.key}>
-                                                <Link to={`/event/${post.key}`}>
-                                                    <article>
-                                                        <header>
-                                                            <div className="title">
-                                                                <strong>{post.titulo}</strong>
-                                                            </div>
-                                                        </header>
-                                                        <img src={post.imagem} alt="Capa do post"
-                                                            className='rounded' />
-                                                        <footer className="my-4">
-                                                            <Row>
-                                                                <Col xs='6'>
+                                return (
+                                    <Col xs="12" sm="4">
+                                        <div id="link" key={post.key}>
+                                            <Link to={`/event/${post.key}`}>
+                                                <article>
+                                                    <header>
+                                                        <div className="title">
+                                                            <strong>{post.titulo}</strong>
+                                                        </div>
+                                                    </header>
+                                                    <img src={post.imagem} alt="Capa do post"
+                                                        className='rounded' />
+                                                    <footer className="my-4 mx-2">
+                                                        <Row>
+                                                            <Col xs='6'>
 
-                                                                    <div className="box">
-                                                                        <FaRegCalendarAlt className='icon text-info' /><p className="text">{this.formatDate(post.data)}</p></div>
-                                                                </Col>
+                                                                <p>
+                                                                    <FaRegCalendarAlt className='icon text-info margin' />
+                                                                    {this.formatDate(post.data)}
+                                                                </p>
+                                                            </Col>
 
-                                                                <Col xs='6'>
-                                                                    <div className="box">
-                                                                        <FaRegClock className='icon text-info' /><p className="text">{post.hora}</p></div>
+                                                            <Col xs='6'>
+                                                                <p>
+                                                                    <FaRegClock className='icon text-info margin' />
+                                                                    {post.hora}
+                                                                </p>
 
-                                                                </Col>
-                                                            </Row>
-                                                            <Row>
-                                                                <Col xs='12'>
-                                                                    <div>
-                                                                        <p>
-                                                                            <FaMapMarkerAlt className='icon text-info' />
-                                                                            {post.cidade}
-                                                                        </p>
-                                                                    </div>
-                                                                </Col>
-                                                            </Row>
-                                                        </footer>
-                                                    </article>
-                                                </Link>
-                                            </div>
-                                        </Col>
-                                    );
+                                                            </Col>
+                                                        </Row>
+                                                        <Row>
+                                                            <Col xs='12'>
+                                                                <div>
+                                                                    <p>
+                                                                        <FaMapMarkerAlt className='icon text-info' />
+                                                                        {post.cidade}
+                                                                    </p>
+                                                                </div>
+                                                            </Col>
+                                                        </Row>
+                                                    </footer>
+                                                </article>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                );
                                 //}
                             })}
                         </Row>
@@ -139,7 +143,7 @@ class FeaturedEvents extends Component {
                                                     </header>
                                                     <img src={post.imagem} alt="Capa do post"
                                                         className='rounded' />
-                                                    <footer className="my-4">
+                                                    <footer className="my-4 mx-2">
                                                         <Row>
                                                             <Col xs='6'>
 
@@ -149,7 +153,7 @@ class FeaturedEvents extends Component {
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock className='icon text-info' /><p className="text">{post.hora}</p></div>
+                                                                    <FaRegClock className='icon text-info margin' /><p className="text">{post.hora}</p></div>
 
                                                             </Col>
                                                         </Row>
@@ -157,7 +161,7 @@ class FeaturedEvents extends Component {
                                                             <Col xs='12'>
                                                                 <div>
                                                                     <p>
-                                                                        <FaMapMarkerAlt className='icon text-info' />
+                                                                        <FaMapMarkerAlt className='icon text-info margin' />
                                                                         {post.cidade}
                                                                     </p>
                                                                 </div>
@@ -199,17 +203,19 @@ class FeaturedEvents extends Component {
                                                     </header>
                                                     <img src={post.imagem} alt="Capa do post"
                                                         className='rounded' />
-                                                    <footer className="my-4">
+                                                    <footer class="my-4 mx-2">
                                                         <Row>
                                                             <Col xs='6'>
 
-                                                                <div className="box">
-                                                                    <FaRegCalendarAlt className='icon text-info' /><p className="text">{this.formatDate(post.data)}</p></div>
+                                                                <p className="box">
+                                                                    <FaRegCalendarAlt class='icon text-info margin' />{this.formatDate(post.data)}
+                                                                </p>
                                                             </Col>
 
                                                             <Col xs='6'>
-                                                                <div className="box">
-                                                                    <FaRegClock className='icon text-info' /><p className="text">{post.hora}</p></div>
+                                                                <p className="box">
+                                                                    <FaRegClock class='icon text-info margin' />{post.hora}
+                                                                </p>
 
                                                             </Col>
                                                         </Row>
@@ -217,7 +223,7 @@ class FeaturedEvents extends Component {
                                                             <Col xs='12'>
                                                                 <div>
                                                                     <p>
-                                                                        <FaMapMarkerAlt className='icon text-info' />
+                                                                        <FaMapMarkerAlt className='icon text-info  ' />
                                                                         {post.cidade}
                                                                     </p>
                                                                 </div>

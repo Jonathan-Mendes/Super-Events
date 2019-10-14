@@ -73,13 +73,15 @@ class AllEvents extends Component {
                                                         <Row>
                                                             <Col xs='6'>
 
-                                                                <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2 text-info' /><p>{this.formatDate(post.data)}</p></div>
+                                                                <p className="box">
+                                                                    <FaRegCalendarAlt class='icon mx-2 text-info' />{this.formatDate(post.data)}
+                                                                </p>
                                                             </Col>
 
                                                             <Col xs='6'>
-                                                                <div className="box">
-                                                                    <FaRegClock class='icon mx-2 text-info' /><p>{post.hora}</p></div>
+                                                                <p className="box">
+                                                                    <FaRegClock class='icon mx-2 text-info' />{post.hora}
+                                                                </p>
 
                                                             </Col>
                                                         </Row>
@@ -98,10 +100,10 @@ class AllEvents extends Component {
                                             </Link>
                                         </div>
                                     </Col>
-                        );
-                    })}
+                                );
+                            })}
                         </Row>
-                </Container>
+                    </Container>
                 </Container>
             </div >
         );
