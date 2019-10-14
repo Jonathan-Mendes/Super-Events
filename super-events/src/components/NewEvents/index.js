@@ -34,7 +34,8 @@ class NewEvents extends Component {
             isLoaded: false,
             valorIngresso: false,
             valorIngressoInt: '',
-            valorIngressoMeia: ''
+            valorIngressoMeia: '',
+            estqIngresso: ''
         };
         this.cadastrar = this.cadastrar.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -72,18 +73,15 @@ class NewEvents extends Component {
 
     cadastrar = async (e) => {
         e.preventDefault();
-        if (
-            // (this.state.titulo !== '' && this.state.imagem !== '' &&
-            // this.state.imagem !== null && this.state.url !== '' &&
-            // this.state.imagem !== '' && this.state.descricao !== '' &&
-            // this.state.data !== '' && this.state.data.length === 10 &&
-            // this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
-            // this.state.hora !== '' && this.horaFinal !== '' &&
-            // this.state.local !== '' && this.state.estado !== '' &&
-            // this.state.cidade !== '' && this.verificaDate() && 
-            // this.verificaTime() && this.valorIngressoInt !== '' && 
-            // this.valorIngressoMeia !== '') || 
-            true) {
+        if ( true
+            // this.state.imagem !== '' && this.state.imagem !== null && 
+            // this.state.url !== '' && this.state.data !== '' && 
+            // this.state.data.length === 10 && this.state.dataFinal !== '' &&
+            // this.state.dataFinal.length === 10 && this.state.hora !== '' &&
+            // this.state.estado !== '' && this.state.cidade !== '' &&
+            // this.verificaDate() && this.verificaTime() 
+        )
+            {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(chave).set({
@@ -101,7 +99,8 @@ class NewEvents extends Component {
                 autor: localStorage.nome,
                 valorIngressoInt: this.state.valorIngressoInt,
                 valorIngressoMeia: this.state.valorIngressoMeia,
-                valorIngresso: this.state.valorIngresso
+                valorIngresso: this.state.valorIngresso,
+                estqIngresso: this.state.estqIngresso
             });
             this.props.history.push('/dashboard');
         } else {
@@ -205,19 +204,6 @@ class NewEvents extends Component {
         } else {
             return true;
         }
-
-        // if (this.state.hora !== '' || this.horaFinal !== '') {
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // } else if (this.state.data === this.state.dataFinal &&
-        //     this.state.hora > this.state.horaFinal) {
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // }else{
-        //     return true;
-        // }
-
-
     }
 
     verificaDate() {
@@ -249,22 +235,18 @@ class NewEvents extends Component {
         } else {
             return true;
         }
-        // if (this.state.data !== '' || this.state.data.length === 10 ||
-        //     this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
-        //     this.alert = 'Data inválida!';
-        //     return false;
-        // }else if (this.state.data < this.now.getFullYear() || anoIni > anoTer) {
-        //         // this.setState({ alert: 'Data inválida!' });
-        //         this.alert = 'Data inválida!';
-        //         return false;
-        // }
-
     }
 
     renderiza(e) {
         if (this.state.valorIngresso) {
             return (
                 <Col md={9}>
+                    <Row className="text-center">
+                        <Col md={12}>
+                        <Label for="estqIngresso" className="text-info font-weight-bold mx-2">Quantidade de Ingressos</Label>
+                                <Input id="estqIngresso" placeholder="0" min={1} required onChange={(e) => this.setState({ estqIngresso: e.target.value })} /> 
+                        </Col>
+                    </Row>
                     <Row className="text-center">
                         <Col md={12}>
                         <Label className="text-info font-weight-bold mx-2">Valor do Ingresso</Label>
@@ -308,12 +290,12 @@ class NewEvents extends Component {
 
             return (
                 <div>
-                    <header id="new">
+                    {/* <header id="new">
                         <Link to="/dashboard">Voltar</Link>
-                    </header>
-                    <Form onSubmit={this.cadastrar} id="new-post">
+                    </header> */}
+                    <Form onSubmit={this.cadastrar} id="new-post" className="my-2">
                         <span>{this.state.alert}</span>
-
+                        <h4 className="text-center text-info mb-4">Criar Evento</h4>
                         <FormGroup>
                             <Input id="ficheiro" type="file"
                                 onChange={this.handleFile} class="btn btn-primary" />
@@ -324,7 +306,7 @@ class NewEvents extends Component {
                             }
                             <FormText color="muted">
                                 Envie uma imagem do tipo PNG ou JPEG.
-                        </FormText>
+                            </FormText>
                         </FormGroup>
 
                         <FormGroup>

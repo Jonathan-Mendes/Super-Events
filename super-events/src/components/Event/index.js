@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
-import comprar from '../Comprar';
+import comprar from '../../comprar';
 import './event.css';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
 
@@ -26,6 +26,7 @@ class Event extends Component {
         this.incrementMeia = this.incrementMeia.bind(this);
         this.decrementMeia = this.decrementMeia.bind(this);
         this.payPal = this.payPal.bind(this);
+        this.loged = this.loged.bind(this);
     }
 
     componentDidMount() {
@@ -166,7 +167,22 @@ class Event extends Component {
             })
         }
     }
+    
+    payPal = async () => {
+        if(this.loged()){
+            await comprar.Product(this.state.valorTotal, this.state.event.titulo);
+        } else{
+            this.props.history.replace('/register');
+        }
+    }
 
+    loged(){
+        if(firebase.getCurrentUid()){
+            return true
+        }
+        return false;
+    }
+    
     renderiza() {
         if (this.state.event.valorIngresso) {
             return (
@@ -216,21 +232,17 @@ class Event extends Component {
         }
     }
 
-    payPal(){
-        
-    }
-
     render() {
         const { titulo, autor, descricao, hora, horaFinal, local, cidade, estado, imagem } = this.state.event;
         return (
             <div className="my-4">
                 <Container>
-                    <Row>
-                        <Col xs='8'>
+                    <Row className="mx-auto">
+                        <Col sm='8' xs='12'>
                             <img id="photo" className='rounded float-left mx-auto h-100 w-100 img-fluid imgCel' src={imagem} alt="Event cape" />
                         </Col>
 
-                        <Col xs='4'>
+                        <Col sm='4' xs='12'>
                             <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
                                 <p className="date text-info">{this.formatDate(this.state.dataInicial, true)}</p>
 
@@ -244,13 +256,12 @@ class Event extends Component {
                         </Col>
                     </Row>
 
-                    <Row className="mx-auto">
+                    <Row className="mx-auto contDesc">
                         <Col xs='12' className="h-100 my-4 shadow p-3 mb-5 bg-white rounded">
                             <h4 className="text-center text-info">{titulo}</h4>
                             <Table responsive>
                                 <thead>
                                     <tr>
-                                        {/*<th className="text-center">Nome do Evento</th>*/}
                                         <th className="text-center">Data de Início</th>
                                         <th className="text-center">Data de Término</th>
                                         <th className="text-center">Horário de Início</th>
@@ -262,7 +273,6 @@ class Event extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        {/*<td className="text-center text-info font-weight-bold">{titulo}</td>*/}
                                         <td className="text-center text-info font-weight-bold">{this.formatDate(this.state.dataInicial, false)}</td>
                                         <td className="text-center text-info font-weight-bold">{this.formatDate(this.state.dataFinal, false)}</td>
                                         <td className="text-center text-info font-weight-bold">{hora}</td>

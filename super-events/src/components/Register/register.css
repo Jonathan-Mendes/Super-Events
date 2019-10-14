@@ -9,12 +9,6 @@ form#register{
     flex-direction: column;
 }
 
-div .register-h1{
-    margin-top: 30px;
-    margin-bottom: 5px;
-    text-align: center;
-}
-
 form#register input, label {
     margin-bottom: 16px;
 }

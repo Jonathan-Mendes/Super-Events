@@ -36,7 +36,7 @@ class Login extends Component {
     }
 
     resetPassword() {
-        if(firebase.resetPassword(this.state.emailResetPassword)){
+        if (firebase.resetPassword(this.state.emailResetPassword)) {
             alert('E-mail enviado com sucesso!')
         } else {
             alert('Este usuário não existe!')
@@ -78,16 +78,16 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <h1 className="login-h1">Sign in to Super Events</h1>
-                <Form onSubmit={this.entrar} id="login">
+                <Form onSubmit={this.entrar} id="login" className="my-2">
+                    <h4 className="text-info text-center mb-5">Entrar no Super Events</h4>
                     <FormGroup>
-                        <Label>Email: </Label>
+                        <Label>Email</Label>
                         <Input type="email" autoComplete="off" autoFocus value={this.state.email}
                             onChange={(e) => this.setState({ email: e.target.value })} placeholder="email@gmail.com" required />
                     </FormGroup>
 
                     <FormGroup>
-                        <Label>Password: </Label>
+                        <Label>Password</Label>
                         <Input type="password" autoComplete="off" value={this.state.password}
                             onChange={(e) => this.setState({ password: e.target.value })} minLength="4" placeholder="Sua senha" required />
                     </FormGroup>
@@ -95,7 +95,7 @@ class Login extends Component {
                     <Button type="submit" color="info">Entrar</Button>
 
                     <Link to="/register" className="mt-4">Ainda não possui conta?</Link>
-                    
+
                     <Form className="text-center my-2" onSubmit={(e) => e.preventDefault()}>
                         {/* Link className="my-1" to={this.toggle}>Esqueci minha senha</Link> */}
                         <Button outline color="link" onClick={this.toggle}><span className="linkResetSenha">Esqueci minha senha</span></Button>

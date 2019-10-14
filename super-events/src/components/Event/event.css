@@ -34,3 +34,13 @@
 .max{
     max-height: 500px;
 }
+
+@media screen and (max-width: 520px){
+    .contDesc{
+        max-width: 90% !important;
+    }
+
+    .max{
+        max-height: none;
+    }
+}
