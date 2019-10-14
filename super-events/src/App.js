@@ -43,7 +43,7 @@ class App extends Component {
             </BrowserRouter>
         ) : (
                 <div id="spinner">
-                    <Spinner style={{ width: '6rem', height: '6rem' }} color="dark" />
+                    <Spinner style={{ width: '6rem', height: '6rem' }} color="info" />
                 </div>
             );
     }

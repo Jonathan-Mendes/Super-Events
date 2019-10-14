@@ -26,7 +26,8 @@ class AllEvents extends Component {
                     data: childItem.val().data,
                     hora: childItem.val().hora,
                     local: childItem.val().local,
-                    autor: childItem.val().autor,
+                    cidade: childItem.val().cidade,
+                    autor: childItem.val().autor
                 })
             });
             state.event.reverse();
@@ -73,12 +74,12 @@ class AllEvents extends Component {
                                                             <Col xs='6'>
 
                                                                 <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2' /><p>{this.formatDate(post.data)}</p></div>
+                                                                    <FaRegCalendarAlt class='icon mx-2 text-info' /><p>{this.formatDate(post.data)}</p></div>
                                                             </Col>
 
                                                             <Col xs='6'>
                                                                 <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p>{post.hora}</p></div>
+                                                                    <FaRegClock class='icon mx-2 text-info' /><p>{post.hora}</p></div>
 
                                                             </Col>
                                                         </Row>
@@ -86,8 +87,8 @@ class AllEvents extends Component {
                                                             <Col xs='12'>
                                                                 <div>
                                                                     <p>
-                                                                        <FaMapMarkerAlt className='icon mx-2' />
-                                                                        {post.local}
+                                                                        <FaMapMarkerAlt className='icon mx-2 text-info' />
+                                                                        {post.cidade}
                                                                     </p>
                                                                 </div>
                                                             </Col>
