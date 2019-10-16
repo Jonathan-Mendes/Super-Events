@@ -113,9 +113,6 @@ class Register extends Component {
 
                     <FormGroup>
                         <Label for="cpf">CPF</Label>
-                        {/*<Input id="cpf" type="text" value={this.state.cpf} autoComplete="off" placeholder="000.000.000-00"
-                            onChange={(e) => this.setState({ cpf: e.target.value })} minLength="11" maxlength="14" required />*/}
-
                         <InputMask className="form-control" {...this.state} onChange={this.onChange} id="cpf" value={this.state.cpf}
                             autoComplete="off" placeholder="000.000.000-00" required />
                     </FormGroup>
@@ -129,7 +126,7 @@ class Register extends Component {
                     <FormGroup>
                         <Label for="pass">Senha</Label>
                         <Input id="pass" type="password" value={this.state.password} autoComplete="off" placeholder="Sua senha"
-                            minLength="4" onChange={(e) => this.setState({ password: e.target.value })} />
+                            minLength="6" onChange={(e) => this.setState({ password: e.target.value })} />
                     </FormGroup>
 
                     <Button type="submit" color="info">Cadastrar</Button>

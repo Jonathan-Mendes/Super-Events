@@ -73,9 +73,10 @@ class NewEvents extends Component {
 
     cadastrar = async (e) => {
         e.preventDefault();
-        if ( true
-            // this.state.imagem !== '' && this.state.imagem !== null && 
-            // this.state.url !== '' && this.state.data !== '' && 
+        if ( 
+            this.state.imagem !== '' && this.state.imagem !== null && 
+            this.state.url !== '' && this.verificaDate() && this.verificaTime()
+            // && this.state.data !== '' && 
             // this.state.data.length === 10 && this.state.dataFinal !== '' &&
             // this.state.dataFinal.length === 10 && this.state.hora !== '' &&
             // this.state.estado !== '' && this.state.cidade !== '' &&
@@ -157,8 +158,8 @@ class NewEvents extends Component {
     }
 
     fillCityList() {
-        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" +
-            this.state.estado + "/municipios")
+        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" 
+        + this.state.estado + "/municipios")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -190,15 +191,10 @@ class NewEvents extends Component {
         let horaTer = this.formatTime(this.state.horaFinal, 0, 2)
         let minTer = this.formatTime(this.state.horaFinal, 3, 5)
 
-        if (this.state.hora !== '' || this.horaFinal !== '') {
-            alert('Hora inválida!');
-            return false;
-        } else if (this.state.data === this.state.dataFinal && horaIni > horaTer) {
-            // this.setState({ alert: 'Hora inválida!' });
+        if (this.state.data === this.state.dataFinal && horaIni > horaTer) {;
             alert('Hora inválida!');
             return false;
         } else if (this.state.data === this.state.dataFinal && horaIni === horaTer && minIni > minTer) {
-            // this.setState({ alert: 'Hora inválida!' });
             alert('Hora inválida!');
             return false;
         } else {
@@ -214,26 +210,21 @@ class NewEvents extends Component {
         let mesTer = this.formatDate(this.state.dataFinal, 5, 7)
         let anoTer = this.formatDate(this.state.dataFinal, 0, 4)
 
-        if (this.state.data !== '' || this.state.data.length === 10 ||
-            this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
-            alert('Data inválida!');
-            return false;
-        }
-        if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
-            // this.setState({ alert: 'Data inválida!' });
-            alert('Data inválida!');
-            return false;
+        if (this.state.data.length > 10 || this.state.dataFinal.length > 10) {
+                alert('Data inválida!');
+                return false;
+        } else if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
+                alert('Data inválida!');
+                return false;
         } else if ((anoIni === this.now.getFullYear() && mesIni < this.now.getMonth())
             || (anoIni === anoTer && mesIni > mesTer)) {
-            // this.setState({ alert: 'Data inválida!' });
-            alert('Data inválida!');
-            return false;
-        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {
-            // this.setState({ alert: 'Data inválida!' });
-            alert('Data inválida!');
-            return false;
+                alert('Data inválida!');
+                return false;
+        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {;
+                alert('Data inválida!');
+                return false;
         } else {
-            return true;
+                return true;
         }
     }
 

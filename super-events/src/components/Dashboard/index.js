@@ -118,7 +118,6 @@ class Dashboard extends Component {
                         <Container id="post" class="container">
                             <Row>
                                 {this.state.events.map((post) => {
-                                    //if (post.ativo) {
                                         return (
                                             <Col xs='12' sm='4'>
                                                 <div id="link" key={post.key}>
@@ -185,7 +184,6 @@ class Dashboard extends Component {
                                                 </div>
                                             </Col>
                                         );
-                                    //}
                                 })}
                             </Row>
                         </Container>
