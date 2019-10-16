@@ -133,9 +133,7 @@ class EditEvent extends Component {
             });
             this.props.history.push('/dashboard');
         } else {
-            //this.setState({ alert: 'Preencha todos os campos corretamente!' });
             alert('Preencha todos os campos corretamente!');
-            //this.alert = '';
         }
     }
 
@@ -233,19 +231,6 @@ class EditEvent extends Component {
         } else {
             return true;
         }
-
-        // if (this.state.hora !== '' || this.horaFinal !== '') {
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // } else if (this.state.data === this.state.dataFinal &&
-        //     this.state.hora > this.state.horaFinal) {
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // }else{
-        //     return true;
-        // }
-
-
     }
 
     verificaDate() {

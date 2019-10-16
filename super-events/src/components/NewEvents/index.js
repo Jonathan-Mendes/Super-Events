@@ -72,17 +72,12 @@ class NewEvents extends Component {
     }
 
     cadastrar = async (e) => {
+        //console.log(parseFloat(this.valorIngressoInt))
+        //console.log(parseInt(this.valorIngressoMeia))
         e.preventDefault();
-        if ( 
-            this.state.imagem !== '' && this.state.imagem !== null && 
-            this.state.url !== '' && this.verificaDate() && this.verificaTime()
-            // && this.state.data !== '' && 
-            // this.state.data.length === 10 && this.state.dataFinal !== '' &&
-            // this.state.dataFinal.length === 10 && this.state.hora !== '' &&
-            // this.state.estado !== '' && this.state.cidade !== '' &&
-            // this.verificaDate() && this.verificaTime() 
-        )
-            {
+        if ( this.state.imagem !== '' && this.state.imagem !== null && 
+             this.state.url !== '' && this.verificaDate() && this.verificaTime())
+        {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(chave).set({
@@ -105,9 +100,7 @@ class NewEvents extends Component {
             });
             this.props.history.push('/dashboard');
         } else {
-            //this.setState({ alert: 'Preencha todos os campos corretamente!' });
             alert('Preencha todos os campos corretamente!');
-            //this.alert = '';
         }
     }
 
@@ -235,7 +228,7 @@ class NewEvents extends Component {
                     <Row className="text-center">
                         <Col md={12}>
                         <Label for="estqIngresso" className="text-info font-weight-bold mx-2">Quantidade de Ingressos</Label>
-                                <Input id="estqIngresso" placeholder="0" min={1} required onChange={(e) => this.setState({ estqIngresso: e.target.value })} /> 
+                                <Input id="estqIngresso" type="number" placeholder="0" min={1} required onChange={(e) => this.setState({ estqIngresso: e.target.value })} /> 
                         </Col>
                     </Row>
                     <Row className="text-center">
@@ -247,15 +240,15 @@ class NewEvents extends Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="valInt" className="text-info font-weight-bold mx-2">Inteira</Label>
-                                <CurrencyInput className="form-control" id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
-                                    onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+                                <Input id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
+                                onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
-                                <Label for="valInt" className="text-info font-weight-bold mx-2">Meia</Label>
-                                <CurrencyInput className="form-control" id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
-                                    onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />
+                                <Label for="valMeia" className="text-info font-weight-bold mx-2">Meia</Label>
+                                <Input id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
+                                onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />              
                             </FormGroup>
                         </Col>
                     </Row>

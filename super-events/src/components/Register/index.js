@@ -45,8 +45,6 @@ class Register extends Component {
         if (this.validarCPF(this.state.cpf)) {
             try {
                 const { nome, cpf, email, password, imagem } = this.state;
-
-                // firebase.checkEmail(this.email)
                 await firebase.register(nome, cpf, email, password, imagem);
                 this.props.history.replace('/dashboard');
 
