@@ -258,7 +258,6 @@ class NewEvents extends Component {
             this.state.valorIngressoInt = 0
             this.state.valorIngressoMeia = 0
         }
-
     }
 
     render() {
@@ -274,12 +273,12 @@ class NewEvents extends Component {
 
             return (
                 <div>
-                    {/* <header id="new">
+                    <header id="new">
                         <Link to="/dashboard">Voltar</Link>
-                    </header> */}
-                    <Form onSubmit={this.cadastrar} id="new-post" className="my-2">
+                    </header>
+                    <Form onSubmit={this.cadastrar} id="new-post">
                         <span>{this.state.alert}</span>
-                        <h4 className="text-center text-info mb-4">Criar Evento</h4>
+
                         <FormGroup>
                             <Input id="ficheiro" type="file"
                                 onChange={this.handleFile} class="btn btn-primary" />
@@ -290,12 +289,12 @@ class NewEvents extends Component {
                             }
                             <FormText color="muted">
                                 Envie uma imagem do tipo PNG ou JPEG.
-                            </FormText>
+                        </FormText>
                         </FormGroup>
 
                         <FormGroup>
                             <Label for="name">Titulo: </Label>
-                            <Input id="name" type="text" value={this.state.titulo} placeholder="Nome do post" autoFocus
+                            <Input id="name" type="text" value={this.state.titulo} autoFocus
                                 onChange={(e) => this.setState({ titulo: e.target.value })} required />
                         </FormGroup>
 
@@ -338,7 +337,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="selectEstados">Estado:</Label>
-                            <Input type="select" name="estado" id="selectEstados"
+                            <Input type="select" name="estado" id="selectEstados" value={this.state.estado}
                                 onChange={(e) => this.setState({ estado: e.target.value })}>
                                 <option value=''></option>
                                 {estados.map(estado => (
@@ -351,7 +350,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="selectCidades">Cidade:</Label>
-                            <Input type="select" name="cidade" id="selectCidades"
+                            <Input type="select" name="cidade" id="selectCidades" value={this.state.cidade}
                                 onChange={(e) => this.setState({ cidade: e.target.value })}>
                                 {this.fillCityList()}
                                 <option value=''></option>
@@ -365,7 +364,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="local">Local do Evento: </Label>
-                            <Input id="local" type="text" value={this.state.local} placeholder="Local do Evento"
+                            <Input id="local" type="text" value={this.state.local}
                                 onChange={(e) => this.setState({ local: e.target.value })} required />
                         </FormGroup>
 
@@ -390,7 +389,7 @@ class NewEvents extends Component {
 
                         <Button type="submit" color="success">Cadastrar</Button>
                     </Form>
-                </div>
+              </div>
             );
         }
     }
