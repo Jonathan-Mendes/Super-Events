@@ -31,7 +31,8 @@ class Firebase {
         return app.auth().signOut();
     }
 
-    async register(nome, cpf, email, password, imagem) {
+    async companiesRegistration(empresa, codigo, email, password, imagem) {
+
         await app.auth().createUserWithEmailAndPassword(email, password)
 
         const uid = app.auth().currentUser.uid;
@@ -39,7 +40,7 @@ class Firebase {
         return app.database().ref('usuarios').child(uid).set({
             nome: nome,
             cpf: cpf,
-            foto: imagem
+            cardapio
         })
     }
 
@@ -90,7 +91,7 @@ class Firebase {
     }
 
     async deleteEventByKey(key){
-        await app.database().ref('events').child(key).remove();
+        await app.database().ref('cardapios').child(key).remove();
     }
 }
 

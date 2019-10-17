@@ -24,10 +24,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        //Verificar se tem algum usuário logado
-        if (firebase.getCurrent()) {
-            return this.props.history.replace('/dashboard');
-        }
+
     }
 
     entrar(e) {
