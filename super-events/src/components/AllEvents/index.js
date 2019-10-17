@@ -26,7 +26,8 @@ class AllEvents extends Component {
                     data: childItem.val().data,
                     hora: childItem.val().hora,
                     local: childItem.val().local,
-                    autor: childItem.val().autor,
+                    cidade: childItem.val().cidade,
+                    autor: childItem.val().autor
                 })
             });
             state.event.reverse();
@@ -72,13 +73,15 @@ class AllEvents extends Component {
                                                         <Row>
                                                             <Col xs='6'>
 
-                                                                <div className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2' /><p>{this.formatDate(post.data)}</p></div>
+                                                                <p className="box">
+                                                                    <FaRegCalendarAlt class='icon mx-2 text-info' />{this.formatDate(post.data)}
+                                                                </p>
                                                             </Col>
 
                                                             <Col xs='6'>
-                                                                <div className="box">
-                                                                    <FaRegClock class='icon mx-2' /><p>{post.hora}</p></div>
+                                                                <p className="box">
+                                                                    <FaRegClock class='icon mx-2 text-info' />{post.hora}
+                                                                </p>
 
                                                             </Col>
                                                         </Row>
@@ -86,8 +89,8 @@ class AllEvents extends Component {
                                                             <Col xs='12'>
                                                                 <div>
                                                                     <p>
-                                                                        <FaMapMarkerAlt className='icon mx-2' />
-                                                                        {post.local}
+                                                                        <FaMapMarkerAlt className='icon mx-2 text-info' />
+                                                                        {post.cidade}
                                                                     </p>
                                                                 </div>
                                                             </Col>
@@ -97,10 +100,10 @@ class AllEvents extends Component {
                                             </Link>
                                         </div>
                                     </Col>
-                        );
-                    })}
+                                );
+                            })}
                         </Row>
-                </Container>
+                    </Container>
                 </Container>
             </div >
         );

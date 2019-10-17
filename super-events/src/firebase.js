@@ -32,7 +32,8 @@ class Firebase {
         return app.auth().signOut();
     }
 
-    async register(nome, cpf, email, password, imagem) {
+    async companiesRegistration(empresa, codigo, email, password, imagem) {
+
         await app.auth().createUserWithEmailAndPassword(email, password)
 
         const uid = app.auth().currentUser.uid;
@@ -40,7 +41,7 @@ class Firebase {
         return app.database().ref('usuarios').child(uid).set({
             nome: nome,
             cpf: cpf,
-            foto: imagem
+            cardapio
         })
     }
 
@@ -51,19 +52,13 @@ class Firebase {
         } catch (error) {
             return false
         }
-
-        // .then(function() {
-        //     // Email sent.
-        //   }).catch(function(error) {
-        //     // An error happened.
-        //   });
     }
 
     checkEmail(email) {
         app.sendSignInLinkToEmail(email).then(function () {
-                window.localStorage.setItem('emailForSignIn', email);
-                return true
-            })
+            window.localStorage.setItem('emailForSignIn', email);
+            return true
+        })
             .catch(function (error) {
             });
     }
@@ -90,7 +85,7 @@ class Firebase {
         await app.database().ref('usuarios').child(uid).once('value').then(callback);
     }
 
-    async deleteEventByKey(key){
+    async deleteEventByKey(key) {
         await app.database().ref('events').child(key).remove();
     }
 

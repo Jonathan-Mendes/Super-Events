@@ -1,4 +1,4 @@
-#navbar{
+/* #navbar{
     width: 100%;
     background-color: #272727;
     height: 72px;
@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
 #navbar a{
     color: #ffffff;
@@ -36,4 +36,10 @@ span{
 }
 #main{
     cursor: pointer;
+}
+
+@media screen and (max-width: 520px){
+    .fontSizeNav{
+        font-size: 5px;
+    }
 }

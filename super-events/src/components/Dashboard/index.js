@@ -99,12 +99,6 @@ class Dashboard extends Component {
                     </div>
                     <p>Logado com {firebase.getCurrent()}</p>
                     
-                    
-                    {/*<Button color="success" onClick={() => this.newEvent()}>
-                        <span><IoIosAdd /></span> Novo Post</Button>
-                    <Button color="danger" onClick={() => this.logout()}>
-                        <span><IoIosLogOut /></span> Sair</Button>*/}
-
                     <div id="tip">
                         <Row>
                             <Col xs='12'>
@@ -114,7 +108,6 @@ class Dashboard extends Component {
                         <Container id="post" class="container">
                             <Row>
                                 {this.state.events.map((post) => {
-                                    //if (post.ativo) {
                                         return (
                                             <Col xs='12' sm='4'>
                                                 <div id="link" key={post.key}>
@@ -132,7 +125,7 @@ class Dashboard extends Component {
 
                                                                         <div className="box">
                                                                             <p>
-                                                                                <FaRegCalendarAlt className='icon' />{this.formatDate(post.data)}
+                                                                                <FaRegCalendarAlt className='icon text-info' />{this.formatDate(post.data)}
                                                                             </p>
                                                                         </div>
                                                                     </Col>
@@ -140,7 +133,7 @@ class Dashboard extends Component {
                                                                     <Col xs='6'>
                                                                         <div className="box">
                                                                             <p>
-                                                                                <FaRegClock className='icon mx-2' />
+                                                                                <FaRegClock className='icon mx-2 text-info' />
                                                                                 {post.hora}
                                                                             </p>
                                                                         </div>
@@ -151,7 +144,7 @@ class Dashboard extends Component {
                                                                     <Col xs='12'>
                                                                         <div>
                                                                             <p>
-                                                                                <FaMapMarkerAlt className='icon mx-2' />
+                                                                                <FaMapMarkerAlt className='icon mx-2 text-info' />
                                                                                 {post.cidade}
                                                                             </p>
                                                                         </div>
@@ -179,7 +172,6 @@ class Dashboard extends Component {
                                                 </div>
                                             </Col>
                                         );
-                                    //}
                                 })}
                             </Row>
                         </Container>

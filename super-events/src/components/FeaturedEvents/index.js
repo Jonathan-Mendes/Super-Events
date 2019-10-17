@@ -54,7 +54,6 @@ class FeaturedEvents extends Component {
 
         var brDate = today.slice(8, 10) + '/' +
             today.slice(5, 7);
-        //  + '/' + today.slice(0, 4);
 
         return brDate;
     }

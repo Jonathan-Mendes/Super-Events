@@ -37,7 +37,8 @@ class NewEvents extends Component {
             isLoaded: false,
             valorIngresso: false,
             valorIngressoInt: '',
-            valorIngressoMeia: ''
+            valorIngressoMeia: '',
+            estqIngresso: ''
         };
         this.cadastrar = this.cadastrar.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -74,19 +75,12 @@ class NewEvents extends Component {
     }
 
     cadastrar = async (e) => {
+        //console.log(parseFloat(this.valorIngressoInt))
+        //console.log(parseInt(this.valorIngressoMeia))
         e.preventDefault();
-        if (
-            // (this.state.titulo !== '' && this.state.imagem !== '' &&
-            // this.state.imagem !== null && this.state.url !== '' &&
-            // this.state.imagem !== '' && this.state.descricao !== '' &&
-            // this.state.data !== '' && this.state.data.length === 10 &&
-            // this.state.dataFinal !== '' && this.state.dataFinal.length === 10 &&
-            // this.state.hora !== '' && this.horaFinal !== '' &&
-            // this.state.local !== '' && this.state.estado !== '' &&
-            // this.state.cidade !== '' && this.verificaDate() && 
-            // this.verificaTime() && this.valorIngressoInt !== '' && 
-            // this.valorIngressoMeia !== '') || 
-            true) {
+        if ( this.state.imagem !== '' && this.state.imagem !== null && 
+             this.state.url !== '' && this.verificaDate() && this.verificaTime())
+        {
             let event = firebase.app.ref('events');
             let chave = event.push().key;
             await event.child(chave).set({
@@ -109,13 +103,12 @@ class NewEvents extends Component {
                 autor: localStorage.nome,
                 valorIngressoInt: this.state.valorIngressoInt,
                 valorIngressoMeia: this.state.valorIngressoMeia,
-                valorIngresso: this.state.valorIngresso
+                valorIngresso: this.state.valorIngresso,
+                estqIngresso: this.state.estqIngresso
             });
             this.props.history.push('/dashboard');
         } else {
-            //this.setState({ alert: 'Preencha todos os campos corretamente!' });
             alert('Preencha todos os campos corretamente!');
-            //this.alert = '';
         }
     }
 
@@ -166,8 +159,8 @@ class NewEvents extends Component {
     }
 
     fillCityList() {
-        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" +
-            this.state.estado + "/municipios")
+        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" 
+        + this.state.estado + "/municipios")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -199,33 +192,15 @@ class NewEvents extends Component {
         let horaTer = this.formatTime(this.state.horaFinal, 0, 2)
         let minTer = this.formatTime(this.state.horaFinal, 3, 5)
 
-        if (this.state.hora !== '' || this.horaFinal !== '') {
-            alert('Hora inválida!');
-            return false;
-        } else if (this.state.data === this.state.dataFinal && horaIni > horaTer) {
-            // this.setState({ alert: 'Hora inválida!' });
+        if (this.state.data === this.state.dataFinal && horaIni > horaTer) {;
             alert('Hora inválida!');
             return false;
         } else if (this.state.data === this.state.dataFinal && horaIni === horaTer && minIni > minTer) {
-            // this.setState({ alert: 'Hora inválida!' });
             alert('Hora inválida!');
             return false;
         } else {
             return true;
         }
-
-        // if (this.state.hora !== '' || this.horaFinal !== '') {
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // } else if (this.state.data === this.state.dataFinal &&
-        //     this.state.hora > this.state.horaFinal) {
-        //     this.alert = 'Hora inválida!';
-        //     return false;
-        // }else{
-        //     return true;
-        // }
-
-
     }
 
     verificaDate() {
@@ -236,43 +211,34 @@ class NewEvents extends Component {
         let mesTer = this.formatDate(this.state.dataFinal, 5, 7)
         let anoTer = this.formatDate(this.state.dataFinal, 0, 4)
 
-        if (this.state.data !== '' || this.state.data.length === 10 ||
-            this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
-            alert('Data inválida!');
-            return false;
-        }
-        if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
-            // this.setState({ alert: 'Data inválida!' });
-            alert('Data inválida!');
-            return false;
+        if (this.state.data.length > 10 || this.state.dataFinal.length > 10) {
+                alert('Data inválida!');
+                return false;
+        } else if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
+                alert('Data inválida!');
+                return false;
         } else if ((anoIni === this.now.getFullYear() && mesIni < this.now.getMonth())
             || (anoIni === anoTer && mesIni > mesTer)) {
-            // this.setState({ alert: 'Data inválida!' });
-            alert('Data inválida!');
-            return false;
-        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {
-            // this.setState({ alert: 'Data inválida!' });
-            alert('Data inválida!');
-            return false;
+                alert('Data inválida!');
+                return false;
+        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {;
+                alert('Data inválida!');
+                return false;
         } else {
-            return true;
+                return true;
         }
-        // if (this.state.data !== '' || this.state.data.length === 10 ||
-        //     this.state.dataFinal !== '' || this.state.dataFinal.length === 10) {
-        //     this.alert = 'Data inválida!';
-        //     return false;
-        // }else if (this.state.data < this.now.getFullYear() || anoIni > anoTer) {
-        //         // this.setState({ alert: 'Data inválida!' });
-        //         this.alert = 'Data inválida!';
-        //         return false;
-        // }
-
     }
 
     renderiza(e) {
         if (this.state.valorIngresso) {
             return (
                 <Col md={9}>
+                    <Row className="text-center">
+                        <Col md={12}>
+                        <Label for="estqIngresso" className="text-info font-weight-bold mx-2">Quantidade de Ingressos</Label>
+                                <Input id="estqIngresso" type="number" placeholder="0" min={1} required onChange={(e) => this.setState({ estqIngresso: e.target.value })} /> 
+                        </Col>
+                    </Row>
                     <Row className="text-center">
                         <Col md={12}>
                         <Label className="text-info font-weight-bold mx-2">Valor do Ingresso</Label>
@@ -282,15 +248,15 @@ class NewEvents extends Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="valInt" className="text-info font-weight-bold mx-2">Inteira</Label>
-                                <CurrencyInput className="form-control" id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
-                                    onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
+                                <Input id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
+                                onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
-                                <Label for="valInt" className="text-info font-weight-bold mx-2">Meia</Label>
-                                <CurrencyInput className="form-control" id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
-                                    onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />
+                                <Label for="valMeia" className="text-info font-weight-bold mx-2">Meia</Label>
+                                <Input id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
+                                onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />              
                             </FormGroup>
                         </Col>
                     </Row>
@@ -300,7 +266,6 @@ class NewEvents extends Component {
             this.state.valorIngressoInt = 0
             this.state.valorIngressoMeia = 0
         }
-
     }
 
     render() {
@@ -337,7 +302,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="name">Titulo: </Label>
-                            <Input id="name" type="text" value={this.state.titulo} placeholder="Nome do post" autoFocus
+                            <Input id="name" type="text" value={this.state.titulo} autoFocus
                                 onChange={(e) => this.setState({ titulo: e.target.value })} required />
                         </FormGroup>
 
@@ -380,7 +345,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="selectEstados">Estado:</Label>
-                            <Input type="select" name="estado" id="selectEstados"
+                            <Input type="select" name="estado" id="selectEstados" value={this.state.estado}
                                 onChange={(e) => this.setState({ estado: e.target.value })}>
                                 <option value=''></option>
                                 {estados.map(estado => (
@@ -393,7 +358,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="selectCidades">Cidade:</Label>
-                            <Input type="select" name="cidade" id="selectCidades"
+                            <Input type="select" name="cidade" id="selectCidades" value={this.state.cidade}
                                 onChange={(e) => this.setState({ cidade: e.target.value })}>
                                 {this.fillCityList()}
                                 <option value=''></option>
@@ -407,7 +372,7 @@ class NewEvents extends Component {
 
                         <FormGroup>
                             <Label for="local">Local do Evento: </Label>
-                            <Input id="local" type="text" value={this.state.local} placeholder="Local do Evento"
+                            <Input id="local" type="text" value={this.state.local}
                                 onChange={(e) => this.setState({ local: e.target.value })} required />
                         </FormGroup>
 
@@ -432,7 +397,7 @@ class NewEvents extends Component {
 
                         <Button type="submit" color="success">Cadastrar</Button>
                     </Form>
-                </div>
+              </div>
             );
         }
     }

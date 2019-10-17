@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { Component, useState  } from 'react';
+import { withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './header.css';
-import { IoIosLogIn, IoIosPerson, IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosLogIn, IoIosAddCircleOutline } from "react-icons/io";
 import {
     Collapse,
     Navbar,
@@ -86,13 +86,13 @@ class Header extends Component {
         if(!this.loged())
         return(
                 <div>
-                    <Navbar id="navbar" expand="sm">
+                    <Navbar id="navbar" color="info" expand="xs">
                         <NavbarBrand onClick={() => this.home()} id="main">Super Events</NavbarBrand>
 
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
-                                <NavItem>
+                                <NavItem >
                                     <NavLink href="/login"><IoIosLogIn />
                                         <span>Entrar</span></NavLink>
                                 </NavItem>
@@ -108,7 +108,7 @@ class Header extends Component {
         if(this.loged())
          return(
             <div>
-                <Navbar id="navbar" expand="sm">
+                <Navbar id="navbar" color="info" expand="xs">
                         <NavbarBrand onClick={() => this.home()} id="main">Super Events</NavbarBrand>
 
                         <NavbarToggler onClick={this.toggle}/>
