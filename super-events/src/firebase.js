@@ -2,6 +2,7 @@ import app from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 import 'firebase/storage';
+import { returnStatement } from '@babel/types';
 
 let firebaseConfig = {
     apiKey: "AIzaSyAJAWqpng8KXlZKvOBafmZe4Ev2YZe9kdQ",
@@ -91,6 +92,10 @@ class Firebase {
 
     async deleteEventByKey(key){
         await app.database().ref('events').child(key).remove();
+    }
+
+    async searchEvents(nomeEvento){
+        return app.database().ref('events').orderByChild("data").equalTo(nomeEvento);
     }
 }
 

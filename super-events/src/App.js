@@ -6,6 +6,7 @@ import FeaturedEvents from './components/FeaturedEvents';
 import AllEvents from './components/AllEvents';
 import Event from './components/Event';
 import EditEvent from './components/EditEvent';
+import SearchEvents from './components/SearchEvents';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
@@ -35,6 +36,7 @@ class App extends Component {
                     <Route exact path='/allevents' component={AllEvents}/>
                     <Route exact path="/event/:id" component={Event} />
                     <Route exact path="/editevent/:id" component={EditEvent} />
+                    <Route exact path="/searchevents" component={SearchEvents} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/dashboard" component={Dashboard} />

@@ -5,6 +5,18 @@ div#tip{
     margin-top: 15px;
 }
 
+#search{
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-content: center; */
+    /* align-items: center; */
+}
+
+#specific button{
+    /* display: flex; */
+    /* align-items: center; */
+}
+
 #post{
     padding: 0 30px;
     display: flex;
