@@ -2,7 +2,6 @@ import app from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 import 'firebase/storage';
-import { returnStatement } from '@babel/types';
 
 let firebaseConfig = {
     apiKey: "AIzaSyAJAWqpng8KXlZKvOBafmZe4Ev2YZe9kdQ",
@@ -32,8 +31,7 @@ class Firebase {
         return app.auth().signOut();
     }
 
-    async companiesRegistration(empresa, codigo, email, password, imagem) {
-
+    async register(nome, cpf, email, password, imagem) {
         await app.auth().createUserWithEmailAndPassword(email, password)
 
         const uid = app.auth().currentUser.uid;
@@ -41,7 +39,7 @@ class Firebase {
         return app.database().ref('usuarios').child(uid).set({
             nome: nome,
             cpf: cpf,
-            cardapio
+            foto: imagem
         })
     }
 
@@ -52,13 +50,19 @@ class Firebase {
         } catch (error) {
             return false
         }
+
+        // .then(function() {
+        //     // Email sent.
+        //   }).catch(function(error) {
+        //     // An error happened.
+        //   });
     }
 
     checkEmail(email) {
         app.sendSignInLinkToEmail(email).then(function () {
-            window.localStorage.setItem('emailForSignIn', email);
-            return true
-        })
+                window.localStorage.setItem('emailForSignIn', email);
+                return true
+            })
             .catch(function (error) {
             });
     }
@@ -85,12 +89,8 @@ class Firebase {
         await app.database().ref('usuarios').child(uid).once('value').then(callback);
     }
 
-    async deleteEventByKey(key) {
+    async deleteEventByKey(key){
         await app.database().ref('events').child(key).remove();
-    }
-
-    async searchEvents(nomeEvento){
-        return app.database().ref('events').orderByChild("data").equalTo(nomeEvento);
     }
 }
 
