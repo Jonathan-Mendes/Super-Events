@@ -51,19 +51,13 @@ class Firebase {
         } catch (error) {
             return false
         }
-
-        // .then(function() {
-        //     // Email sent.
-        //   }).catch(function(error) {
-        //     // An error happened.
-        //   });
     }
 
     checkEmail(email) {
         app.sendSignInLinkToEmail(email).then(function () {
-                window.localStorage.setItem('emailForSignIn', email);
-                return true
-            })
+            window.localStorage.setItem('emailForSignIn', email);
+            return true
+        })
             .catch(function (error) {
             });
     }
@@ -90,8 +84,8 @@ class Firebase {
         await app.database().ref('usuarios').child(uid).once('value').then(callback);
     }
 
-    async deleteEventByKey(key){
-        await app.database().ref('cardapios').child(key).remove();
+    async deleteEventByKey(key) {
+        await app.database().ref('events').child(key).remove();
     }
 }
 

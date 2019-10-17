@@ -46,14 +46,17 @@ class Register extends Component {
             try {
                 const { nome, cpf, email, password, imagem } = this.state;
                 await firebase.register(nome, cpf, email, password, imagem);
-                // this.props.history.replace('/dashboard');
+                this.props.history.replace('/dashboard');
+
             } catch (error) {
                 alert(error.message);
             }
-
-
+        } else {
+            alert("CPF inválido!");
+            //this.cpf.focus();
+        }
     }
-
+    
     validarCPF(cpf) {
         cpf = cpf.replace(/[^\d]+/g, '');
         let rev;
