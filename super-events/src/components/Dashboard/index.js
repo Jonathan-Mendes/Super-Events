@@ -22,7 +22,6 @@ class Dashboard extends Component {
         this.newEvent = this.newEvent.bind(this);
         this.formatDate = this.formatDate.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
-        this.editEvent = this.editEvent.bind(this);
     }
 
     async componentDidMount() {
@@ -86,15 +85,6 @@ class Dashboard extends Component {
             await firebase.deleteEventByKey(key);
             window.location.reload();
 
-        } catch (error) {
-            alert(error.message);
-        }
-    }
-
-    editEvent() {
-        try{
-            console.log('entro');
-        
         } catch (error) {
             alert(error.message);
         }
@@ -167,9 +157,7 @@ class Dashboard extends Component {
                                                     <Row>
                                                         <Col xs='6'>
                                                             <Link to={`/editevent/${post.key}`}>
-                                                                <Button id="btnEdit" color="success"
-                                                                    //onclick={this.editEvent(post.key)}
-                                                                >
+                                                                <Button id="btnEdit" color="success">
                                                                     <FaRegEdit/>
                                                                 </Button>
                                                             </Link>

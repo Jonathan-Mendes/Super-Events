@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import './editevent.css';
 import {
     Button, Form, FormGroup, Label, Input, FormText, Col, Row, Progress,
-    Spinner, CustomInput, InputGroupAddon, InputGroup, InputGroupText
+    Spinner, CustomInput
 } from 'reactstrap';
 import CurrencyInput from 'react-currency-masked-input'
 
