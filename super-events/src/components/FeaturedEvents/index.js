@@ -101,7 +101,7 @@ class FeaturedEvents extends Component {
                     <Container id="search">
                         {/* <Form onSubmit={this.pesquisar}> */}
                             {/* <FormGroup> */}
-                                <Row id="specific">
+                                <Row id="specific" className=''>
                                     <Col xs="3"><Input id="eventName" type="text" placeholder="Buscar por Eventos"
                                         onChange={(e) => this.setState({ inputEvent: e.target.value })}/>
                                     </Col>
@@ -120,7 +120,7 @@ class FeaturedEvents extends Component {
                                                 passedDate: inputDate
                                             }
                                         }}>
-                                            <Button color="primary" type="submit" onClick={() => this.searchEvent()}>Pesquisar</Button>
+                                            <Button className='w-100' color="primary" type="submit" onClick={() => this.searchEvent()}>Pesquisar</Button>
                                         </Link>
                                     </Col>
                                 </Row>
@@ -148,29 +148,24 @@ class FeaturedEvents extends Component {
                                                             <img src={post.imagem} alt="Capa do post"
                                                                 className='rounded' />
                                                             <footer className="my-4">
-                                                                <Row>
-                                                                    <Col xs='6'>
+                                                            <Row className='text-center'>
+                                                                <Col xs='6'>
+                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                </Col>
     
-                                                                        <div className="box">
-                                                                            <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
-                                                                    </Col>
+                                                                <Col xs='6'>
+                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
     
-                                                                    <Col xs='6'>
-                                                                        <div className="box">
-                                                                            <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
-    
-                                                                    </Col>
-                                                                </Row>
-                                                                <Row>
-                                                                    <Col xs='12'>
-                                                                        <div>
-                                                                            <p>
-                                                                                <FaMapMarkerAlt className='icon' />
-                                                                                {post.cidade}
-                                                                            </p>
-                                                                        </div>
-                                                                    </Col>
-                                                                </Row>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row >
+                                                                <Col xs='12' className='ml-4'>
+                                                                        <p>
+                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                            {post.cidade}
+                                                                        </p>
+                                                                </Col>
+                                                            </Row>
                                                             </footer>
                                                         </article>
                                                     </Link>
@@ -209,27 +204,22 @@ class FeaturedEvents extends Component {
                                                         <img src={post.imagem} alt="Capa do post"
                                                             className='rounded' />
                                                         <footer className="my-4">
-                                                            <Row>
+                                                        <Row className='text-center'>
                                                                 <Col xs='6'>
-    
-                                                                    <div className="box">
-                                                                        <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
+                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
                                                                 </Col>
     
                                                                 <Col xs='6'>
-                                                                    <div className="box">
-                                                                        <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
+                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
     
                                                                 </Col>
                                                             </Row>
-                                                            <Row>
-                                                                <Col xs='12'>
-                                                                    <div>
+                                                            <Row >
+                                                                <Col xs='12' className='ml-4'>
                                                                         <p>
-                                                                            <FaMapMarkerAlt className='icon' />
+                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
                                                                             {post.cidade}
                                                                         </p>
-                                                                    </div>
                                                                 </Col>
                                                             </Row>
                                                         </footer>
@@ -269,27 +259,22 @@ class FeaturedEvents extends Component {
                                                         <img src={post.imagem} alt="Capa do post"
                                                             className='rounded' />
                                                         <footer className="my-4">
-                                                            <Row>
+                                                            <Row className='text-center'>
                                                                 <Col xs='6'>
-    
-                                                                    <div className="box">
-                                                                        <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
+                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
                                                                 </Col>
     
                                                                 <Col xs='6'>
-                                                                    <div className="box">
-                                                                        <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
+                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
     
                                                                 </Col>
                                                             </Row>
-                                                            <Row>
-                                                                <Col xs='12'>
-                                                                    <div>
+                                                            <Row >
+                                                                <Col xs='12' className='ml-4'>
                                                                         <p>
-                                                                            <FaMapMarkerAlt className='icon' />
+                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
                                                                             {post.cidade}
                                                                         </p>
-                                                                    </div>
                                                                 </Col>
                                                             </Row>
                                                         </footer>

@@ -74,8 +74,7 @@ class Dashboard extends Component {
         let today = data;
 
         var brDate = today.slice(8, 10) + '/' +
-            today.slice(5, 7) + '/' +
-            today.slice(0, 4);
+            today.slice(5, 7);
 
         return brDate;
     }
@@ -98,7 +97,7 @@ class Dashboard extends Component {
                         <h5>Olá, {this.state.nome}</h5>
                     </div>
                     <p>Logado com {firebase.getCurrent()}</p>
-                    
+
                     <div id="tip">
                         <Row>
                             <Col xs='12'>
@@ -108,76 +107,64 @@ class Dashboard extends Component {
                         <Container id="post" class="container">
                             <Row>
                                 {this.state.events.map((post) => {
-                                        return (
-                                            <Col xs='12' sm='4'>
-                                                <div id="link" key={post.key}>
-                                                    <Link to={`/event/${post.key}`}>
-                                                        <article>
-                                                            <header>
-                                                                <div className="title">
-                                                                    <strong>{post.titulo}</strong>
-                                                                </div>
-                                                            </header>
-                                                            <img src={post.imagem} alt="Capa do post" />
-                                                            <footer class="my-4">
-                                                                <Row>
-                                                                    <Col xs='6'>
+                                    return (
+                                        <Col xs='12' sm='4'>
+                                            <div id="link" key={post.key}>
+                                                <Link to={`/event/${post.key}`}>
+                                                    <article>
+                                                        <header>
+                                                            <div className="title">
+                                                                <strong>{post.titulo}</strong>
+                                                            </div>
+                                                        </header>
+                                                        <img src={post.imagem} alt="Capa do post" />
+                                                        <footer class="my-4">
+                                                            <Row className='text-center'>
+                                                                <Col xs='6'>
+                                                                    <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                </Col>
 
-                                                                        <div className="box">
-                                                                            <p>
-                                                                                <FaRegCalendarAlt className='icon text-info' />{this.formatDate(post.data)}
-                                                                            </p>
-                                                                        </div>
-                                                                    </Col>
+                                                                <Col xs='6'>
+                                                                    <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
 
-                                                                    <Col xs='6'>
-                                                                        <div className="box">
-                                                                            <p>
-                                                                                <FaRegClock className='icon mx-2 text-info' />
-                                                                                {post.hora}
-                                                                            </p>
-                                                                        </div>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row >
+                                                                <Col xs='12' className='ml-4'>
+                                                                    <p>
+                                                                        <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                        {post.cidade}
+                                                                    </p>
+                                                                </Col>
+                                                            </Row>
+                                                        </footer>
+                                                    </article>
 
-                                                                    </Col>
-                                                                </Row>
-                                                                <Row>
-                                                                    <Col xs='12'>
-                                                                        <div>
-                                                                            <p>
-                                                                                <FaMapMarkerAlt className='icon mx-2 text-info' />
-                                                                                {post.cidade}
-                                                                            </p>
-                                                                        </div>
-                                                                    </Col>
-                                                                </Row>
-                                                            </footer>
-                                                        </article>
-
-                                                    </Link>
-                                                    <Row>
-                                                        <Col xs='6'>
-                                                            <Link to={`/editevent/${post.key}`}>
-                                                                <Button id="btnEdit" color="success">
-                                                                    <FaRegEdit/>
-                                                                </Button>
-                                                            </Link>
-                                                        </Col>
-                                                        <Col xs='6'>
-                                                            <Button id="btnDelete" color="danger"
-                                                                onClick={() => this.deleteEvent(post.key)}>
-                                                                <FaRegTrashAlt/>
+                                                </Link>
+                                                <Row>
+                                                    <Col xs='6'>
+                                                        <Link to={`/editevent/${post.key}`}>
+                                                            <Button id="btnEdit" color="success">
+                                                                <FaRegEdit />
                                                             </Button>
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </Col>
-                                        );
+                                                        </Link>
+                                                    </Col>
+                                                    <Col xs='6'>
+                                                        <Button id="btnDelete" color="danger"
+                                                            onClick={() => this.deleteEvent(post.key)}>
+                                                            <FaRegTrashAlt />
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                    );
                                 })}
                             </Row>
                         </Container>
                     </div>
 
-                </Container>                
+                </Container>
             </div>
         );
     }

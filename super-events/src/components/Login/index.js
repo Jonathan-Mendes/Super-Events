@@ -99,7 +99,7 @@ class Login extends Component {
                     </Form>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose}>
-                        <ModalHeader className="text-info" toggle={this.toggle}>{Esqueci minha senha}</ModalHeader>
+                        <ModalHeader className="text-info" toggle={this.toggle}>Esqueci minha senha</ModalHeader>
                         <ModalBody>
                             <Label className="text-danger">Informe seu e-mail para redefinir sua senha</Label>
                             <Input type="email" placeholder="email@email.com" onChange={(e) => this.setState({ emailResetPassword: e.target.value })} required />

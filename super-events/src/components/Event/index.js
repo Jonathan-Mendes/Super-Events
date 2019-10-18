@@ -187,7 +187,7 @@ class Event extends Component {
         if (this.state.event.valorIngresso) {
             return (
                 <div className="bord">
-                    <Table responsive>
+                    <Table className="font" responsive>
                         <thead>
                             <tr>
                                 <th className="text-center text-info">Entrada</th>
@@ -198,7 +198,7 @@ class Event extends Component {
                         <tbody>
                             <tr>
                                 <td className="text-center">Inteira</td>
-                                <td className="text-center d-flex">
+                                <td className="justify-content-center d-flex">
                                     <Button className="btnCompras mx-2" color="info" onClick={this.decrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
                                     {this.state.qtdInteira}
                                     <Button className="btnCompras mx-2" color="info" onClick={this.incrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
@@ -207,7 +207,7 @@ class Event extends Component {
                             </tr>
                             <tr>
                                 <td className="text-center">Meia</td>
-                                <td className="text-center d-flex">
+                                <td className="justify-content-center d-flex">
                                     <Button className="btnCompras mx-2" color="info" onClick={this.decrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
                                     {this.state.qtdMeia}
                                     <Button className="btnCompras mx-2" color="info" onClick={this.incrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
@@ -221,13 +221,12 @@ class Event extends Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <Button className="w-100" onClick={this.payPal} color="success">Comprar</Button>
+                    <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button>
                 </div>
             );
         } else {
             return (
-                <p className="text-success justify-content-center font-weight-bold d-flex align-items-center h-50 
-            ">Entrada Gratuita</p>
+                <p className="text-success text-center font-weight-bold centralizar">Entrada Gratuita</p>
             );
         }
     }
@@ -238,11 +237,11 @@ class Event extends Component {
             <div className="my-4">
                 <Container>
                     <Row className="mx-auto">
-                        <Col sm='8' xs='12'>
+                        <Col xs='12' sm='8' md='12' lg='8' xl='8'>
                             <img id="photo" className='rounded float-left mx-auto h-100 w-100 img-fluid imgCel' src={imagem} alt="Event cape" />
                         </Col>
 
-                        <Col sm='4' xs='12'>
+                        <Col xs='12' sm='4' md='12' lg='4' xl='4'>
                             <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
                                 <p className="date text-info">{this.formatDate(this.state.dataInicial, true)}</p>
 

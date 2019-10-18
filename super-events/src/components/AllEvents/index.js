@@ -41,7 +41,6 @@ class AllEvents extends Component {
 
         var brDate = today.slice(8, 10) + '/' +
             today.slice(5, 7);
-        //  + '/' + today.slice(0, 4);
 
         return brDate;
     }
@@ -70,31 +69,24 @@ class AllEvents extends Component {
                                                     </header>
                                                     <img src={post.imagem} alt="Capa do post" />
                                                     <footer class="my-4">
-                                                        <Row>
-                                                            <Col xs='6'>
-
-                                                                <p className="box">
-                                                                    <FaRegCalendarAlt class='icon mx-2 text-info' />{this.formatDate(post.data)}
-                                                                </p>
-                                                            </Col>
-
-                                                            <Col xs='6'>
-                                                                <p className="box">
-                                                                    <FaRegClock class='icon mx-2 text-info' />{post.hora}
-                                                                </p>
-
-                                                            </Col>
-                                                        </Row>
-                                                        <Row>
-                                                            <Col xs='12'>
-                                                                <div>
-                                                                    <p>
-                                                                        <FaMapMarkerAlt className='icon mx-2 text-info' />
-                                                                        {post.cidade}
-                                                                    </p>
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
+                                                    <Row className='text-center'>
+                                                                <Col xs='6'>
+                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                </Col>
+    
+                                                                <Col xs='6'>
+                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+    
+                                                                </Col>
+                                                            </Row>
+                                                            <Row >
+                                                                <Col xs='12' className='ml-4'>
+                                                                        <p>
+                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                            {post.cidade}
+                                                                        </p>
+                                                                </Col>
+                                                            </Row>
                                                     </footer>
                                                 </article>
                                             </Link>
