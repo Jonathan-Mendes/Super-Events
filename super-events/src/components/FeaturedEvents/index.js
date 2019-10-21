@@ -102,16 +102,16 @@ class FeaturedEvents extends Component {
                         {/* <Form onSubmit={this.pesquisar}> */}
                             {/* <FormGroup> */}
                                 <Row id="specific" className=''>
-                                    <Col xs="3"><Input id="eventName" type="text" placeholder="Buscar por Eventos"
+                                    <Col xs='12' md='3' className='my-1'><Input id="eventName" type="text" placeholder="Buscar por Eventos"
                                         onChange={(e) => this.setState({ inputEvent: e.target.value })}/>
                                     </Col>
-                                    <Col xs="3"><Input id="cityName" type="text" placeholder="Buscar por Cidades"
+                                    <Col xs='12' md='3' className='my-1'><Input id="cityName" type="text" placeholder="Buscar por Cidades"
                                         onChange={(e) => this.setState({ inputCity: e.target.value })}/>
                                     </Col>
-                                    <Col xs="3"><Input id="eventDate" type="date" placeholder="Buscar por Datas"
+                                    <Col xs='12' md='3' className='my-1'><Input id="eventDate" type="date" placeholder="Buscar por Datas"
                                         onChange={(e) => this.setState({ inputDate: e.target.value })}/>
                                     </Col>
-                                    <Col xs="3">
+                                    <Col  xs='12' md='3' className='my-1'>
                                         <Link to={{
                                             pathname: "/searchevents",
                                             itemsPassed: {

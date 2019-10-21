@@ -248,7 +248,7 @@ class SearchEvents extends Component {
                                                             className='rounded' />
                                                         <footer className="my-4">
                                                             <Row>
-                                                                <Col xs='6'>
+                                                                <Col xs='6' >
 
                                                                     <div className="box">
                                                                         <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
