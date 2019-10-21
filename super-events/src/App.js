@@ -8,6 +8,7 @@ import Event from './components/Event';
 import EditEvent from './components/EditEvent';
 import SearchEvents from './components/SearchEvents';
 import Login from './components/Login';
+import Perfil from './components/Perfil'
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import NewEvents from './components/NewEvents';
@@ -41,6 +42,7 @@ class App extends Component {
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/dashboard/newevents" component={NewEvents} />
+                    <Route exact path="/perfil" component={Perfil} />
                 </Switch>
             </BrowserRouter>
         ) : (

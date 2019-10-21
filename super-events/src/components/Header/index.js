@@ -33,7 +33,7 @@ class Header extends Component {
         this.newEvent = this.newEvent.bind(this);
         this.logout = this.logout.bind(this);
         this.loged = this.loged.bind(this);
-
+        this.perfil = this.perfil.bind(this);
     }
 
     toggle() {
@@ -52,6 +52,10 @@ class Header extends Component {
             localStorage.foto = info.val().foto
             this.setState({ foto: localStorage.foto })
         })
+    }
+
+    perfil(){
+        this.props.history.replace('/perfil');
     }
 
     home(){
@@ -118,9 +122,12 @@ class Header extends Component {
                                     <DropdownToggle nav caret id="perfil">
                                     {/* <IoIosPerson/> */}
                                     {/* <span>{this.state.nome}</span> */}
-                                    <img src={this.state.foto}></img>
+                                    <img className="rounded-circle" src={this.state.foto}></img>
                                     </DropdownToggle>
                                     <DropdownMenu right id="dropdown">
+                                    <DropdownItem onClick={() => this.perfil()}>
+                                        Meu Perfil
+                                    </DropdownItem>
                                     <DropdownItem onClick={() => this.dashBoard()}>
                                         Meus Eventos
                                     </DropdownItem>
