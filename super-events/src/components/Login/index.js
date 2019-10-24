@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './login.css';
-import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { FaEye} from "react-icons/fa"
+import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, InputGroupAddon } from 'reactstrap';
 
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
+        
+        this.password = {type: 'password', s: '11'}
+
         this.state = {
             emailResetPassword: '',
             email: '',
@@ -21,10 +25,13 @@ class Login extends Component {
         this.resetPassword = this.resetPassword.bind(this);
         this.toggle = this.toggle.bind(this);
         this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
+        this.passwordHide = this.passwordHide.bind(this);
     }
 
-    componentDidMount() {
-
+    passwordHide(){
+       
+    // this.setState.password({type: 'text'})
+        // else this.setState.password({type: 'password'})
     }
 
     entrar(e) {
@@ -85,8 +92,11 @@ class Login extends Component {
 
                     <FormGroup>
                         <Label>Password</Label>
-                        <Input type="password" autoComplete="off" value={this.state.password}
+                        <InputGroup>
+                        <Input type={this.password.type} autoComplete="off" value={this.state.password}
                             onChange={(e) => this.setState({ password: e.target.value })} minLength="4" placeholder="Sua senha" required />
+                            <InputGroupAddon className='size-40' addonType="append"><Button onClick={this.passwordHide()} className='myColor'><FaEye /></Button></InputGroupAddon>
+                        </InputGroup>
                     </FormGroup>
 
                     <Button type="submit" color="info">Entrar</Button>
@@ -94,7 +104,6 @@ class Login extends Component {
                     <Link to="/register" className="mt-4">Ainda não possui conta?</Link>
 
                     <Form className="text-center my-2" onSubmit={(e) => e.preventDefault()}>
-                        {/* Link className="my-1" to={this.toggle}>Esqueci minha senha</Link> */}
                         <Button outline color="link" onClick={this.toggle}><span className="linkResetSenha">Esqueci minha senha</span></Button>
                     </Form>
 

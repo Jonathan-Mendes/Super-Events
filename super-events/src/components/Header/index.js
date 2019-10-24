@@ -122,7 +122,7 @@ class Header extends Component {
                                     <DropdownToggle nav caret id="perfil">
                                     {/* <IoIosPerson/> */}
                                     {/* <span>{this.state.nome}</span> */}
-                                    <img className="rounded-circle" src={this.state.foto}></img>
+                                    <img className="rounded-circle" width='50px' height='50px' src={this.state.foto}></img>
                                     </DropdownToggle>
                                     <DropdownMenu right id="dropdown">
                                     <DropdownItem onClick={() => this.perfil()}>

@@ -12,7 +12,7 @@ import Perfil from './components/Perfil'
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import NewEvents from './components/NewEvents';
-import { Spinner } from 'reactstrap'
+import { Spinner, Container } from 'reactstrap'
 import './global.css';
 
 class App extends Component {
@@ -34,7 +34,7 @@ class App extends Component {
                 <Header />
                 <Switch>
                     <Route exact path="/" component={FeaturedEvents} />
-                    <Route exact path='/allevents' component={AllEvents}/>
+                    <Route exact path='/allevents' component={AllEvents} />
                     <Route exact path="/event/:id" component={Event} />
                     <Route exact path="/editevent/:id" component={EditEvent} />
                     <Route exact path="/searchevents" component={SearchEvents} />

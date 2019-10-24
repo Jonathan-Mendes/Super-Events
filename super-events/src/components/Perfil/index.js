@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { tsImportEqualsDeclaration } from '@babel/types';
 import { FaFileUpload, FaThumbsDown } from "react-icons/fa";
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Container, Row, Col, Button, Input, Label } from 'reactstrap'
 
 class Perfil extends Component {
 
@@ -12,7 +12,7 @@ class Perfil extends Component {
             foto: null,
             nome: '',
             cpf: '',
-            email: firebase.getCurrent()
+            email: firebase.getCurrent(),
         }
         this.alterar = this.alterar.bind(this)
     }
@@ -26,7 +26,7 @@ class Perfil extends Component {
         })
     }
 
-    alterar(e){ 
+    alterar(e) {
         console.log(e)
         e.className = 'd-none'
     }
@@ -42,12 +42,22 @@ class Perfil extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs='12' sm='12' md='12' lg='12' className="text-center">
-                            <img className='rounded-circle' width='200px' height='200px' src={this.state.foto} />
-                            {/* <Button color='info' className='rounded-circle'><span><FaFileUpload /></span></Button> */}
-                            <h1>{this.state.nome}</h1>
-                            <h1>{this.state.email}</h1>
-                            <h1>{this.state.cpf}</h1>
+                        <Col xs='12' sm='12' md='12' lg='12'>
+                            <Row>
+                                <img className='rounded-circle my-1 mx-auto' width='200px' height='200px' src={this.state.foto} />
+                            </Row>
+                            <Row>
+                                {/* <Label for='nome' className='w-10'>Nome</Label> */}
+                                <Input id='nome' type='text' className='w-50 my-1 mx-auto' value={this.state.nome} />
+                            </Row>
+                            <Row>
+                                {/* <Label for='email'>E-mail</Label> */}
+                                <Input id='email' type='text' className='w-50 my-1 mx-auto' value={this.state.email} />
+                            </Row>
+                            <Row>
+                                {/* <Label for='cpf'>CPF</Label> */}
+                                <Input id='cpf' type='text' className='w-50 my-1 mx-auto' value={this.state.cpf} />
+                            </Row>
                         </Col>
                     </Row>
                     <Row>

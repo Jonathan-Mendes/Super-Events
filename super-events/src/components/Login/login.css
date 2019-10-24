@@ -40,3 +40,14 @@ form#login a:hover{
 .linkResetSenha{
     font-size: 15px;
 }
+
+.size-40{
+    border-left: none !important;
+    height: 40px;
+}
+
+.myColor{
+    color: black !important;
+    border-color: #dddddd !important;
+    background-color: #ffffff !important;
+}
