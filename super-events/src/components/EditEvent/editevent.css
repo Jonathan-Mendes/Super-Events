@@ -1,20 +1,21 @@
-header#new{
-    width: 100%;
+header#new h2{
+    align-self: center;
+    /* width: 100%;
     max-width: 680px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 30px auto 10px;
+    margin: 30px auto 10px; */
 }
 
-header#new a{
+/* header#new a{
     background: #272727;
     padding: 8px 18px 8px;
     border-radius: 5px;
     color: #fff;
     text-decoration: none;
     font-size: 15px;
-}
+} */
 
 form#new-post{
     background-color: #fff;
@@ -72,6 +73,17 @@ form#new-post textarea{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#cancel{
+    margin-top: 1rem;
+    background: #dc3545;
+    padding: 8px 18px 8px;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
 }
 
 /* form#new-post button{

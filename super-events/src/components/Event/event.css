@@ -11,7 +11,8 @@
     font-size: 20px;
 }
 
-.bord{
+.buy{
+    display: contents;
     border-top: 1px solid black;
 }
 
@@ -35,7 +36,7 @@
     max-height: 500px;
 }
 
-@media screen and (max-width: 520px){
+/* @media screen and (max-width: 520px){
     .contDesc{
         max-width: 90% !important;
     }
@@ -43,7 +44,7 @@
     .max{
         max-height: none;
     }
-}
+} */
 
 @media screen and (min-width: 991px){
     .centralizar{

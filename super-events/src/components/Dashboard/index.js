@@ -118,7 +118,7 @@ class Dashboard extends Component {
                                                             </div>
                                                         </header>
                                                         <img src={post.imagem} alt="Capa do post" />
-                                                        <footer class="my-4">
+                                                        <footer class="my-2">
                                                             <Row className='text-center'>
                                                                 <Col xs='6'>
                                                                     <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>

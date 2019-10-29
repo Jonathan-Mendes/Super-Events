@@ -92,7 +92,7 @@ class EditEvent extends Component {
                 valorIngresso: snapshot.val().valorIngresso,
                 estqIngresso: snapshot.val().estqIngresso
             };
-            //this.state.imagem = this.state.event.imagem;
+            this.state.imagem = this.state.event.imagem;
             this.state.url = this.state.event.imagem;
             this.state.titulo = this.state.event.titulo;
             this.state.hora = this.state.event.hora;
@@ -312,7 +312,7 @@ class EditEvent extends Component {
             return (
                 <div>
                     <header id="new">
-                        <Link to="/dashboard">Voltar</Link>
+                        <h2>Atualizar dados do Evento</h2>
                     </header>
                     <Form onSubmit={this.cadastrar} id="new-post">
                         <span>{this.state.alert}</span>
@@ -425,7 +425,8 @@ class EditEvent extends Component {
                                 onChange={(e) => this.setState({ descricao: e.target.value })} />
                         </FormGroup>
 
-                        <Button type="submit" color="success">Cadastrar</Button>
+                        <Button type="submit" color="success">Atualizar Dados</Button>
+                        <Link id="cancel" to="/dashboard">Cancelar</Link>
                     </Form>
                 </div>
             );

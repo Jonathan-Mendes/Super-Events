@@ -20,7 +20,6 @@ class Event extends Component {
         this.formatDate = this.formatDate.bind(this);
         this.formatEstado = this.formatEstado.bind(this);
         this.back = this.back.bind(this);
-        this.renderiza = this.renderiza.bind(this);
         this.incrementInt = this.incrementInt.bind(this);
         this.decrementInt = this.decrementInt.bind(this);
         this.incrementMeia = this.incrementMeia.bind(this);
@@ -182,54 +181,6 @@ class Event extends Component {
         }
         return false;
     }
-    
-    renderiza() {
-        if (this.state.event.valorIngresso) {
-            return (
-                <div className="bord">
-                    <Table className="font" responsive>
-                        <thead>
-                            <tr>
-                                <th className="text-center text-info">Entrada</th>
-                                <th className="text-center text-info">Quantidade</th>
-                                <th className="text-center text-info">Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="text-center">Inteira</td>
-                                <td className="justify-content-center d-flex">
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.decrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
-                                    {this.state.qtdInteira}
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.incrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
-                                </td>
-                                <td className="text-center">R$ {this.state.event.valorIngressoInt},00</td>
-                            </tr>
-                            <tr>
-                                <td className="text-center">Meia</td>
-                                <td className="justify-content-center d-flex">
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.decrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
-                                    {this.state.qtdMeia}
-                                    <Button className="btnCompras mx-2" color="info" onClick={this.incrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
-                                </td>
-                                <td className="text-center">R$ {this.state.event.valorIngressoMeia},00</td>
-                            </tr>
-                            <tr>
-                                <td className="text-center">Total</td>
-                                <td className="text-center">{this.state.qtdTotal}</td>
-                                <td className="text-center">R$ {this.state.valorTotal},00</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                    <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button>
-                </div>
-            );
-        } else {
-            return (
-                <p className="text-success text-center font-weight-bold centralizar">Entrada Gratuita</p>
-            );
-        }
-    }
 
     render() {
         const { titulo, autor, descricao, hora, horaFinal, local, cidade, estado, imagem } = this.state.event;
@@ -237,11 +188,11 @@ class Event extends Component {
             <div className="my-4">
                 <Container>
                     <Row className="mx-auto">
-                        <Col xs='12' sm='8' md='12' lg='8' xl='8'>
+                        <Col md='12' lg='7' xl='8'>
                             <img id="photo" className='rounded float-left mx-auto h-100 w-100 img-fluid imgCel' src={imagem} alt="Event cape" />
                         </Col>
 
-                        <Col xs='12' sm='4' md='12' lg='4' xl='4'>
+                        <Col md='12' lg='5' xl='4'>
                             <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
                                 <p className="date text-info">{this.formatDate(this.state.dataInicial, true)}</p>
 
@@ -249,13 +200,54 @@ class Event extends Component {
                                 <p className="autor">Criado por {autor}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Cidade: </span>{cidade + " - " + this.formatEstado(estado)}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Hora do Evento: </span>{hora}</p>
-                                {this.renderiza()}
 
+                                {this.state.event.valorIngresso &&
+                                    <div className="buy">
+                                        <Table className="font" responsive>
+                                            <thead>
+                                                <tr>
+                                                    <th className="text-center text-info">Entrada</th>
+                                                    <th className="text-center text-info">Quantidade</th>
+                                                    <th className="text-center text-info">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="text-center">Inteira</td>
+                                                    <td className="justify-content-center d-flex">
+                                                        <Button className="btnCompras mx-2" color="info" onClick={this.decrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
+                                                        {this.state.qtdInteira}
+                                                        <Button className="btnCompras mx-2" color="info" onClick={this.incrementInt}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
+                                                    </td>
+                                                    <td className="text-center">R$ {this.state.event.valorIngressoInt},00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="text-center">Meia</td>
+                                                    <td className="justify-content-center d-flex">
+                                                        <Button className="btnCompras mx-2" color="info" onClick={this.decrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">-</span></Button>
+                                                        {this.state.qtdMeia}
+                                                        <Button className="btnCompras mx-2" color="info" onClick={this.incrementMeia}><span className="d-flex align-items-center justify-content-center w-100 h-100">+</span></Button>
+                                                    </td>
+                                                    <td className="text-center">R$ {this.state.event.valorIngressoMeia},00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="text-center">Total</td>
+                                                    <td className="text-center">{this.state.qtdTotal}</td>
+                                                    <td className="text-center">R$ {this.state.valorTotal},00</td>
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                        <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button>
+                                    </div>
+                                } 
+                                {!this.state.event.valorIngresso &&
+                                        <p className="text-success text-center font-weight-bold centralizar">Entrada Gratuita</p>
+                                }
                             </div>
                         </Col>
                     </Row>
 
-                    <Row className="mx-auto contDesc">
+                    <Row className="mx-auto">
                         <Col xs='12' className="h-100 my-4 shadow p-3 mb-5 bg-white rounded">
                             <h4 className="text-center text-info">{titulo}</h4>
                             <Table responsive>
