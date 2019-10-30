@@ -27,8 +27,11 @@ class Perfil extends Component {
     }
 
     alterar(e) {
-        console.log(e)
-        e.className = 'd-none'
+        let elements = document.getElementsByClassName('edit')
+        elements[0].disabled = false
+        elements[1].disabled = false
+        elements[2].style.display = 'block'
+        elements[4].style.display = 'none'
     }
 
     render() {
@@ -48,23 +51,19 @@ class Perfil extends Component {
                             </Row>
                             <Row>
                                 {/* <Label for='nome' className='w-10'>Nome</Label> */}
-                                <Input id='nome' type='text' className='w-50 my-1 mx-auto' value={this.state.nome} />
-                            </Row>
-                            <Row>
-                                {/* <Label for='email'>E-mail</Label> */}
-                                <Input id='email' type='text' className='w-50 my-1 mx-auto' value={this.state.email} />
+                                <Input id='nome' type='text' className='w-50 my-1 mx-auto edit' value={this.state.nome} disabled />
                             </Row>
                             <Row>
                                 {/* <Label for='cpf'>CPF</Label> */}
-                                <Input id='cpf' type='text' className='w-50 my-1 mx-auto' value={this.state.cpf} />
+                                <Input id='cpf' type='text' className='w-50 my-1 mx-auto edit' value={this.state.cpf} disabled />
                             </Row>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs='12' sm='12' md='12' lg='12' className="text-center my-3">
-                            <Button color="success" className="mx-3 d-none">Salvar</Button>
-                            <Button color="danger" className="mx-3 d-none">Cancelar</Button>
-                            <Button color="success" className='' onClick={(e) => this.alterar(e.target)}>Alterar</Button>
+                            <Button color="success" className="mx-3 edit d-none">Salvar</Button>
+                            <Button color="danger" className="mx-3 edit d-none">Cancelar</Button>
+                            <Button color="success" className='edit' onClick={(e) => this.alterar(e.target)}>Alterar</Button>
                         </Col>
                     </Row>
 
