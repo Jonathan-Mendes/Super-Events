@@ -207,8 +207,7 @@ class Event extends Component {
         );
         const { status } = response.data;
         console.log("Response:", response.data);
-        if (status === "success") 
-        if(true){
+        if (status === "success") {
           toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
         } else {
           toast("Desculpe, Algo deu errado", { type: "error" });

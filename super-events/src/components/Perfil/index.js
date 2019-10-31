@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Container, Row, Col, Button, Input, Label, Progress, Form, FormGroup } from 'reactstrap';
 import InputMask from 'react-input-mask';
+import './perfil.css';
 class Perfil extends Component {
 
     constructor(props) {
@@ -79,7 +80,7 @@ class Perfil extends Component {
     }
 
     cancelar(e) {
-        this.setState({progress: 0})
+        this.setState({ progress: 0 })
 
         this.controlaTela(e)
         this.setState({
@@ -217,44 +218,48 @@ class Perfil extends Component {
 
                     <Row>
                         <Col md='12' lg='12'>
-                            <Form className="my-2">
+                            <Form id="perfil" className="my-2 mx-auto rounded">
                                 <FormGroup className="d-flex justify-content-center">
-                                    <img className='rounded-circle my-1' width='200px' height='200px' src={this.state.foto} />
+                                    <img className='rounded-circle my-1 myBorder' width='200px' height='200px' src={this.state.foto} />
                                 </FormGroup>
 
                                 <FormGroup>
-                                    <Input type="file" className="edit mx-auto w-50 my-3" onChange={this.handleFile} />
+                                    <Input type="file" className="edit mx-auto my-3" onChange={this.handleFile} />
 
-                                    <Progress id='progress' color="success" className="w-50 mx-auto" value={this.state.progress} max="100" />
+                                    <Progress id='progress' color="success" className=" mx-auto" value={this.state.progress} max="100" />
                                 </FormGroup>
 
                                 <FormGroup>
                                     {/* <Label for="nome">Nome</Label> */}
-                                    <Input id='nome' type='text' className='w-50 my-1 mx-auto edit' value={this.state.nome} onChange={(e) => this.setState({ nome: e.target.value })} />
+                                    <Input id='nome' type='text' className=' my-1 mx-auto edit' value={this.state.nome} onChange={(e) => this.setState({ nome: e.target.value })} />
                                 </FormGroup>
 
                                 <FormGroup>
-                                    <InputMask id='cpf' className="form-control w-50 my-1 mx-auto edit" {...this.state} onChange={this.onChange} id="cpf" value={this.state.cpf}
+                                    <InputMask id='cpf' className="form-control my-1 mx-auto edit" {...this.state} onChange={this.onChange} id="cpf" value={this.state.cpf}
                                         autoComplete="off" placeholder="000.000.000-00" required />
                                 </FormGroup>
 
                                 <FormGroup>
-                                    <Col xs='12' sm='12' md='12' lg='12' className="text-center my-3">
-                                        <Button color="success" className="mx-3 edit"
+                                    <Row>
+                                    <Col sm='12' md='' lg='4' className="text-center my-3">
+                                        <Button color="success" className="edit w-100"
                                             onClick={(e) => (this.salvar(false))}>Salvar</Button>
-
-                                        <Button color="danger" className="mx-3 edit"
+                                    </Col>
+                                    <Col sm='12' md='4' lg='4' className="text-center my-3">
+                                        <Button color="danger" className="edit w-100"
                                             onClick={(e) => { this.cancelar(false) }}>Cancelar</Button>
-
-                                        <Button color="warning" className='mx-3 edit'
+                                    </Col>
+                                    <Col sm='12' md='4' lg='4' className="text-center my-3">
+                                        <Button color="warning" className='edit w-100'
                                             onClick={(e) => (this.alterar(true))}>Alterar</Button>
                                     </Col>
+                                    </Row>
                                 </FormGroup>
                             </Form>
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div >
         );
     }
 }
