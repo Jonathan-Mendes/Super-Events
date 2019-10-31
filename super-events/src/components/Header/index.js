@@ -125,6 +125,10 @@ class Header extends Component {
                                     <img className="rounded-circle" width='50px' height='50px' src={this.state.foto}></img>
                                     </DropdownToggle>
                                     <DropdownMenu right id="dropdown">
+                                    <DropdownItem>
+                                        <span className='font-weight-bold'>{this.state.nome}</span>
+                                    </DropdownItem>
+                                    <DropdownItem divider />
                                     <DropdownItem onClick={() => this.perfil()}>
                                         Meu Perfil
                                     </DropdownItem>
