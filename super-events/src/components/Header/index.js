@@ -125,7 +125,7 @@ class Header extends Component {
                                     <img className="rounded-circle" width='50px' height='50px' src={this.state.foto}></img>
                                     </DropdownToggle>
                                     <DropdownMenu right id="dropdown">
-                                    <DropdownItem>
+                                    <DropdownItem onClick={() => this.perfil()}>
                                         <span className='font-weight-bold'>{this.state.nome}</span>
                                     </DropdownItem>
                                     <DropdownItem divider />
@@ -137,6 +137,9 @@ class Header extends Component {
                                     </DropdownItem>
                                     <DropdownItem onClick={() => this.newEvent()}>
                                         Criar Evento
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Eventos Comprados
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem onClick={() => this.logout()}>

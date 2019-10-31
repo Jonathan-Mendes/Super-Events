@@ -230,11 +230,12 @@ class Perfil extends Component {
                                 </FormGroup>
 
                                 <FormGroup>
-                                    {/* <Label for="nome">Nome</Label> */}
+                                    <Label for="nome">Nome</Label>
                                     <Input id='nome' type='text' className=' my-1 mx-auto edit' value={this.state.nome} onChange={(e) => this.setState({ nome: e.target.value })} />
                                 </FormGroup>
 
                                 <FormGroup>
+                                    <Label for="cpf">CPF</Label>
                                     <InputMask id='cpf' className="form-control my-1 mx-auto edit" {...this.state} onChange={this.onChange} id="cpf" value={this.state.cpf}
                                         autoComplete="off" placeholder="000.000.000-00" required />
                                 </FormGroup>
