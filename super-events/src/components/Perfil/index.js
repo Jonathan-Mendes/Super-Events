@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
-import { tsImportEqualsDeclaration } from '@babel/types';
-import { FaFileUpload, FaThumbsDown } from "react-icons/fa";
-import { Container, Row, Col, Button, Input, Label, Progress, Form, FormGroup } from 'reactstrap'
-import { FaRegImage } from "react-icons/fa";
+import { Container, Row, Col, Button, Input, Label, Progress, Form, FormGroup } from 'reactstrap';
 import InputMask from 'react-input-mask';
 class Perfil extends Component {
 

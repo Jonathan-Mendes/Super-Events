@@ -3,7 +3,12 @@ import firebase from '../../firebase';
 import comprar from '../../comprar';
 import './event.css';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 class Event extends Component {
 
     constructor(props) {
@@ -17,6 +22,12 @@ class Event extends Component {
             qtdTotal: 0,
             valorTotal: 0
         }
+        this.event = {
+            name: this.state.event.titulo,
+            price: this.state.valorTotal,
+            description: "Ingressos do evento " + this.state.event.titulo
+        }
+
         this.formatDate = this.formatDate.bind(this);
         this.formatEstado = this.formatEstado.bind(this);
         this.back = this.back.bind(this);
@@ -24,8 +35,9 @@ class Event extends Component {
         this.decrementInt = this.decrementInt.bind(this);
         this.incrementMeia = this.incrementMeia.bind(this);
         this.decrementMeia = this.decrementMeia.bind(this);
-        this.payPal = this.payPal.bind(this);
         this.loged = this.loged.bind(this);
+        this.handleToken = this.handleToken.bind(this)
+        this.comprar = this.comprar.bind(this)
     }
 
     componentDidMount() {
@@ -35,6 +47,7 @@ class Event extends Component {
             state.event = [];
 
             state.event = {
+                key: snapshot.key,
                 titulo: snapshot.val().titulo,
                 autor: snapshot.val().autor,
                 descricao: snapshot.val().descricao,
@@ -46,6 +59,7 @@ class Event extends Component {
                 local: snapshot.val().local,
                 estado: snapshot.val().estado,
                 imagem: snapshot.val().imagem,
+                qtdIngressos: snapshot.val().estqIngresso,
                 valorIngressoInt: snapshot.val().valorIngressoInt,
                 valorIngressoMeia: snapshot.val().valorIngressoMeia,
                 valorIngresso: snapshot.val().valorIngresso
@@ -54,8 +68,18 @@ class Event extends Component {
             this.state.dataFinal = this.state.event.dataFinal;
             this.setState(state);
         })
+
+        console.log(this.state.event.key)
     }
 
+    comprar = async (e) => {
+    if(true){
+          toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
+    } 
+    else {
+        toast("Desculpe, Algo deu errado", { type: "error" });
+    }
+    }
     formatEstado(estado) {
         let sigla
         let state = parseInt(estado)
@@ -135,7 +159,7 @@ class Event extends Component {
             qtdTotal: ++this.state.qtdTotal,
             valorTotal: parseInt(this.state.valorTotal) + parseInt(this.state.event.valorIngressoInt)
         })
-        
+
     }
 
     decrementInt = () => {
@@ -161,26 +185,35 @@ class Event extends Component {
             this.setState({
                 qtdMeia: --this.state.qtdMeia,
                 qtdTotal: --this.state.qtdTotal,
-                valorTotal: parseInt(this.state.valorTotal) - 
-                parseInt(this.state.event.valorIngressoMeia)
+                valorTotal: parseInt(this.state.valorTotal) -
+                    parseInt(this.state.event.valorIngressoMeia)
             })
         }
     }
-    
-    payPal = async () => {
-        if(this.loged()){
-            await comprar.Product(this.state.valorTotal, this.state.event.titulo);
-        } else{
-            this.props.history.replace('/register');
-        }
-    }
 
-    loged(){
-        if(firebase.getCurrentUid()){
+    loged() {
+        if (firebase.getCurrentUid()) {
             return true
         }
         return false;
     }
+
+    async handleToken(token) {
+        const event = this.event
+
+        const response = await axios.post(
+          `https://super-events-f85d9.firebaseapp.com/event/-${this.state.event.key}`,
+          { token, event }
+        );
+        const { status } = response.data;
+        console.log("Response:", response.data);
+        if (status === "success") 
+        if(true){
+          toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
+        } else {
+          toast("Desculpe, Algo deu errado", { type: "error" });
+        }
+      }
 
     render() {
         const { titulo, autor, descricao, hora, horaFinal, local, cidade, estado, imagem } = this.state.event;
@@ -237,11 +270,19 @@ class Event extends Component {
                                                 </tr>
                                             </tbody>
                                         </Table>
-                                        <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button>
+                                        {/* <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button> */}
+                                        <StripeCheckout className="w-100" onClick={(e) => this.comprar(e.target)}
+                                            stripeKey="pk_test_CtzvNPIwBOEpvDGPpGezYpNK008PTbo7QY"
+                                            // token={this.handleToken()}
+                                            amount={this.state.valorTotal}
+                                            name={this.state.event.titulo}
+                                            billingAddress
+                                            shippingAddress
+                                        />
                                     </div>
-                                } 
+                                }
                                 {!this.state.event.valorIngresso &&
-                                        <p className="text-success text-center font-weight-bold centralizar">Entrada Gratuita</p>
+                                    <p className="text-success text-center font-weight-bold centralizar">Entrada Gratuita</p>
                                 }
                             </div>
                         </Col>

@@ -1,73 +1,61 @@
-import React, { useState, useRef, useEffect } from 'react';
+// const cors = require("cors");
+// const express = require("express"); //Esse Que ta dando Pau
+// const stripe = require("stripe")("sk_test_0XpfttOY59zSrAp23skaZeXl00y9uUT9IL");
+// const uuid = require("uuid/v4");
 
-class Comprar {
+// const app = express();
 
-    Product({ price, name }) {
-        const [paidFor, setPaidFor] = useState(false);
-        const [error, setError] = useState(null);
-        const paypalRef = useRef();
+// app.use(express.json());
+// app.use(cors());
 
-        useEffect(() => {
-            window.paypal
-                .Buttons({
-                    createOrder: (data, actions) => {
-                        return actions.order.create({
-                            purchase_units: [
-                                {
-                                    description: name,
-                                    amount: {
-                                        currency_code: 'BRL',
-                                        value: price,
-                                    },
-                                },
-                            ],
-                        });
-                    },
-                    onApprove: async (data, actions) => {
-                        const order = await actions.order.capture();
-                        setPaidFor(true);
-                        console.log(order);
-                    },
-                    onError: err => {
-                        setError(err);
-                        console.error(err);
-                    },
-                })
-                .render(paypalRef.current);
-        }, [name, price]);
+// app.get("/", (req, res) => {
+//   res.send("Add your Stripe Secret Key to the .require('stripe') statement!");
+// });
 
-        if (paidFor) {
-            return (
-                <div>
-                    <h1>Parabéns, você acabou de comprar um ingresso para {name}!</h1>
-                </div>
-            );
-        }
+// app.post("/checkout", async (req, res) => {
+//   console.log("Request:", req.body);
 
-        return (
-            <div>
-                {error && <div>Uh oh, an error occurred! {error.message}</div>}
-                <h1>
-                    {name} for ${price}
-                </h1>
-                <img alt={name}width="200" />
-                <div ref={paypalRef} />
-            </div>
-        );
-    }
+//   let error;
+//   let status;
+//   try {
+//     const { product, token } = req.body;
 
-    // App() {
-    //     const product = {
-    //         price: 777.77,
-    //         name: 'comfy chair',
-    //         description: 'fancy chair, like new',
-    //     };
+//     const customer = await stripe.customers.create({
+//       email: token.email,
+//       source: token.id
+//     });
 
-        // return (
-        //     <div className="App">
-        //         <Product product={product} />
-        //     </div>
-        // );
-    // }
-}
-export default new Comprar();
+//     const idempotency_key = uuid();
+//     const charge = await stripe.charges.create(
+//       {
+//         amount: product.price * 100,
+//         currency: "brl",
+//         customer: customer.id,
+//         receipt_email: token.email,
+//         description: `Purchased the ${product.name}`,
+//         shipping: {
+//           name: token.card.name,
+//           address: {
+//             line1: token.card.address_line1,
+//             line2: token.card.address_line2,
+//             city: token.card.address_city,
+//             country: token.card.address_country,
+//             postal_code: token.card.address_zip
+//           }
+//         }
+//       },
+//       {
+//         idempotency_key
+//       }
+//     );
+//     console.log("Charge:", { charge });
+//     status = "success";
+//   } catch (error) {
+//     console.error("Error:", error);
+//     status = "failure";
+//   }
+
+//   res.json({ error, status });
+// });
+
+// app.listen(8080);

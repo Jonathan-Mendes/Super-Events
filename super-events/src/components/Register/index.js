@@ -16,7 +16,7 @@ class Register extends Component {
             cpf: '',
             email: '',
             password: '',
-            imagem: 'https://firebasestorage.googleapis.com/v0/b/super-events-f85d9.appspot.com/o/logo%2Flogo-se.PNG?alt=media&token=1298ad74-3cee-4304-950d-35234aea3250'
+            imagem: 'https://firebasestorage.googleapis.com/v0/b/super-events-f85d9.appspot.com/o/Perfil%2Ffoto-perfil.jpg?alt=media&token=c4285a52-fc33-4604-b067-3e3000c0f529'
         };
         this.register = this.register.bind(this);
         this.onRegister = this.onRegister.bind(this);
