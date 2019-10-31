@@ -50,12 +50,6 @@ class Firebase {
         } catch (error) {
             return false
         }
-
-        // .then(function() {
-        //     // Email sent.
-        //   }).catch(function(error) {
-        //     // An error happened.
-        //   });
     }
 
     checkEmail(email) {
