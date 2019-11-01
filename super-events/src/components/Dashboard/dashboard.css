@@ -11,7 +11,11 @@ div#dashboard .user-info{
 }
 
 div#dashboard p{
-    padding: 10px 0 5px;
+    padding: 5px 0 5px;
+}
+
+#dados{
+    margin-top: .6rem !important;
 }
 
 #post{

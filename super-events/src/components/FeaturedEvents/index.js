@@ -3,11 +3,11 @@ import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import './featuredevents.css';
 import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
-import { Container, Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
-import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants';
-import { verify } from 'crypto';
+import { Container, Row, Col, Button, Form, Input } from 'reactstrap';
 
 class FeaturedEvents extends Component {
+
+    date = new Date;
 
     constructor(props) {
         super(props);
@@ -17,10 +17,14 @@ class FeaturedEvents extends Component {
             inputCity: '',
             inputDate: '',
             verify: false,
-            eventSearch: []
+            eventSearch: [],
+            dia: this.date.getDate(),
+            mes: this.date.getMonth() + 1,
+            ano: this.date.getFullYear()
         }
         this.formatDate = this.formatDate.bind(this);
-        this.searchEvent = this.searchEvent.bind(this);
+        this.verifySearch = this.verifySearch.bind(this);
+        this.alert = this.alert.bind(this);
     }
 
 
@@ -62,70 +66,54 @@ class FeaturedEvents extends Component {
         this.props.history.replace('/allevents');
     }
 
-    searchEvent(){
-        const {inputEvent, inputCity, inputDate, all} = this.state;
-        //console.log(inputEvent);
-        if(inputEvent.length !== 0){
-           
-            //this.state.all = firebase.searchEvents(this.state.inputEvent);
-            //console.log(this.state.all);
+    verifySearch(){
+        if(this.state.inputEvent.length !== 0) return true;
+        if(this.state.inputDate.length !== 0)return true;
+        if(this.state.inputCity.length !== 0) return true;
+        return false;
+    }
 
-            firebase.app.ref('events').orderByChild("titulo").equalTo(inputEvent[0].toUpperCase() + inputEvent.substr(1)).on('value', (snapshot) => {
-                let state = this.state;
-                state.eventSearch = [];
-    
-                snapshot.forEach((childItem) => {
-                    state.eventSearch.push({
-                        key: childItem.key,
-                        titulo: childItem.val().titulo,
-                        imagem: childItem.val().imagem,
-                        descricao: childItem.val().descricao,
-                        data: childItem.val().data,
-                        hora: childItem.val().hora,
-                        local: childItem.val().local,
-                        cidade: childItem.val().cidade,
-                        ativo: childItem.val().ativo
-                    });
-                });
-                this.setState(state);
-                this.setState({verify: true});
-            })
-        }
+    alert(e){
+        e.preventDefault();
+        alert('Preencha ao menos um campo!');
     }
 
     render() {
-        const {inputEvent, inputCity, inputDate} = this.state;
+        const {inputEvent, inputCity, inputDate, dia, mes, ano} = this.state;
 
             return (
                 <div id="tip" className="px-3">
                     <Container id="search">
-                        {/* <Form onSubmit={this.pesquisar}> */}
-                            {/* <FormGroup> */}
-                                <Row id="specific" className=''>
-                                    <Col xs='12' md='3' className='my-1'><Input id="eventName" type="text" placeholder="Buscar por Eventos"
-                                        onChange={(e) => this.setState({ inputEvent: e.target.value })}/>
-                                    </Col>
-                                    <Col xs='12' md='3' className='my-1'><Input id="cityName" type="text" placeholder="Buscar por Cidades"
-                                        onChange={(e) => this.setState({ inputCity: e.target.value })}/>
-                                    </Col>
-                                    <Col xs='12' md='3' className='my-1'><Input id="eventDate" type="date" placeholder="Buscar por Datas"
-                                        onChange={(e) => this.setState({ inputDate: e.target.value })}/>
-                                    </Col>
-                                    <Col  xs='12' md='3' className='my-1'>
-                                        <Link to={{
-                                            pathname: "/searchevents",
-                                            itemsPassed: {
-                                                passedName: inputEvent,
-                                                passedCity: inputCity,
-                                                passedDate: inputDate
-                                            }
-                                        }}>
-                                            <Button className='w-100' color="primary" type="submit" onClick={() => this.searchEvent()}>Pesquisar</Button>
-                                        </Link>
-                                    </Col>
-                                </Row>
-                            {/* </FormGroup> */}
-                        {/* </Form> */}
+                        <Row id="specific" className=''>
+                            <Col xs='12' md='3' className='my-1'><Input id="eventName" type="text" placeholder="Buscar por Eventos"
+                                onChange={(e) => this.setState({ inputEvent: e.target.value })}/>
+                            </Col>
+                            <Col xs='12' md='3' className='my-1'><Input id="cityName" type="text" placeholder="Buscar por Cidades"
+                                onChange={(e) => this.setState({ inputCity: e.target.value })}/>
+                            </Col>
+                            <Col xs='12' md='3' className='my-1'><Input id="eventDate" type="date" placeholder="Buscar por Datas"
+                                onChange={(e) => this.setState({ inputDate: e.target.value })}/>
+                            </Col>
+                            <Col  xs='12' md='3' className='my-1'>
+                                {this.verifySearch() &&
+                                <Link to={{
+                                    pathname: "/searchevents",
+                                    itemsPassed: {
+                                        passedName: inputEvent,
+                                        passedCity: inputCity,
+                                        passedDate: inputDate
+                                    }
+                                }}>
+                                    <Button className="d-flex mx-auto" id="btn" type="submit">Pesquisar</Button>
+                                </Link>
+                                }
+                                {!this.verifySearch() &&
+                                <Form onClick={this.alert}>
+                                        <Button className="d-flex mx-auto" id="btn" type="submit">Pesquisar</Button>
+                                </Form>
+                                }
+                            </Col>
+                        </Row>
                     </Container>
                     <Container>
                         <Row>
@@ -134,7 +122,7 @@ class FeaturedEvents extends Component {
                         <Container id="post">
                             <Row>
                                 {this.state.event.slice(0, 3).map((post) => {
-                                    //if (post.ativo) {
+                                    //if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
                                         return (
                                             <Col xs="12" sm="4">
                                                 <div id="link" key={post.key}>
@@ -145,27 +133,21 @@ class FeaturedEvents extends Component {
                                                                     <strong>{post.titulo}</strong>
                                                                 </div>
                                                             </header>
-                                                            <img src={post.imagem} alt="Capa do post"
-                                                                className='rounded' />
-                                                            <footer className="my-4">
-                                                            <Row className='text-center'>
-                                                                <Col xs='6'>
+                                                            <img src={post.imagem} alt="Capa do post" className='rounded'/>
+                                                            <footer id="dados">
+                                                                <Row className='text-center'>
+                                                                    <Col xs='6'>
                                                                         <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                </Col>
-    
-                                                                <Col xs='6'>
+                                                                    </Col>
+                                                                    <Col xs='6'>
                                                                         <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-    
-                                                                </Col>
-                                                            </Row>
-                                                            <Row >
-                                                                <Col xs='12' className='ml-4'>
-                                                                        <p>
-                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                            {post.cidade}
-                                                                        </p>
-                                                                </Col>
-                                                            </Row>
+                                                                    </Col>
+                                                                </Row>
+                                                                <Row >
+                                                                    <Col xs='12' className='ml-3'>
+                                                                        <p><span className='mx-2'><FaMapMarkerAlt className='icon' /></span>{post.cidade}</p>
+                                                                    </Col>
+                                                                </Row>
                                                             </footer>
                                                         </article>
                                                     </Link>
@@ -178,7 +160,7 @@ class FeaturedEvents extends Component {
                         </Container>
                         <Row>
                             <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                                <Button className="verTodos d-flex mx-auto" onClick={() => this.verTodos()}>VER TODOS</Button>
                             </Col>
                         </Row>
                     </Container>
@@ -187,47 +169,48 @@ class FeaturedEvents extends Component {
                         <Row>
                             <h5 id="title" className="titleEvents">Próximos Eventos</h5>
                         </Row>
-                        <Container id="post" className="px-2">
+                        <Container id="post">
                             <Row>
                                 {this.state.event.slice(0, 3).map((post) => {
-                                    return (
-    
-                                        <Col xs="12" sm='4'>
-                                            <div id="link" key={post.key}>
-                                                <Link to={`/event/${post.key}`}>
-                                                    <article>
-                                                        <header>
-                                                            <div className="title">
-                                                                <strong>{post.titulo}</strong>
-                                                            </div>
-                                                        </header>
-                                                        <img src={post.imagem} alt="Capa do post"
-                                                            className='rounded' />
-                                                        <footer className="my-4">
-                                                        <Row className='text-center'>
-                                                                <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                </Col>
-    
-                                                                <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-    
-                                                                </Col>
-                                                            </Row>
-                                                            <Row >
-                                                                <Col xs='12' className='ml-4'>
-                                                                        <p>
-                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                            {post.cidade}
-                                                                        </p>
-                                                                </Col>
-                                                            </Row>
-                                                        </footer>
-                                                    </article>
-                                                </Link>
-                                            </div>
-                                        </Col>
-                                    );
+                                    if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
+                                        return (
+                                            <Col xs="12" sm='4'>
+                                                <div id="link" key={post.key}>
+                                                    <Link to={`/event/${post.key}`}>
+                                                        <article>
+                                                            <header>
+                                                                <div className="title">
+                                                                    <strong>{post.titulo}</strong>
+                                                                </div>
+                                                            </header>
+                                                            <img src={post.imagem} alt="Capa do post"
+                                                                className='rounded' />
+                                                            <footer id="dados">
+                                                            <Row className='text-center'>
+                                                                    <Col xs='6'>
+                                                                            <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                    </Col>
+        
+                                                                    <Col xs='6'>
+                                                                            <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+        
+                                                                    </Col>
+                                                                </Row>
+                                                                <Row >
+                                                                    <Col xs='12' className='ml-3'>
+                                                                            <p>
+                                                                                <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                                {post.cidade}
+                                                                            </p>
+                                                                    </Col>
+                                                                </Row>
+                                                            </footer>
+                                                        </article>
+                                                    </Link>
+                                                </div>
+                                            </Col>
+                                        );
+                                    }
                                 })}
                             </Row>
                         </Container>
@@ -242,7 +225,7 @@ class FeaturedEvents extends Component {
                         <Row>
                             <h5 id="title" className="titleEvents">Últimos Adicionados</h5>
                         </Row>
-                        <Container id="post" className="px-2">
+                        <Container id="post">
                             <Row>
                                 {this.state.event.slice(0, 3).map((post) => {
                                     return (
@@ -258,7 +241,7 @@ class FeaturedEvents extends Component {
                                                         </header>
                                                         <img src={post.imagem} alt="Capa do post"
                                                             className='rounded' />
-                                                        <footer className="my-4">
+                                                        <footer id="dados">
                                                             <Row className='text-center'>
                                                                 <Col xs='6'>
                                                                         <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
@@ -270,7 +253,7 @@ class FeaturedEvents extends Component {
                                                                 </Col>
                                                             </Row>
                                                             <Row >
-                                                                <Col xs='12' className='ml-4'>
+                                                                <Col xs='12' className='ml-3'>
                                                                         <p>
                                                                             <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
                                                                             {post.cidade}

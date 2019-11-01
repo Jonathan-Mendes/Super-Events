@@ -19,7 +19,6 @@ class Dashboard extends Component {
             var: []
         };
         this.logout = this.logout.bind(this);
-        this.newEvent = this.newEvent.bind(this);
         this.formatDate = this.formatDate.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
     }
@@ -64,10 +63,6 @@ class Dashboard extends Component {
             });
         localStorage.removeItem("nome");
         this.props.history.push('/');
-    }
-
-    newEvent = async () => {
-        this.props.history.replace('/dashboard/newevents');
     }
 
     formatDate(data) {
@@ -118,7 +113,7 @@ class Dashboard extends Component {
                                                             </div>
                                                         </header>
                                                         <img src={post.imagem} alt="Capa do post" />
-                                                        <footer class="my-2">
+                                                        <footer id="dados">
                                                             <Row className='text-center'>
                                                                 <Col xs='6'>
                                                                     <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
@@ -130,7 +125,7 @@ class Dashboard extends Component {
                                                                 </Col>
                                                             </Row>
                                                             <Row >
-                                                                <Col xs='12' className='ml-4'>
+                                                                <Col xs='12' className='ml-3'>
                                                                     <p>
                                                                         <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
                                                                         {post.cidade}

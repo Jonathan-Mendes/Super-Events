@@ -25,7 +25,7 @@ class SearchEvents extends Component {
     componentDidMount() {
         this.state.passedEvents = this.props.location.itemsPassed;
 
-        if(this.state.passedEvents.passedName.length === 0 && this.state.passedEvents.passedCity.length === 0 && this.state.passedEvents.passedName.length === 0){
+        if(this.state.passedEvents.passedName.length === 0 && this.state.passedEvents.passedCity.length === 0 && this.state.passedEvents.passedDate.length === 0){
             this.setState({verify: false});
         }else
 
@@ -82,7 +82,6 @@ class SearchEvents extends Component {
         }else
 
         if(this.state.passedEvents.passedDate.length !== 0){
-            
             firebase.app.ref('events').orderByChild("data").equalTo(this.state.passedEvents.passedDate).on('value', (snapshot) => {
 
                 let state = this.state;
@@ -205,86 +204,78 @@ class SearchEvents extends Component {
     }
 
     render() {
-        return (
-            <div id="tip" className="px-3">
-                {/* <Container id="search">
-                    <Form onSubmit={this.pesquisar}>
-                        <FormGroup>
-                            <Row id="specific">
-                                <Col xs="3"><Input id="eventName" type="text" placeholder="Buscar por Eventos" 
-                                    onChange={(e) => this.setState({ inputEvento: e.target.value })}/>
-                                </Col>
-                                <Col xs="3"><Input id="cityName" type="text" placeholder="Buscar por Cidades"
-                                    onChange={(e) => this.setState({ inputCidade: e.target.value })}/>
-                                </Col>
-                                <Col xs="3"><Input id="eventDate" type="date" placeholder="Buscar por Datas"
-                                    onChange={(e) => this.setState({ inputData: e.target.value })}/>
-                                </Col>
-                                <Col xs="3"><Button color="primary" type="submit">Pesquisar</Button>
-                                </Col>
+        const {verify} = this.state;
+
+        // if(verify){
+            return (
+                <div id="tip" className="px-3">
+                    {/* <Container id="search">
+                        <Form onSubmit={this.pesquisar}>
+                            <FormGroup>
+                                <Row id="specific">
+                                    <Col xs="3"><Input id="eventName" type="text" placeholder="Buscar por Eventos" 
+                                        onChange={(e) => this.setState({ inputEvento: e.target.value })}/>
+                                    </Col>
+                                    <Col xs="3"><Input id="cityName" type="text" placeholder="Buscar por Cidades"
+                                        onChange={(e) => this.setState({ inputCidade: e.target.value })}/>
+                                    </Col>
+                                    <Col xs="3"><Input id="eventDate" type="date" placeholder="Buscar por Datas"
+                                        onChange={(e) => this.setState({ inputData: e.target.value })}/>
+                                    </Col>
+                                    <Col xs="3"><Button color="primary" type="submit">Pesquisar</Button>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                        </Form>
+                    </Container> */}
+
+                    
+
+                    <Container>
+                        <Container id="post">
+                            <Row>
+                                {this.state.eventSearch.map((post) => {
+                                    //if (post.ativo) {
+                                        return (
+                                            <Col xs="12" sm="4">
+                                                <div id="link" key={post.key}>
+                                                    <Link to={`/event/${post.key}`}>
+                                                        <article>
+                                                            <header>
+                                                                <div className="title">
+                                                                    <strong>{post.titulo}</strong>
+                                                                </div>
+                                                            </header>
+                                                            <img src={post.imagem} alt="Capa do post" className='rounded'/>
+                                                            <footer id="dados">
+                                                                <Row className='text-center'>
+                                                                    <Col xs='6'>
+                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                    </Col>
+                                                                    <Col xs='6'>
+                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+                                                                    </Col>
+                                                                </Row>
+                                                                <Row >
+                                                                    <Col xs='12' className='ml-3'>
+                                                                        <p><span className='mx-2'><FaMapMarkerAlt className='icon' /></span>{post.cidade}</p>
+                                                                    </Col>
+                                                                </Row>
+                                                            </footer>
+                                                        </article>
+                                                    </Link>
+                                                </div>
+                                            </Col>
+                                        );
+                                    //}
+                                })}
                             </Row>
-                        </FormGroup>
-                    </Form>
-                </Container> */}
-
-                
-
-                <Container>
-                    <Container id="post">
-                        <Row>
-                            {this.state.eventSearch.map((post) => {
-                                //if (post.ativo) {
-                                    return (
-                                        <Col xs="12" sm="4">
-                                            <div id="link" key={post.key}>
-                                                <Link to={`/event/${post.key}`}>
-                                                    <article>
-                                                        <header>
-                                                            <div className="title">
-                                                                <strong>{post.titulo}</strong>
-                                                            </div>
-                                                        </header>
-                                                        <img src={post.imagem} alt="Capa do post"
-                                                            className='rounded' />
-                                                        <footer className="my-4">
-                                                            <Row>
-                                                                <Col xs='6' >
-
-                                                                    <div className="box">
-                                                                        <FaRegCalendarAlt className='icon' /><p className="text">{this.formatDate(post.data)}</p></div>
-                                                                </Col>
-
-                                                                <Col xs='6'>
-                                                                    <div className="box">
-                                                                        <FaRegClock className='icon' /><p className="text">{post.hora}</p></div>
-
-                                                                </Col>
-                                                            </Row>
-                                                            <Row>
-                                                                <Col xs='12'>
-                                                                    <div>
-                                                                        <p>
-                                                                            <FaMapMarkerAlt className='icon' />
-                                                                            {post.cidade}
-                                                                        </p>
-                                                                    </div>
-                                                                </Col>
-                                                            </Row>
-                                                        </footer>
-                                                    </article>
-                                                </Link>
-                                            </div>
-                                        </Col>
-                                    );
-                                //}
-                            })}
-                        </Row>
+                        </Container>
                     </Container>
-                </Container>
-                
-            </div>
-        )
-
+                    
+                </div>
+            )
+        // }
     }
 }
 

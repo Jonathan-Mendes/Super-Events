@@ -106,3 +106,11 @@ ion-icon {
 .verTodos{
     border-radius: 20px !important;
 }
+
+div#tip p{
+    padding: 5px 0 5px;
+}
+
+#dados{
+    margin-top: .6rem !important;
+}

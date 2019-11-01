@@ -112,7 +112,7 @@ class Header extends Component {
         if(this.loged())
          return(
             <div>
-                <Navbar id="navbar" color="info" expand="xs">
+                <Navbar id="navbar" expand="xs">
                         <NavbarBrand onClick={() => this.home()} id="main">Super Events</NavbarBrand>
 
                         <NavbarToggler onClick={this.toggle}/>

@@ -17,6 +17,14 @@ div#tip{
     /* align-items: center; */
 }
 
+div#tip p{
+    padding: 5px 0 5px;
+}
+
+#dados{
+    margin-top: .6rem !important;
+}
+
 #post{
     padding: 0 30px;
     display: flex;
@@ -71,24 +79,6 @@ div#tip{
     padding: 10px;
 }
 
-footer div.fix{
-    overflow: auto;
-    content: "";
-    clear: both;
-    display: flex;
-}
-
-footer div.box{
-    display: flex;
-    width: 50%;
-    /* width: 33.33%; */
-}
-
-ion-icon {
-    font-size: 25px;
-    padding-right: 8px;
-    
-}
 
 @media screen and (max-width: 520px){
     .titleEvents{
@@ -99,9 +89,22 @@ ion-icon {
 
 .verTodos{
     border-radius: 20px !important;
+    background-color: black !important;
+    border-color: #F2921D !important;
 }
 
 .clas{
     margin-left: 5px !important;
     margin-right: 5px !important; 
 }
+
+#btn{
+    align-self: center !important;
+    background-color: black;
+    border-color: #F2921D;
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

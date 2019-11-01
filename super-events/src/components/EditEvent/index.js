@@ -107,6 +107,7 @@ class EditEvent extends Component {
             this.state.descricao = this.state.event.descricao;
             this.state.data = this.state.event.dataInicial;
             this.state.dataFinal = this.state.event.dataFinal;
+            this.state.estqIngresso = this.state.event.estqIngresso;
             this.setState(state);
         })
     }
@@ -266,7 +267,7 @@ class EditEvent extends Component {
                     <Row className="text-center">
                         <Col md={12}>
                         <Label for="estqIngresso" className="text-info font-weight-bold mx-2">Quantidade de Ingressos</Label>
-                                <Input id="estqIngresso" type="number" placeholder="0" min={1} required onChange={(e) => this.setState({ estqIngresso: e.target.value })} /> 
+                                <Input id="estqIngresso" type="number" value={this.state.estqIngresso} min={1} required onChange={(e) => this.setState({ estqIngresso: e.target.value })} /> 
                         </Col>
                     </Row>
                     <Row className="text-center">
@@ -278,14 +279,14 @@ class EditEvent extends Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="valInt" className="text-info font-weight-bold mx-2">Inteira</Label>
-                                <Input id="valInt" placeholder="R$ 00,00" min={1} max={10000} required
+                                <Input id="valInt" value={this.state.valorIngressoInt} min={1} max={10000} required
                                 onChange={(e) => this.setState({ valorIngressoInt: e.target.value })} />
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="valMeia" className="text-info font-weight-bold mx-2">Meia</Label>
-                                <Input id="valMeia" placeholder="R$ 00,00" min={1} max={10000} required
+                                <Input id="valMeia" value={this.state.valorIngressoMeia} min={1} max={10000} required
                                 onChange={(e) => this.setState({ valorIngressoMeia: e.target.value })} />              
                             </FormGroup>
                         </Col>

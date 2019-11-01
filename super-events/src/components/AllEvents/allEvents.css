@@ -72,7 +72,10 @@ footer div.box{
     /* width: 33.33%; */
 }
 
-ion-icon {
-    font-size: 25px;
-    padding-right: 8px;
+div#tip p{
+    padding: 5px 0 5px;
+}
+
+#dados{
+    margin-top: .6rem !important;
 }

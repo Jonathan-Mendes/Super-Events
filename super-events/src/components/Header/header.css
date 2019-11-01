@@ -1,8 +1,17 @@
-
+#navbar{
+    background-color: #F2921D !important;
+    /* 
+    #025951
+    #D97823
+    #D9886A
+    #260B01
+    */
+}
 #navbar a{
     color: #ffffff;
     text-decoration: none;
     font-size: 23px;
+    font-weight: bold;
 }
 
 #perfil > img{
