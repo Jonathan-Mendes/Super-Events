@@ -221,7 +221,7 @@ class Event extends Component {
                         <Col md='12' lg='5' xl='4'>
                             <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
                                 <p className="date text-info">{this.formatDate(this.state.dataInicial, true)}</p>
-
+                                <h2>{titulo}</h2>
                                 <p className="autor">Criado por {autor}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Cidade: </span>{cidade + " - " + this.formatEstado(estado)}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Hora do Evento: </span>{hora}</p>
