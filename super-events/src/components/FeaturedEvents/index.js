@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import './featuredevents.css';
-import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt, FaStar } from "react-icons/fa";
 import { Container, Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
 import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants';
 import { verify } from 'crypto';
-
 class FeaturedEvents extends Component {
 
     constructor(props) {
@@ -17,10 +16,12 @@ class FeaturedEvents extends Component {
             inputCity: '',
             inputDate: '',
             verify: false,
-            eventSearch: []
+            eventSearch: [],
+            eventosDestaque: []
         }
         this.formatDate = this.formatDate.bind(this);
         this.searchEvent = this.searchEvent.bind(this);
+        this.eventosEmDestaque = this.eventosEmDestaque.bind(this);
     }
 
 
@@ -40,13 +41,14 @@ class FeaturedEvents extends Component {
                     local: childItem.val().local,
                     cidade: childItem.val().cidade,
                     autor: childItem.val().autor,
-                    ativo: childItem.val().ativo
+                    destacado: childItem.val().destacado
                 });
             });
             state.event.reverse();
             this.setState(state);
-
         })
+
+        this.eventosEmDestaque();
     }
 
     formatDate(data) {
@@ -58,8 +60,38 @@ class FeaturedEvents extends Component {
         return brDate;
     }
 
+    eventosEmDestaque(){
+        firebase.app.ref('events').orderByChild("destacado").equalTo(true).on('value', (snapshot) =>{
+            let state = this.state;
+            state.eventosDestaque = [];
+
+            snapshot.forEach((childItem) => {
+                state.eventosDestaque.push({
+                    key: childItem.key,
+                    titulo: childItem.val().titulo,
+                    imagem: childItem.val().imagem,
+                    descricao: childItem.val().descricao,
+                    data: childItem.val().data,
+                    hora: childItem.val().hora,
+                    local: childItem.val().local,
+                    cidade: childItem.val().cidade,
+                    autor: childItem.val().autor,
+                    destacado: childItem.val().destacado
+                });
+            });
+            // state.eventosDestaque.reverse();
+            this.setState(state);
+
+        })
+        
+    }
+
     verTodos(){
         this.props.history.replace('/allevents');
+    }
+
+    verTodosDestaque(){
+        this.props.history.replace('/alleventsdestaque');
     }
 
     searchEvent(){
@@ -133,52 +165,54 @@ class FeaturedEvents extends Component {
                         </Row>
                         <Container id="post">
                             <Row>
-                                {this.state.event.slice(0, 3).map((post) => {
-                                    //if (post.ativo) {
-                                        return (
-                                            <Col xs="12" sm="4">
-                                                <div id="link" key={post.key}>
-                                                    <Link to={`/event/${post.key}`}>
-                                                        <article>
-                                                            <header>
-                                                                <div className="title">
-                                                                    <strong>{post.titulo}</strong>
-                                                                </div>
-                                                            </header>
-                                                            <img src={post.imagem} alt="Capa do post"
-                                                                className='rounded' />
-                                                            <footer className="my-4">
-                                                            <Row className='text-center'>
-                                                                <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                </Col>
-    
-                                                                <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-    
-                                                                </Col>
-                                                            </Row>
-                                                            <Row >
-                                                                <Col xs='12' className='ml-4'>
-                                                                        <p>
-                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                            {post.cidade}
-                                                                        </p>
-                                                                </Col>
-                                                            </Row>
-                                                            </footer>
-                                                        </article>
-                                                    </Link>
-                                                </div>
-                                            </Col>
-                                        );
-                                    //}
-                                })}
+                            {this.state.eventosDestaque.slice(0, 3).map((post) => {
+                                return (
+                                    <Col xs="12" sm="4">
+                                        <div id="link" key={post.key}>
+                                            <Link to={`/event/${post.key}`}>
+                                                <article>
+                                                    <header>
+                                                        <div className="title">
+                                                            <strong>
+                                                            {post.titulo} 
+                                                            </strong>
+
+                                                            <FaStar className="text-warning icon star" />
+                                                        </div>
+                                                    </header>
+                                                    <img src={post.imagem} alt="Capa do post"
+                                                        className='rounded' />
+                                                    <footer className="my-4">
+                                                        <Row className='text-center'>
+                                                            <Col xs='6'>
+                                                                    <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                            </Col>
+
+                                                            <Col xs='6'>
+                                                                    <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+
+                                                            </Col>
+                                                        </Row>
+                                                        <Row >
+                                                            <Col xs='12' className='ml-4'>
+                                                                    <p>
+                                                                        <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                        {post.cidade}
+                                                                    </p>
+                                                            </Col>
+                                                        </Row>
+                                                    </footer>
+                                                </article>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                );
+                            })}
                             </Row>
                         </Container>
                         <Row>
                             <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodosDestaque()}>VER TODOS EM DESTAQUE</Button>
                             </Col>
                         </Row>
                     </Container>
@@ -233,7 +267,7 @@ class FeaturedEvents extends Component {
                         </Container>
                         <Row>
                             <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
                             </Col>
                         </Row>
                     </Container>
@@ -288,7 +322,7 @@ class FeaturedEvents extends Component {
                         </Container>
                         <Row>
                             <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
                             </Col>
                         </Row>
                     </Container>

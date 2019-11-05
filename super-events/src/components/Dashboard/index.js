@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import './dashboard.css';
 import { IoIosLogOut, IoIosAdd } from 'react-icons/io';
 import { Button, Col, Row, Container } from 'reactstrap';
-import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt, FaRegEdit, FaRegTrashAlt, FaStar } from "react-icons/fa";
 import { async } from 'q';
 
 class Dashboard extends Component {
@@ -22,6 +22,7 @@ class Dashboard extends Component {
         this.newEvent = this.newEvent.bind(this);
         this.formatDate = this.formatDate.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
+        this.destacarEvent = this.destacarEvent.bind(this);
     }
 
     async componentDidMount() {
@@ -89,6 +90,15 @@ class Dashboard extends Component {
         }
     }
 
+    destacarEvent = async (key) => {
+        try{
+            await firebase.destaqueEventByKey(key);
+            alert("Seu evento foi colocado como destaque")
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
     render() {
         return (
             <div id="dashboard" className="px-3 my-3">
@@ -142,14 +152,20 @@ class Dashboard extends Component {
 
                                                 </Link>
                                                 <Row>
-                                                    <Col xs='6'>
+                                                    <Col xs='4'>
                                                         <Link to={`/editevent/${post.key}`}>
                                                             <Button id="btnEdit" color="success">
                                                                 <FaRegEdit />
                                                             </Button>
                                                         </Link>
                                                     </Col>
-                                                    <Col xs='6'>
+                                                    <Col xs='4'>
+                                                        <Button id="btnDelete" color="info"
+                                                            onClick={() => this.destacarEvent(post.key)}>
+                                                            <FaStar />
+                                                        </Button>
+                                                    </Col>
+                                                    <Col xs='4'>
                                                         <Button id="btnDelete" color="danger"
                                                             onClick={() => this.deleteEvent(post.key)}>
                                                             <FaRegTrashAlt />

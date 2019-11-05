@@ -7,6 +7,7 @@ import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaStar } from "react-icons/fa";
 
 toast.configure();
 class Event extends Component {
@@ -62,7 +63,8 @@ class Event extends Component {
                 qtdIngressos: snapshot.val().estqIngresso,
                 valorIngressoInt: snapshot.val().valorIngressoInt,
                 valorIngressoMeia: snapshot.val().valorIngressoMeia,
-                valorIngresso: snapshot.val().valorIngresso
+                valorIngresso: snapshot.val().valorIngresso,
+                destacado: snapshot.val().destacado
             };
             this.state.dataInicial = this.state.event.dataInicial;
             this.state.dataFinal = this.state.event.dataFinal;
@@ -228,7 +230,6 @@ class Event extends Component {
                             <div className="h-100 shadow p-3 mb-2 bg-white rounded max">
                                 <p className="date text-info">{this.formatDate(this.state.dataInicial, true)}</p>
 
-                                <h2>{titulo}</h2>
                                 <p className="autor">Criado por {autor}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Cidade: </span>{cidade + " - " + this.formatEstado(estado)}</p>
                                 <p className="text-info font-weight-bold"><span className="text-dark">Hora do Evento: </span>{hora}</p>
@@ -270,7 +271,7 @@ class Event extends Component {
                                             </tbody>
                                         </Table>
                                         {/* <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button> */}
-                                        <StripeCheckout className="w-100" onClick={(e) => this.comprar(e.target)}
+                                        <StripeCheckout className="w-100"
                                             stripeKey="pk_test_CtzvNPIwBOEpvDGPpGezYpNK008PTbo7QY"
                                             // token={this.handleToken()}
                                             amount={this.state.valorTotal}

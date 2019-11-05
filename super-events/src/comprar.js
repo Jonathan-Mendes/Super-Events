@@ -5,14 +5,15 @@
 
 // const app = express();
 
-// app.use(express.json());
-// app.use(cors());
+// var server = http.createServer(app);
+// server.use(express.json());
+// server.use(cors());
 
-// app.get("/", (req, res) => {
+// server.get("/", (req, res) => {
 //   res.send("Add your Stripe Secret Key to the .require('stripe') statement!");
 // });
 
-// app.post("/checkout", async (req, res) => {
+// server.post("/checkout", async (req, res) => {
 //   console.log("Request:", req.body);
 
 //   let error;
@@ -58,4 +59,4 @@
 //   res.json({ error, status });
 // });
 
-// app.listen(8080);
+// server.listen(8080);

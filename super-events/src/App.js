@@ -4,6 +4,7 @@ import firebase from './firebase';
 import Header from './components/Header';
 import FeaturedEvents from './components/FeaturedEvents';
 import AllEvents from './components/AllEvents';
+import AllEventsDestaque from './components/AllEventsDestaque';
 import Event from './components/Event';
 import EditEvent from './components/EditEvent';
 import SearchEvents from './components/SearchEvents';
@@ -34,7 +35,8 @@ class App extends Component {
                 <Header />
                 <Switch>
                     <Route exact path="/" component={FeaturedEvents} />
-                    <Route exact path='/allevents' component={AllEvents} />
+                    <Route exact path="/allevents" component={AllEvents} />
+                    <Route exact path="/alleventsdestaque" component={AllEventsDestaque} />
                     <Route exact path="/event/:id" component={Event} />
                     <Route exact path="/editevent/:id" component={EditEvent} />
                     <Route exact path="/searchevents" component={SearchEvents} />

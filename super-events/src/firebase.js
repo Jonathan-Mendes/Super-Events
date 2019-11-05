@@ -86,6 +86,12 @@ class Firebase {
     async deleteEventByKey(key){
         await app.database().ref('events').child(key).remove();
     }
+
+    async destaqueEventByKey(key){
+        await app.database().ref('events').child(key).update({
+            destacado: true
+        });
+    }
 }
 
 export default new Firebase();
