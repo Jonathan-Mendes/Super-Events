@@ -108,7 +108,6 @@ class Header extends Component {
                         </Collapse>
                     </Navbar>
                 </div>
-<<<<<<< HEAD
         )
         if(this.loged())
          return(
@@ -117,16 +116,6 @@ class Header extends Component {
                         <NavbarBrand onClick={() => this.home()} id="main"><a className="cool-link">Super Events</a></NavbarBrand>
 
                         <NavbarToggler onClick={this.toggle}/>
-=======
-            )
-        if (this.loged())
-            return (
-                <div>
-                    <Navbar id="navbar" expand="xs">
-                        <NavbarBrand onClick={() => this.home()} id="main"><a className="cool-link">Super Events</a></NavbarBrand>
-
-                        <NavbarToggler onClick={this.toggle} />
->>>>>>> 866eacc225eaa5ecd47327e4a1f4e2b8b01905a8
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <UncontrolledDropdown nav inNavbar>
