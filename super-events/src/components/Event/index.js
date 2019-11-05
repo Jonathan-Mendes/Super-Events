@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
-import comprar from '../../comprar';
 import './event.css';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
-import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { FaStar } from "react-icons/fa";
 
-toast.configure();
+
 class Event extends Component {
 
     constructor(props) {
@@ -37,8 +31,6 @@ class Event extends Component {
         this.incrementMeia = this.incrementMeia.bind(this);
         this.decrementMeia = this.decrementMeia.bind(this);
         this.loged = this.loged.bind(this);
-        this.handleToken = this.handleToken.bind(this)
-        this.comprar = this.comprar.bind(this)
     }
 
     componentDidMount() {
@@ -74,14 +66,14 @@ class Event extends Component {
         console.log(this.state.event.key)
     }
 
-    comprar = async (e) => {
-    if(true){
-          toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
-    } 
-    else {
-        toast("Desculpe, Algo deu errado", { type: "error" });
-    }
-    }
+    // comprar = async (e) => {
+    // if(true){
+    //       toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
+    // } 
+    // else {
+    //     toast("Desculpe, Algo deu errado", { type: "error" });
+    // }
+    // }
     formatEstado(estado) {
         let sigla
         let state = parseInt(estado)
@@ -200,21 +192,21 @@ class Event extends Component {
         return false;
     }
 
-    async handleToken(token) {
-        const event = this.event
+    // async handleToken(token) {
+    //     const event = this.event
 
-        const response = await axios.post(
-          `https://super-events-f85d9.firebaseapp.com/event/-${this.state.event.key}`,
-          { token, event }
-        );
-        const { status } = response.data;
-        console.log("Response:", response.data);
-        if (status === "success") {
-          toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
-        } else {
-          toast("Desculpe, Algo deu errado", { type: "error" });
-        }
-      }
+    //     const response = await axios.post(
+    //       `https://super-events-f85d9.firebaseapp.com/event/-${this.state.event.key}`,
+    //       { token, event }
+    //     );
+    //     const { status } = response.data;
+    //     console.log("Response:", response.data);
+    //     if (status === "success") {
+    //       toast("Sucesso! Verifique o email para obter detalhes", { type: "success" });
+    //     } else {
+    //       toast("Desculpe, Algo deu errado", { type: "error" });
+    //     }
+    //   }
 
     render() {
         const { titulo, autor, descricao, hora, horaFinal, local, cidade, estado, imagem } = this.state.event;
@@ -270,15 +262,15 @@ class Event extends Component {
                                                 </tr>
                                             </tbody>
                                         </Table>
-                                        {/* <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button> */}
-                                        <StripeCheckout className="w-100"
+                                        <Button id='re' className="w-100" color="success">Comprar</Button>
+                                        {/* <StripeCheckout className="w-100"
                                             stripeKey="pk_test_CtzvNPIwBOEpvDGPpGezYpNK008PTbo7QY"
                                             // token={this.handleToken()}
                                             amount={this.state.valorTotal}
                                             name={this.state.event.titulo}
                                             billingAddress
                                             shippingAddress
-                                        />
+                                        /> */}
                                     </div>
                                 }
                                 {!this.state.event.valorIngresso &&
