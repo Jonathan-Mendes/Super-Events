@@ -155,7 +155,7 @@ class Dashboard extends Component {
                                                         </Link>
                                                     </Col>
                                                     <Col xs='4'>
-                                                        <Button id="btnDelete" color="info"
+                                                        <Button id="btnDelete" color="warning"
                                                             onClick={() => this.destacarEvent(post.key)}>
                                                             <FaStar />
                                                         </Button>
