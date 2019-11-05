@@ -5,18 +5,6 @@ div#tip{
     margin-top: 15px;
 }
 
-#search{
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-content: center; */
-    /* align-items: center; */
-}
-
-#specific button{
-    /* display: flex; */
-    /* align-items: center; */
-}
-
 div#tip p{
     padding: 5px 0 5px;
 }
@@ -108,3 +96,120 @@ div#tip p{
     align-items: center;
 }
 
+
+.main {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+  }
+
+.main:before,
+    .main:after{
+    border-radius: 14px !important;
+    content: "";
+    position: absolute;
+    background: #F2921D;
+  }
+.item:before,
+    .item:after {
+    border-radius: 14px !important;
+    content: "";
+    position: absolute;
+    background: #59D559;
+    }
+
+.main:after {
+  width: 0;
+  height: 8px;
+  bottom: 0;
+  left: 0;
+}
+
+.main:before {
+  height: 0;
+  width: 8px;
+  top: 0;
+  left: 0;
+}
+
+.item:after {
+  width: 0;
+  height: 8px;
+  top: 0;
+  right: 0;
+}
+
+.item:before {
+  height: 0;
+  width: 8px;
+  right: 0;
+  bottom: 0;
+}
+
+.main:hover:before {
+  height: 100%;
+  transition: all .5s linear;
+}
+
+.main:hover:after {
+  width: 100%;
+  transition: all .5s linear .5s;
+}
+
+.item:hover:before {
+  height: 100%;
+  transition: all .5s linear;
+}
+
+.item:hover:after {
+  width: 100%;
+  transition: all .5s linear .5s;
+}
+
+@media screen and (min-width: 992px){
+    #post img{
+        min-width: 248px !important;
+        min-height: 160px !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    #post img{
+        height: 100px !important;
+    }
+    .icon{
+        font-size: 18px !important;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .icon {
+        font-size: 16px !important;
+    }
+}
+
+
+@media screen and (min-width: 300px) and (max-width: 576px){
+    #navbar a{
+        font-size: 16px !important;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 576px){
+    #city p{
+        margin-left: 40px;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 500px){
+    #city p{
+        margin-left: 36px;
+    }
+}
+
+@media screen and (min-width: 420px) and (max-width: 450px){
+    #city p{
+        margin-left: 30px;
+    }
+}

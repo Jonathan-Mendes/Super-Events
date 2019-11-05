@@ -125,7 +125,8 @@ class FeaturedEvents extends Component {
                                     //if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
                                         return (
                                             <Col xs="12" sm="4">
-                                                <div id="link" key={post.key}>
+                                                <div id="link" className="main" key={post.key}>
+                                                    <div className="item">
                                                     <Link to={`/event/${post.key}`}>
                                                         <article>
                                                             <header>
@@ -144,13 +145,14 @@ class FeaturedEvents extends Component {
                                                                     </Col>
                                                                 </Row>
                                                                 <Row >
-                                                                    <Col xs='12' className='ml-3'>
+                                                                    <Col xs='12' className='ml-3' id="city">
                                                                         <p><span className='mx-2'><FaMapMarkerAlt className='icon' /></span>{post.cidade}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </footer>
                                                         </article>
                                                     </Link>
+                                                    </div>
                                                 </div>
                                             </Col>
                                         );
@@ -175,38 +177,40 @@ class FeaturedEvents extends Component {
                                     if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
                                         return (
                                             <Col xs="12" sm='4'>
-                                                <div id="link" key={post.key}>
-                                                    <Link to={`/event/${post.key}`}>
-                                                        <article>
-                                                            <header>
-                                                                <div className="title">
-                                                                    <strong>{post.titulo}</strong>
-                                                                </div>
-                                                            </header>
-                                                            <img src={post.imagem} alt="Capa do post"
-                                                                className='rounded' />
-                                                            <footer id="dados">
-                                                            <Row className='text-center'>
-                                                                    <Col xs='6'>
-                                                                            <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                    </Col>
-        
-                                                                    <Col xs='6'>
-                                                                            <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-        
-                                                                    </Col>
-                                                                </Row>
-                                                                <Row >
-                                                                    <Col xs='12' className='ml-3'>
-                                                                            <p>
-                                                                                <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                                {post.cidade}
-                                                                            </p>
-                                                                    </Col>
-                                                                </Row>
-                                                            </footer>
-                                                        </article>
-                                                    </Link>
+                                                <div id="link" className="main" key={post.key}>
+                                                    <div className="item">
+                                                        <Link to={`/event/${post.key}`}>
+                                                            <article>
+                                                                <header>
+                                                                    <div className="title">
+                                                                        <strong>{post.titulo}</strong>
+                                                                    </div>
+                                                                </header>
+                                                                <img src={post.imagem} alt="Capa do post"
+                                                                    className='rounded' />
+                                                                <footer id="dados">
+                                                                <Row className='text-center'>
+                                                                        <Col xs='6'>
+                                                                                <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                        </Col>
+            
+                                                                        <Col xs='6'>
+                                                                                <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+            
+                                                                        </Col>
+                                                                    </Row>
+                                                                    <Row >
+                                                                        <Col xs='12' className='ml-3'>
+                                                                                <p>
+                                                                                    <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                                    {post.cidade}
+                                                                                </p>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </footer>
+                                                            </article>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </Col>
                                         );
@@ -229,40 +233,41 @@ class FeaturedEvents extends Component {
                             <Row>
                                 {this.state.event.slice(0, 3).map((post) => {
                                     return (
-    
                                         <Col xs="12" sm="4">
-                                            <div id="link" key={post.key}>
-                                                <Link to={`/event/${post.key}`}>
-                                                    <article>
-                                                        <header>
-                                                            <div className="title">
-                                                                <strong>{post.titulo}</strong>
-                                                            </div>
-                                                        </header>
-                                                        <img src={post.imagem} alt="Capa do post"
-                                                            className='rounded' />
-                                                        <footer id="dados">
-                                                            <Row className='text-center'>
-                                                                <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                </Col>
-    
-                                                                <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-    
-                                                                </Col>
-                                                            </Row>
-                                                            <Row >
-                                                                <Col xs='12' className='ml-3'>
-                                                                        <p>
-                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                            {post.cidade}
-                                                                        </p>
-                                                                </Col>
-                                                            </Row>
-                                                        </footer>
-                                                    </article>
-                                                </Link>
+                                            <div id="link" className="main" key={post.key}>
+                                                <div className="item">
+                                                    <Link to={`/event/${post.key}`}>
+                                                        <article>
+                                                            <header>
+                                                                <div className="title">
+                                                                    <strong>{post.titulo}</strong>
+                                                                </div>
+                                                            </header>
+                                                            <img src={post.imagem} alt="Capa do post"
+                                                                className='rounded' />
+                                                            <footer id="dados">
+                                                                <Row className='text-center'>
+                                                                    <Col xs='6'>
+                                                                            <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                    </Col>
+        
+                                                                    <Col xs='6'>
+                                                                            <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+        
+                                                                    </Col>
+                                                                </Row>
+                                                                <Row >
+                                                                    <Col xs='12' className='ml-3'>
+                                                                            <p>
+                                                                                <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                                {post.cidade}
+                                                                            </p>
+                                                                    </Col>
+                                                                </Row>
+                                                            </footer>
+                                                        </article>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </Col>
                                     );

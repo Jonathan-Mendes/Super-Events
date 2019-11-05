@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 class Comprar {
-
+    
     Product({ price, name }) {
         const [paidFor, setPaidFor] = useState(false);
         const [error, setError] = useState(null);

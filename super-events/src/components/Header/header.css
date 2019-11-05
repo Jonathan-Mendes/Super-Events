@@ -12,6 +12,31 @@
     text-decoration: none;
     font-size: 23px;
     font-weight: bold;
+    font-family: 'Cinzel Decorative', cursive !important;
+}
+
+.cool-link a {
+    margin-bottom: 10px;
+}
+
+.cool-link {
+    display: inline-block;
+    color: #59D559;
+    text-decoration: none;
+}
+
+.cool-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: #59D559;
+    transition: width .5s;
+}
+
+.cool-link:hover::after {
+    width: 100%;
+    transition: width .5s;
 }
 
 #perfil > img{

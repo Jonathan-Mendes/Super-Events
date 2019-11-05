@@ -238,6 +238,7 @@ class Event extends Component {
                                             </tbody>
                                         </Table>
                                         <Button id='re' className="w-100" onClick={this.payPal} color="success">Comprar</Button>
+                                        {/* <a href="https://pag.ae/7Vqn98Q7Q/button" target="_blank" title="Pagar com PagSeguro"><img src="//assets.pagseguro.com.br/ps-integration-assets/botoes/pagamentos/205x30-pagar.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!" /></a> */}
                                     </div>
                                 } 
                                 {!this.state.event.valorIngresso &&
