@@ -92,11 +92,9 @@ class Login extends Component {
 
                     <FormGroup>
                         <Label>Password</Label>
-                        <InputGroup>
                         <Input type={this.password.type} autoComplete="off" value={this.state.password}
                             onChange={(e) => this.setState({ password: e.target.value })} minLength="4" placeholder="Sua senha" required />
-                            <InputGroupAddon className='size-40' addonType="append"><Button onClick={this.passwordHide()} className='myColor'><FaEye /></Button></InputGroupAddon>
-                        </InputGroup>
+                            
                     </FormGroup>
 
                     <Button type="submit" color="info">Entrar</Button>

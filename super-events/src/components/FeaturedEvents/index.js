@@ -44,13 +44,14 @@ class FeaturedEvents extends Component {
                     local: childItem.val().local,
                     cidade: childItem.val().cidade,
                     autor: childItem.val().autor,
-                    ativo: childItem.val().ativo
+                    destacado: childItem.val().destacado
                 });
             });
             state.event.reverse();
             this.setState(state);
-
         })
+
+        this.eventosEmDestaque();
     }
 
     formatDate(data) {
@@ -60,6 +61,32 @@ class FeaturedEvents extends Component {
             today.slice(5, 7);
 
         return brDate;
+    }
+
+    eventosEmDestaque(){
+        firebase.app.ref('events').orderByChild("destacado").equalTo(true).on('value', (snapshot) =>{
+            let state = this.state;
+            state.eventosDestaque = [];
+
+            snapshot.forEach((childItem) => {
+                state.eventosDestaque.push({
+                    key: childItem.key,
+                    titulo: childItem.val().titulo,
+                    imagem: childItem.val().imagem,
+                    descricao: childItem.val().descricao,
+                    data: childItem.val().data,
+                    hora: childItem.val().hora,
+                    local: childItem.val().local,
+                    cidade: childItem.val().cidade,
+                    autor: childItem.val().autor,
+                    destacado: childItem.val().destacado
+                });
+            });
+            // state.eventosDestaque.reverse();
+            this.setState(state);
+
+        })
+        
     }
 
     verTodos(){
@@ -220,7 +247,7 @@ class FeaturedEvents extends Component {
                         </Container>
                         <Row>
                             <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
                             </Col>
                         </Row>
                     </Container>
@@ -276,7 +303,7 @@ class FeaturedEvents extends Component {
                         </Container>
                         <Row>
                             <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS</Button>
+                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
                             </Col>
                         </Row>
                     </Container>

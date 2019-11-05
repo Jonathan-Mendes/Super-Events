@@ -50,12 +50,6 @@ class Firebase {
         } catch (error) {
             return false
         }
-
-        // .then(function() {
-        //     // Email sent.
-        //   }).catch(function(error) {
-        //     // An error happened.
-        //   });
     }
 
     checkEmail(email) {
@@ -91,6 +85,12 @@ class Firebase {
 
     async deleteEventByKey(key){
         await app.database().ref('events').child(key).remove();
+    }
+
+    async destaqueEventByKey(key){
+        await app.database().ref('events').child(key).update({
+            destacado: true
+        });
     }
 }
 

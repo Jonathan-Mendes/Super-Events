@@ -126,6 +126,10 @@ class Header extends Component {
                                     </DropdownToggle>
                                     <DropdownMenu right id="dropdown">
                                     <DropdownItem onClick={() => this.perfil()}>
+                                        <span className='font-weight-bold'>{this.state.nome}</span>
+                                    </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem onClick={() => this.perfil()}>
                                         Meu Perfil
                                     </DropdownItem>
                                     <DropdownItem onClick={() => this.dashBoard()}>
@@ -133,6 +137,9 @@ class Header extends Component {
                                     </DropdownItem>
                                     <DropdownItem onClick={() => this.newEvent()}>
                                         Criar Evento
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        Eventos Comprados
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem onClick={() => this.logout()}>

@@ -1,23 +1,44 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
-import { tsImportEqualsDeclaration } from '@babel/types';
-import { FaFileUpload, FaThumbsDown } from "react-icons/fa";
-import { Container, Row, Col, Button, Input, Label } from 'reactstrap'
-
+import { Container, Row, Col, Button, Input, Label, Progress, Form, FormGroup } from 'reactstrap';
+import InputMask from 'react-input-mask';
+import './perfil.css';
 class Perfil extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            mask: '999.999.999-99',
             foto: null,
             nome: '',
             cpf: '',
+            fotoOld: '',
+            nomeOld: '',
+            cpfOld: '',
             email: firebase.getCurrent(),
+            uid: firebase.getCurrentUid(),
+            progress: 0
         }
         this.alterar = this.alterar.bind(this)
+        this.salvar = this.salvar.bind(this)
+        this.cancelar = this.cancelar.bind(this)
+        this.controlaTela = this.controlaTela.bind(this)
+        this.update = this.update.bind(this)
+        this.handleFile = this.handleFile.bind(this)
+        this.handleUpload = this.handleUpload.bind(this)
+        this.validarCPF = this.validarCPF.bind(this)
     }
 
     async componentDidMount() {
+
+        let elements = document.getElementsByClassName('edit')
+        elements[0].disabled = true //Input File
+        elements[1].disabled = true //Input Name
+        elements[2].disabled = true //Input CPF
+        elements[3].disabled = true //Button Salvar
+        elements[4].disabled = true //Button Cancelar
+        console.log(elements)
+
         firebase.getUserName((info) => {
             localStorage.nome = info.val().nome
             localStorage.cpf = info.val().cpf
@@ -26,9 +47,162 @@ class Perfil extends Component {
         })
     }
 
+    update = async () => {
+        let users = firebase.app.ref('usuarios');
+
+        try {
+            await users.child(this.state.uid).update({
+                foto: this.state.foto,
+                nome: this.state.nome,
+                cpf: this.state.cpf
+            })
+            this.setState(this.state)
+            // alert("Seus dados foram salvos com sucesso!")
+            window.location.reload();
+        } catch (error) {
+            alert("Ocorreu um erro ao alterar seus dados!")
+        }
+    }
+
+    salvar(e) {
+        this.controlaTela(e)
+        if (this.validarCPF(this.state.cpf)) {
+            this.update()
+        }
+        else {
+            alert("CPF Inválido!")
+            this.setState({
+                foto: this.state.fotoOld,
+                nome: this.state.nomeOld,
+                cpf: this.state.cpfOld
+            })
+        }
+    }
+
+    cancelar(e) {
+        this.setState({ progress: 0 })
+
+        this.controlaTela(e)
+        this.setState({
+            foto: this.state.fotoOld,
+            nome: this.state.nomeOld,
+            cpf: this.state.cpfOld
+        })
+    }
+
     alterar(e) {
-        console.log(e)
-        e.className = 'd-none'
+        this.controlaTela(e)
+        this.state.nomeOld = this.state.nome
+        this.state.cpfOld = this.state.cpf
+        this.state.fotoOld = this.state.foto
+    }
+
+    controlaTela(cond) {
+        let elements = document.getElementsByClassName('edit')
+        elements[0].disabled = !cond //Input File
+        elements[1].disabled = !cond //Input Nome
+        elements[2].disabled = !cond //Input CPF
+        elements[3].disabled = !cond //Button Salvar
+        elements[4].disabled = !cond //Button Cancelar
+        elements[5].disabled = cond  //Button Alterar
+    }
+
+
+    handleFile = async (e) => {
+
+        if (e.target.files[0]) {
+            const image = e.target.files[0];
+
+            if (image.type === "image/png" || image.type === "image/jpeg") {
+                await this.setState({ imagem: image });
+                this.handleUpload();
+            } else {
+                alert('Envie uma imagem do tipo PNG ou JPEG');
+                this.setState({ imagem: null });
+                return null;
+            }
+        }
+    }
+
+    handleUpload = async () => {
+        const { imagem } = this.state;
+        const currentUid = firebase.getCurrentUid();
+        const uploadTask = firebase.storage
+            .ref(`images/${currentUid}/${imagem.name}`)
+            .put(imagem);
+
+        await uploadTask.on('state_changed',
+            (snapshot) => {
+                //Progress
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                this.setState({ progress: progress });
+            },
+            (error) => {
+                //Error
+                console.log('Error imagem: ' + error);
+            },
+            () => {
+                //Sucessful
+                firebase.storage.ref(`images/${currentUid}`)
+                    .child(imagem.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        this.setState({ foto: url });
+                    })
+            })
+    }
+
+    onChange = (event) => {
+        var value = event.target.value;
+        var newState = {
+            mask: '999.999.999-99',
+            value: value
+        };
+        if (/^3[47]/.test(value)) {
+            newState.mask = '999.999.999-99';
+        }
+        this.setState(newState);
+        this.setState({ cpf: event.target.value });
+    }
+
+    validarCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g, '');
+        let rev;
+        let add;
+
+        if (cpf == '') return false;
+
+        if (cpf.length != 11 ||
+            cpf == "00000000000" ||
+            cpf == "11111111111" ||
+            cpf == "22222222222" ||
+            cpf == "33333333333" ||
+            cpf == "44444444444" ||
+            cpf == "55555555555" ||
+            cpf == "66666666666" ||
+            cpf == "77777777777" ||
+            cpf == "88888888888" ||
+            cpf == "99999999999")
+            return false;
+
+        add = 0;
+        for (let i = 0; i < 9; i++)
+            add += parseInt(cpf.charAt(i)) * (10 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(9)))
+            return false;
+
+        add = 0;
+        for (let i = 0; i < 10; i++)
+            add += parseInt(cpf.charAt(i)) * (11 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(10)))
+            return false;
+        return true;
     }
 
     render() {
@@ -41,35 +215,52 @@ class Perfil extends Component {
                             <h5 id="title">Meu Perfil</h5>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col xs='12' sm='12' md='12' lg='12'>
-                            <Row>
-                                <img className='rounded-circle my-1 mx-auto' width='200px' height='200px' src={this.state.foto} />
-                            </Row>
-                            <Row>
-                                {/* <Label for='nome' className='w-10'>Nome</Label> */}
-                                <Input id='nome' type='text' className='w-50 my-1 mx-auto' value={this.state.nome} />
-                            </Row>
-                            <Row>
-                                {/* <Label for='email'>E-mail</Label> */}
-                                <Input id='email' type='text' className='w-50 my-1 mx-auto' value={this.state.email} />
-                            </Row>
-                            <Row>
-                                {/* <Label for='cpf'>CPF</Label> */}
-                                <Input id='cpf' type='text' className='w-50 my-1 mx-auto' value={this.state.cpf} />
-                            </Row>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs='12' sm='12' md='12' lg='12' className="text-center my-3">
-                            <Button color="success" className="mx-3 d-none">Salvar</Button>
-                            <Button color="danger" className="mx-3 d-none">Cancelar</Button>
-                            <Button color="success" className='' onClick={(e) => this.alterar(e.target)}>Alterar</Button>
-                        </Col>
-                    </Row>
 
+                    <Row>
+                        <Col md='12' lg='12'>
+                            <Form id="perfil" className="my-2 mx-auto rounded">
+                                <FormGroup className="d-flex justify-content-center">
+                                    <img className='rounded-circle my-1 myBorder' width='200px' height='200px' src={this.state.foto} />
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Input type="file" className="edit mx-auto my-3" onChange={this.handleFile} />
+
+                                    <Progress id='progress' color="success" className=" mx-auto" value={this.state.progress} max="100" />
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Label for="nome">Nome</Label>
+                                    <Input id='nome' type='text' className=' my-1 mx-auto edit' value={this.state.nome} onChange={(e) => this.setState({ nome: e.target.value })} />
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Label for="cpf">CPF</Label>
+                                    <InputMask id='cpf' className="form-control my-1 mx-auto edit" {...this.state} onChange={this.onChange} id="cpf" value={this.state.cpf}
+                                        autoComplete="off" placeholder="000.000.000-00" required />
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Row>
+                                    <Col sm='12' md='' lg='4' className="text-center my-3">
+                                        <Button color="success" className="edit w-100"
+                                            onClick={(e) => (this.salvar(false))}>Salvar</Button>
+                                    </Col>
+                                    <Col sm='12' md='4' lg='4' className="text-center my-3">
+                                        <Button color="danger" className="edit w-100"
+                                            onClick={(e) => { this.cancelar(false) }}>Cancelar</Button>
+                                    </Col>
+                                    <Col sm='12' md='4' lg='4' className="text-center my-3">
+                                        <Button color="warning" className='edit w-100'
+                                            onClick={(e) => (this.alterar(true))}>Alterar</Button>
+                                    </Col>
+                                    </Row>
+                                </FormGroup>
+                            </Form>
+                        </Col>
+                    </Row>
                 </Container>
-            </div>
+            </div >
         );
     }
 }
