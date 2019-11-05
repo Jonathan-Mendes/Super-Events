@@ -213,7 +213,7 @@ class FeaturedEvents extends Component {
                     <Container id="post">
                         <Row>
                             {this.state.event.slice(0, 3).map((post) => {
-                                if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
+                                if (post.data.slice(8, 10) == dia && post.data.slice(5, 7) == mes && post.data.slice(0, 4) == ano) {
                                     return (
                                         <Col xs="12" sm='4'>
                                             <div id="link" className="main" key={post.key}>
