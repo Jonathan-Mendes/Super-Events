@@ -1,4 +1,4 @@
-import React, { Component, useState  } from 'react';
+import React, { Component, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 import './header.css';
@@ -54,19 +54,19 @@ class Header extends Component {
         })
     }
 
-    perfil(){
+    perfil() {
         this.props.history.replace('/perfil');
     }
 
-    home(){
+    home() {
         this.props.history.replace('/');
     }
 
-    dashBoard(){
+    dashBoard() {
         this.props.history.replace('/dashboard');
     }
 
-    newEvent(){
+    newEvent() {
         this.props.history.replace('/dashboard/newevents');
     }
 
@@ -79,16 +79,16 @@ class Header extends Component {
         this.props.history.push('/');
     }
 
-    loged(){
-        if(firebase.getCurrentUid()){
+    loged() {
+        if (firebase.getCurrentUid()) {
             return true
         }
         return false;
     }
 
     render() {
-        if(!this.loged())
-        return(
+        if (!this.loged())
+            return (
                 <div>
                     <Navbar id="navbar" color="info" expand="xs">
                         <NavbarBrand onClick={() => this.home()} id="main"><a className="cool-link">Super Events</a></NavbarBrand>
@@ -108,6 +108,7 @@ class Header extends Component {
                         </Collapse>
                     </Navbar>
                 </div>
+<<<<<<< HEAD
         )
         if(this.loged())
          return(
@@ -116,42 +117,52 @@ class Header extends Component {
                         <NavbarBrand onClick={() => this.home()} id="main"><a className="cool-link">Super Events</a></NavbarBrand>
 
                         <NavbarToggler onClick={this.toggle}/>
+=======
+            )
+        if (this.loged())
+            return (
+                <div>
+                    <Navbar id="navbar" expand="xs">
+                        <NavbarBrand onClick={() => this.home()} id="main"><a className="cool-link">Super Events</a></NavbarBrand>
+
+                        <NavbarToggler onClick={this.toggle} />
+>>>>>>> 866eacc225eaa5ecd47327e4a1f4e2b8b01905a8
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret id="perfil">
-                                    {/* <IoIosPerson/> */}
-                                    {/* <span>{this.state.nome}</span> */}
-                                    <img className="rounded-circle" width='50px' height='50px' src={this.state.foto}></img>
+                                        {/* <IoIosPerson/> */}
+                                        {/* <span>{this.state.nome}</span> */}
+                                        <img className="rounded-circle" width='50px' height='50px' src={this.state.foto}></img>
                                     </DropdownToggle>
                                     <DropdownMenu right id="dropdown">
-                                    <DropdownItem onClick={() => this.perfil()}>
-                                        <span className='font-weight-bold'>{this.state.nome}</span>
+                                        <DropdownItem onClick={() => this.perfil()}>
+                                            <span className='font-weight-bold'>{this.state.nome}</span>
+                                        </DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem onClick={() => this.perfil()}>
+                                            Meu Perfil
                                     </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem onClick={() => this.perfil()}>
-                                        Meu Perfil
+                                        <DropdownItem onClick={() => this.dashBoard()}>
+                                            Meus Eventos
                                     </DropdownItem>
-                                    <DropdownItem onClick={() => this.dashBoard()}>
-                                        Meus Eventos
+                                        <DropdownItem onClick={() => this.newEvent()}>
+                                            Criar Evento
                                     </DropdownItem>
-                                    <DropdownItem onClick={() => this.newEvent()}>
-                                        Criar Evento
+                                        <DropdownItem>
+                                            Eventos Comprados
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        Eventos Comprados
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem onClick={() => this.logout()}>
-                                        Sair
+                                        <DropdownItem divider />
+                                        <DropdownItem onClick={() => this.logout()}>
+                                            Sair
                                     </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
                             </Nav>
                         </Collapse>
                     </Navbar>
-            </div>
-        );
+                </div>
+            );
     }
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import './featuredevents.css';
-import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt, FaStar } from "react-icons/fa";
 import { Container, Row, Col, Button, Form, Input } from 'reactstrap';
 
 class FeaturedEvents extends Component {
@@ -20,11 +20,13 @@ class FeaturedEvents extends Component {
             eventSearch: [],
             dia: this.date.getDate(),
             mes: this.date.getMonth() + 1,
-            ano: this.date.getFullYear()
+            ano: this.date.getFullYear(),
+            eventosDestaque: []
         }
         this.formatDate = this.formatDate.bind(this);
         this.verifySearch = this.verifySearch.bind(this);
         this.alert = this.alert.bind(this);
+        this.eventosEmDestaque = this.eventosEmDestaque.bind(this);
     }
 
 
@@ -63,8 +65,8 @@ class FeaturedEvents extends Component {
         return brDate;
     }
 
-    eventosEmDestaque(){
-        firebase.app.ref('events').orderByChild("destacado").equalTo(true).on('value', (snapshot) =>{
+    eventosEmDestaque() {
+        firebase.app.ref('events').orderByChild("destacado").equalTo(true).on('value', (snapshot) => {
             let state = this.state;
             state.eventosDestaque = [];
 
@@ -84,45 +86,47 @@ class FeaturedEvents extends Component {
             });
             // state.eventosDestaque.reverse();
             this.setState(state);
-
         })
-        
     }
 
-    verTodos(){
+    verTodos() {
         this.props.history.replace('/allevents');
     }
 
-    verifySearch(){
-        if(this.state.inputEvent.length !== 0) return true;
-        if(this.state.inputDate.length !== 0)return true;
-        if(this.state.inputCity.length !== 0) return true;
+    verTodosDestaque() {
+        this.props.history.replace('/alleventsdestaque');
+    }
+
+    verifySearch() {
+        if (this.state.inputEvent.length !== 0) return true;
+        if (this.state.inputDate.length !== 0) return true;
+        if (this.state.inputCity.length !== 0) return true;
         return false;
     }
 
-    alert(e){
+    alert(e) {
         e.preventDefault();
         alert('Preencha ao menos um campo!');
     }
 
     render() {
-        const {inputEvent, inputCity, inputDate, dia, mes, ano} = this.state;
+        const { inputEvent, inputCity, inputDate, dia, mes, ano } = this.state;
 
-            return (
-                <div id="tip" className="px-3">
-                    <Container id="search">
-                        <Row id="specific" className=''>
-                            <Col xs='12' md='3' className='my-1'><Input id="eventName" type="text" placeholder="Buscar por Eventos"
-                                onChange={(e) => this.setState({ inputEvent: e.target.value })}/>
-                            </Col>
-                            <Col xs='12' md='3' className='my-1'><Input id="cityName" type="text" placeholder="Buscar por Cidades"
-                                onChange={(e) => this.setState({ inputCity: e.target.value })}/>
-                            </Col>
-                            <Col xs='12' md='3' className='my-1'><Input id="eventDate" type="date" placeholder="Buscar por Datas"
-                                onChange={(e) => this.setState({ inputDate: e.target.value })}/>
-                            </Col>
-                            <Col  xs='12' md='3' className='my-1'>
-                                {this.verifySearch() &&
+        return (
+            <div id="tip" className="px-3">
+                <Container id="search">
+                    <Row id="specific" className=''>
+                        <Col xs='12' md='3' className='my-1'><Input id="eventName" type="text" placeholder="Buscar por Eventos"
+                            onChange={(e) => this.setState({ inputEvent: e.target.value })} />
+                        </Col>
+                        <Col xs='12' md='3' className='my-1'><Input id="cityName" type="text" placeholder="Buscar por Cidades"
+                            onChange={(e) => this.setState({ inputCity: e.target.value })} />
+                        </Col>
+                        <Col xs='12' md='3' className='my-1'><Input id="eventDate" type="date" placeholder="Buscar por Datas"
+                            onChange={(e) => this.setState({ inputDate: e.target.value })} />
+                        </Col>
+                        <Col xs='12' md='3' className='my-1'>
+                            {this.verifySearch() &&
                                 <Link to={{
                                     pathname: "/searchevents",
                                     itemsPassed: {
@@ -133,134 +137,85 @@ class FeaturedEvents extends Component {
                                 }}>
                                     <Button className="d-flex mx-auto" id="btn" type="submit">Pesquisar</Button>
                                 </Link>
-                                }
-                                {!this.verifySearch() &&
+                            }
+                            {!this.verifySearch() &&
                                 <Form onClick={this.alert}>
-                                        <Button className="d-flex mx-auto" id="btn" type="submit">Pesquisar</Button>
+                                    <Button className="d-flex mx-auto" id="btn" type="submit">Pesquisar</Button>
                                 </Form>
-                                }
-                            </Col>
+                            }
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>
+                    <Row>
+                        <h5 id="title" className="titleEvents">Eventos em Destaque</h5>
+                    </Row>
+                    <Container id="post">
+                        <Row>
+                            {this.state.eventosDestaque.slice(0, 3).map((post) => {
+                                return (
+                                    <Col xs="12" sm="4">
+                                        <div id="link" className="main" key={post.key}>
+                                        <div className="item">
+                                            <Link to={`/event/${post.key}`}>
+                                                <article>
+                                                    <header>
+                                                        <div className="title">
+                                                            <strong>
+                                                                {post.titulo}
+                                                            </strong>
+
+                                                            {/*<FaStar className="text-warning icon star" /> */}
+                                                        </div>
+                                                    </header>
+                                                    <img src={post.imagem} alt="Capa do post"
+                                                        className='rounded' />
+                                                    <footer className="my-4">
+                                                        <Row className='text-center'>
+                                                            <Col xs='6'>
+                                                                <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                            </Col>
+
+                                                            <Col xs='6'>
+                                                                <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+
+                                                            </Col>
+                                                        </Row>
+                                                        <Row >
+                                                            <Col xs='12' className='ml-4'>
+                                                                <p>
+                                                                    <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                    {post.cidade}
+                                                                </p>
+                                                            </Col>
+                                                        </Row>
+                                                    </footer>
+                                                </article>
+                                            </Link>
+                                        </div>
+                                        </div>
+                                    </Col>
+                                );
+                            })}
                         </Row>
                     </Container>
-                    <Container>
+                    <Row>
+                        <Col xs='12' className="my-3">
+                            <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodosDestaque()}>VER TODOS EM DESTAQUE</Button>
+                        </Col>
+                    </Row>
+                </Container>
+
+                <Container>
+                    <Row>
+                        <h5 id="title" className="titleEvents">Próximos Eventos</h5>
+                    </Row>
+                    <Container id="post">
                         <Row>
-                            <h5 id="title" className="titleEvents">Eventos em Destaque</h5>
-                        </Row>
-                        <Container id="post">
-                            <Row>
-                                {this.state.event.slice(0, 3).map((post) => {
-                                    //if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
-                                        return (
-                                            <Col xs="12" sm="4">
-                                                <div id="link" className="main" key={post.key}>
-                                                    <div className="item">
-                                                    <Link to={`/event/${post.key}`}>
-                                                        <article>
-                                                            <header>
-                                                                <div className="title">
-                                                                    <strong>{post.titulo}</strong>
-                                                                </div>
-                                                            </header>
-                                                            <img src={post.imagem} alt="Capa do post" className='rounded'/>
-                                                            <footer id="dados">
-                                                                <Row className='text-center'>
-                                                                    <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                    </Col>
-                                                                    <Col xs='6'>
-                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-                                                                    </Col>
-                                                                </Row>
-                                                                <Row >
-                                                                    <Col xs='12' className='ml-3' id="city">
-                                                                        <p><span className='mx-2'><FaMapMarkerAlt className='icon' /></span>{post.cidade}</p>
-                                                                    </Col>
-                                                                </Row>
-                                                            </footer>
-                                                        </article>
-                                                    </Link>
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                        );
-                                    //}
-                                })}
-                            </Row>
-                        </Container>
-                        <Row>
-                            <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" onClick={() => this.verTodos()}>VER TODOS</Button>
-                            </Col>
-                        </Row>
-                    </Container>
-    
-                    <Container>
-                        <Row>
-                            <h5 id="title" className="titleEvents">Próximos Eventos</h5>
-                        </Row>
-                        <Container id="post">
-                            <Row>
-                                {this.state.event.slice(0, 3).map((post) => {
-                                    if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
-                                        return (
-                                            <Col xs="12" sm='4'>
-                                                <div id="link" className="main" key={post.key}>
-                                                    <div className="item">
-                                                        <Link to={`/event/${post.key}`}>
-                                                            <article>
-                                                                <header>
-                                                                    <div className="title">
-                                                                        <strong>{post.titulo}</strong>
-                                                                    </div>
-                                                                </header>
-                                                                <img src={post.imagem} alt="Capa do post"
-                                                                    className='rounded' />
-                                                                <footer id="dados">
-                                                                <Row className='text-center'>
-                                                                        <Col xs='6'>
-                                                                                <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
-                                                                        </Col>
-            
-                                                                        <Col xs='6'>
-                                                                                <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-            
-                                                                        </Col>
-                                                                    </Row>
-                                                                    <Row >
-                                                                        <Col xs='12' className='ml-3'>
-                                                                                <p>
-                                                                                    <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                                    {post.cidade}
-                                                                                </p>
-                                                                        </Col>
-                                                                    </Row>
-                                                                </footer>
-                                                            </article>
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                        );
-                                    }
-                                })}
-                            </Row>
-                        </Container>
-                        <Row>
-                            <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
-                            </Col>
-                        </Row>
-                    </Container>
-    
-                    <Container>
-                        <Row>
-                            <h5 id="title" className="titleEvents">Últimos Adicionados</h5>
-                        </Row>
-                        <Container id="post">
-                            <Row>
-                                {this.state.event.slice(0, 3).map((post) => {
+                            {this.state.event.slice(0, 3).map((post) => {
+                                if (post.data.slice(8, 10) >= dia && post.data.slice(5, 7) >= mes && post.data.slice(0, 4) >= ano) {
                                     return (
-                                        <Col xs="12" sm="4">
+                                        <Col xs="12" sm='4'>
                                             <div id="link" className="main" key={post.key}>
                                                 <div className="item">
                                                     <Link to={`/event/${post.key}`}>
@@ -275,20 +230,20 @@ class FeaturedEvents extends Component {
                                                             <footer id="dados">
                                                                 <Row className='text-center'>
                                                                     <Col xs='6'>
-                                                                            <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                        <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
                                                                     </Col>
-        
+
                                                                     <Col xs='6'>
-                                                                            <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
-        
+                                                                        <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+
                                                                     </Col>
                                                                 </Row>
                                                                 <Row >
                                                                     <Col xs='12' className='ml-3'>
-                                                                            <p>
-                                                                                <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
-                                                                                {post.cidade}
-                                                                            </p>
+                                                                        <p>
+                                                                            <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                            {post.cidade}
+                                                                        </p>
                                                                     </Col>
                                                                 </Row>
                                                             </footer>
@@ -298,18 +253,75 @@ class FeaturedEvents extends Component {
                                             </div>
                                         </Col>
                                     );
-                                })}
-                            </Row>
-                        </Container>
-                        <Row>
-                            <Col xs='12' className="my-3">
-                                <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
-                            </Col>
+                                }
+                            })}
                         </Row>
                     </Container>
-                </div>
-            );
-        }
+                    <Row>
+                        <Col xs='12' className="my-3">
+                            <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
+                        </Col>
+                    </Row>
+                </Container>
+
+                <Container>
+                    <Row>
+                        <h5 id="title" className="titleEvents">Últimos Adicionados</h5>
+                    </Row>
+                    <Container id="post">
+                        <Row>
+                            {this.state.event.slice(0, 3).map((post) => {
+                                return (
+                                    <Col xs="12" sm="4">
+                                        <div id="link" className="main" key={post.key}>
+                                            <div className="item">
+                                                <Link to={`/event/${post.key}`}>
+                                                    <article>
+                                                        <header>
+                                                            <div className="title">
+                                                                <strong>{post.titulo}</strong>
+                                                            </div>
+                                                        </header>
+                                                        <img src={post.imagem} alt="Capa do post"
+                                                            className='rounded' />
+                                                        <footer id="dados">
+                                                            <Row className='text-center'>
+                                                                <Col xs='6'>
+                                                                    <p><span className='mx-2'><FaRegCalendarAlt className='icon' /></span>{this.formatDate(post.data)}</p>
+                                                                </Col>
+
+                                                                <Col xs='6'>
+                                                                    <p><span className='mx-2'><FaRegClock className='icon' /></span>{post.hora}</p>
+
+                                                                </Col>
+                                                            </Row>
+                                                            <Row >
+                                                                <Col xs='12' className='ml-3'>
+                                                                    <p>
+                                                                        <span className='mx-2'><FaMapMarkerAlt className='icon' /></span>
+                                                                        {post.cidade}
+                                                                    </p>
+                                                                </Col>
+                                                            </Row>
+                                                        </footer>
+                                                    </article>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                );
+                            })}
+                        </Row>
+                    </Container>
+                    <Row>
+                        <Col xs='12' className="my-3">
+                            <Button className="verTodos d-flex mx-auto" color='info' onClick={() => this.verTodos()}>VER TODOS EVENTOS</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        );
+    }
 }
 
 export default FeaturedEvents;

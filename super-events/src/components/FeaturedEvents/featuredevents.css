@@ -169,6 +169,11 @@ div#tip p{
   transition: all .5s linear .5s;
 }
 
+.star{
+    position: absolute;
+    right: 40px;
+}
+
 @media screen and (min-width: 992px){
     #post img{
         min-width: 248px !important;
