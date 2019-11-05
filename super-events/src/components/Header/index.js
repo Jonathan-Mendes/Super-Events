@@ -113,7 +113,7 @@ class Header extends Component {
          return(
             <div>
                 <Navbar id="navbar" expand="xs">
-                        <NavbarBrand onClick={() => this.home()} id="main">Super Events</NavbarBrand>
+                        <NavbarBrand onClick={() => this.home()} id="main"><a className="cool-link">Super Events</a></NavbarBrand>
 
                         <NavbarToggler onClick={this.toggle}/>
                         <Collapse isOpen={this.state.isOpen} navbar>

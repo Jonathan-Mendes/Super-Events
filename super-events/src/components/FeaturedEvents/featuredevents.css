@@ -58,7 +58,9 @@ div#tip p{
     width: 100%;
     padding: 20px;
     margin-top: 20px;
-    border-top: 1px solid black;
+    font-size: 28px;
+    /* border-top: 1px solid black; */
+    border: none !important;
 }
 
 #event{

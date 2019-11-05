@@ -217,11 +217,11 @@ class NewEvents extends Component {
         } else if (anoIni < this.now.getFullYear() || anoIni > anoTer) {
                 alert('Data inválida!');
                 return false;
-        } else if ((anoIni === this.now.getFullYear() && mesIni < this.now.getMonth())
+        } else if ((anoIni === this.now.getFullYear() && mesIni < this.now.getMonth() + 1)
             || (anoIni === anoTer && mesIni > mesTer)) {
                 alert('Data inválida!');
                 return false;
-        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {;
+        } else if ((anoIni === this.now.getFullYear() && mesIni === this.now.getMonth() + 1 && diaIni < this.now.getDate()) || (anoIni === anoTer && mesIni === mesTer && diaIni > diaTer)) {;
                 alert('Data inválida!');
                 return false;
         } else {

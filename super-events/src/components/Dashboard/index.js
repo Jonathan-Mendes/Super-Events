@@ -6,6 +6,8 @@ import { IoIosLogOut, IoIosAdd } from 'react-icons/io';
 import { Button, Col, Row, Container } from 'reactstrap';
 import { FaRegClock, FaRegCalendarAlt, FaMapMarkerAlt, FaRegEdit, FaRegTrashAlt, FaStar } from "react-icons/fa";
 import { async } from 'q';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class Dashboard extends Component {
 
@@ -22,6 +24,7 @@ class Dashboard extends Component {
         this.formatDate = this.formatDate.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
         this.destacarEvent = this.destacarEvent.bind(this);
+        this.confirmDeleteEvent = this.confirmDeleteEvent.bind(this);
     }
 
     async componentDidMount() {
@@ -75,7 +78,7 @@ class Dashboard extends Component {
         return brDate;
     }
 
-    deleteEvent = async (key) => {
+    confirmDeleteEvent = async (key) => {
         try {
             await firebase.deleteEventByKey(key);
             window.location.reload();
@@ -84,6 +87,22 @@ class Dashboard extends Component {
             alert(error.message);
         }
     }
+
+    deleteEvent = (key) => {
+        confirmAlert({
+          title: 'Excluir Evento',
+          message: 'Deseja realmente excluir o evento?',
+          buttons: [
+            {
+              label: 'Sim',
+              onClick: () => this.confirmDeleteEvent(key)
+            },
+            {
+              label: 'Não',
+            }
+          ]
+        });
+      };
 
     destacarEvent = async (key) => {
         try{
