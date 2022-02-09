@@ -35,7 +35,7 @@
     "reactstrap": "^8.0.1",
     "stripe": "^7.11.0",
     "uuid": "^3.3.3",
-    "yarn": "^1.19.0"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "start": "react-scripts start",
