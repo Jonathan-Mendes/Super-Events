@@ -11,7 +11,7 @@
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "firebase": "^6.6.0",
-    "firebase-admin": "^8.6.0",
+    "firebase-admin": "^11.4.1",
     "input-cpf-cnpj": "0.0.3",
     "jquery": "^3.4.1",
     "jquery-mask-plugin": "^1.14.16",
